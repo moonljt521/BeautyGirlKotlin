@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:checked="true"
+            android:icon="@drawable/home"
+            android:title="@string/gank_meizi" />
+
+        <item
+            android:id="@+id/nav_meizitu"
+            android:checked="true"
+            android:icon="@drawable/picture"
+            android:title="@string/meizitu" />
+
+        <item
+            android:id="@+id/nav_tao"
+            android:checked="true"
+            android:icon="@drawable/wedding_dress"
+            android:title="@string/tao_female" />
+        <item
+            android:id="@+id/nav_douban"
+            android:icon="@drawable/bow_tie"
+            android:title="@string/douban_meizi" />
+        <item
+            android:id="@+id/nav_huaban"
+            android:icon="@drawable/flower"
+            android:title="@string/huaban_meizi" />
+
+        <item
+            android:id="@+id/nav_jiandan"
+            android:icon="@drawable/year_of_rooster"
+            android:title="@string/jiandan_meizi" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/share"
+                android:title="分享App" />
+
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/high_importance"
+                android:title="关于App" />
+
+
+        </menu>
+    </item>
+
+</menu>

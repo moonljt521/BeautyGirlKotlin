@@ -1,0 +1,119 @@
+def supportVersion = "26.1.0"
+def stethoVersion = "1.5.0"
+
+project.ext {
+    android = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.2",
+            applicationId    : "com.doing.pos",
+            minSdkVersion    : 18,
+            targetSdkVersion : 26,
+            versionCode      : 1,
+            versionName      : "1.0.0",
+            javaVersion      : JavaVersion.VERSION_1_8
+    ]
+
+    libVersion = [
+            supportVersion: "26.1.0"
+    ]
+
+    dependencies = [
+            //android-support
+            "support-v4"              : "com.android.support:support-v4:${supportVersion}",
+            "appcompat-v7"            : "com.android.support:appcompat-v7:${supportVersion}",
+            "design"                  : "com.android.support:design:${supportVersion}",
+            "recyclerview"            : "com.android.support:recyclerview-v7:${supportVersion}",
+            "cardview"                : "com.android.support:cardview-v7:${supportVersion}",
+            "constraintlayout"        : "com.android.support.constraint:constraint-layout:1.0.2",
+
+            //rx
+            "rxjava"                  : "io.reactivex:rxjava:1.1.6",
+            "rxandroid"               : "io.reactivex:rxandroid:1.2.1",
+            "rxbinding"               : "com.ogaclejapan:rxbinding:1.0",
+            "rxpermission"            : "com.tbruyelle.rxpermissions:rxpermissions:0.8.2@aar",
+            "rxlifecycle"             : "com.trello:rxlifecycle:0.3.1",
+            "rxlifecycle-components"  : "com.trello:rxlifecycle-components:0.3.1",
+
+            // multidex
+            "multidex"                : "com.android.support:multidex:1.0.2",
+
+            //okGo
+            "okgo"                    : "com.lzy.net:okgo:2.1.4",
+            "okrx"                    : "com.lzy.net:okrx:0.1.2",
+            "okserver"                : "com.lzy.net:okserver:1.1.3",
+
+            //youmeng
+            "umeng"                   : "com.umeng.analytics:analytics:latest.integration",
+
+            //glide
+            "glide"                   : "com.github.bumptech.glide:glide:3.7.0",
+
+            //gson
+            "gson"                    : "com.google.code.gson:gson:2.7",
+
+            //eventbus
+            "eventbus"                : "org.greenrobot:eventbus:3.0.0",
+
+            "logger"                  : "com.orhanobut:logger:1.15",
+
+            //facebook
+            "stetho"                  : "com.facebook.stetho:stetho:${stethoVersion}",
+
+            //material
+            "materialedittext"        : "com.rengwuxian.materialedittext:library:2.1.4",
+            "materialdialog"          : "me.drakeet.materialdialog:library:1.3.1",
+            "materialprogress"        : "com.pnikosis:materialish-progress:1.7",
+
+            //db
+            "ormlite"                 : "com.j256.ormlite:ormlite-core:4.48",
+            "ormlite-android"         : "com.j256.ormlite:ormlite-android:4.48",
+
+            //loadmore
+            "commonrefreshlayout"     : "com.mylhyl:commonrefreshlayout:2.0",
+
+            //imagePicker
+            "imagepicker"             : "com.lzy.widget:imagepicker:0.5.5",
+            "ninegridview"            : "com.lzy.widget:ninegridview:0.2.1",
+
+            //others
+            "takephoto"               : "com.jph.takephoto:takephoto_library:3.0.0",
+            "junit"                   : "junit:junit:4.12",
+
+            //leakcanary
+            "leakcanary-android"      : "com.squareup.leakcanary:leakcanary-android:1.5.1",
+            "leakcanary-android-no-op": "com.squareup.leakcanary:leakcanary-android-no-op:1.5.1",
+
+            "router"                  : "com.winterrunner.router:router:1.0.2",
+            "swipebacklayout"         : "com.komi.slider:slider:0.4.0",
+
+            "annimonstream"           : "com.annimon:stream:1.1.4",
+//            "nonofficallambda"        : "me.tatarka:gradle-retrolambda:3.4.0",
+
+            //filedownloader
+            "filedownloader"          : "com.liulishuo.filedownloader:library:1.6.9",
+
+            //arouter
+            "arouter"                 : "com.alibaba:arouter-api:1.3.0",
+            "arouter-compiler"        : "com.alibaba:arouter-compiler:1.1.4",
+
+            // fastJson
+            "fastjson"                : "com.alibaba:fastjson:1.2.9",
+            // zxing
+            "zxing"                   : "com.google.zxing:core:3.2.1",
+            //photoview
+            "photoView"               : "com.bm.photoview:library:1.4.1",
+    ]
+}
+
+subprojects {
+    configurations.all {
+        resolutionStrategy.force "com.android.support:appcompat-v7:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:appcompat-v4:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:support-v4:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:cardview-v7:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:support-annotations:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:support-compat:${rootProject.ext.libVersion.supportVersion}"
+        resolutionStrategy.force "com.android.support:design:${rootProject.ext.libVersion.supportVersion}"
+    }
+
+}
