@@ -1,10 +1,36 @@
+# built application files
+*.ap_
+
+# files for the dex VM
+*.dex
 *.iml
-.gradle
-/local.properties
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-.DS_Store
-/build
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+*target/
+*build/
+build/
+/com/
+.gradle/
+gradle/
+.idea/
 /captures
-.externalNativeBuild
+
+
+gen-external-apklibs/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Mac os
+.DS_Store
+/.idea/
+app/libs/
