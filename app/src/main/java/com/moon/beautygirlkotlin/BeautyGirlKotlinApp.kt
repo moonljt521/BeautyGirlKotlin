@@ -1,6 +1,7 @@
 package com.moon.beautygirlkotlin
 
 import android.app.Application
+import com.tencent.bugly.crashreport.CrashReport
 
 
 /**
@@ -18,6 +19,8 @@ class BeautyGirlKotlinApp: Application() {
         super.onCreate()
 
         application = this
+
+        CrashReport.initCrashReport(getApplicationContext(), "1400017522", true);
     }
 
 }

@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.moon.beautygirlkotlin.glide.GlideCircleTransform
 import com.moon.beautygirlkotlin.mengmeizi.GankFragment
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +44,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+
+
+
+//        Handler().postDelayed(
+//                {
+//                    CrashReport.testJavaCrash();
+//
+//                },12000
+//
+//        )
+
 
     }
 
