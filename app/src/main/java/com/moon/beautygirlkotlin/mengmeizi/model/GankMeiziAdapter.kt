@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin.mengmeizi.model
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +42,12 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
     }
 
     fun refreshData(list:List<GankMeiziBody>){
-        this.list?.clear()
-        notifyDataSetChanged()
+
+        if (this.list?.size!! > 0){
+            this.list?.clear()
+            notifyDataSetChanged()
+        }
+
         this.list?.addAll(list)
         notifyDataSetChanged()
     }

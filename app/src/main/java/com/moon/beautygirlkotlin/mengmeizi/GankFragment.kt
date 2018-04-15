@@ -1,5 +1,6 @@
 package com.moon.beautygirlkotlin.mengmeizi
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
@@ -19,6 +20,9 @@ import com.moon.beautygirlkotlin.mengmeizi.model.GankMeiziBody
 import com.moon.beautygirlkotlin.mengmeizi.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.mengmeizi.view.IGankMeiziView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.mvpframework.factory.CreatePresenter
+import com.moon.mvpframework.factory.PresenterMvpFactory
+import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.moon.mvpframework.view.BaseFragment
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.recyclerview.v7.recyclerView
@@ -30,6 +34,7 @@ import org.jetbrains.anko.verticalLayout
 /**
  * 萌妹子模块 fragment
  */
+@CreatePresenter(GankMeiziPresenter::class)
 class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
 
 
@@ -72,6 +77,10 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     override fun getLayoutId(): Int {
 
         return 0
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun getFragmentView(): View {
@@ -142,35 +151,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
             loadHttpData()
         }
-
-//        RxBus.getInstance().toObserverable(Intent::class.java)
-//                .compose(this.bindToLifecycle())
-//                .subscribe({ intent ->
-//
-//                    imageIndex = intent.getIntExtra("index", -1)
-//                    scrollIndex()
-//                    finishTask()
-//                }, { throwable ->
-//
-//                    LogUtil.all(throwable.getMessage())
-//                })
-
-//        setEnterSharedElementCallback(object : SharedElementCallback() {
-//
-//            override fun onMapSharedElements(names: MutableList<String>?, sharedElements: MutableMap<String, View>?) {
-//
-//                super.onMapSharedElements(names, sharedElements)
-//                var newTransitionName = mAdapter.list?.get(imageIndex)?.url
-//                var newSharedView = recyclerView?.findViewWithTag(newTransitionName)
-//                if (newSharedView != null) {
-//                    names!!.clear()
-//                    names.add(newTransitionName)
-//                    sharedElements!!.clear()
-//                    sharedElements[newTransitionName] = newSharedView
-//                }
-//            }
-//        })
-
     }
 
     /**
@@ -219,11 +199,11 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 //            mAdapter.notifyDataSetChanged()
 //        }
 
-        if (page == 1){
+        if (page == 1) {
 
             mAdapter.refreshData(list!!)
 
-        }else{
+        } else {
             mAdapter.loadMoreData(list!!)
         }
 
@@ -234,17 +214,23 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         mIsRefreshing = false
     }
 
+    private val EXTRA_INDEX = "extra_index"
+
+
     override fun itemClick(v: View, position: Int) {
-        //            val intent = mActivity.luanch(activity, position)
+
+//        val mIntent = Intent(activity, GankMeiziPageActivity::class.java)
+//        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        mIntent.putExtra(EXTRA_INDEX, position)
 //
-//            if (Build.VERSION.SDK_INT >= 22) {
-//                startActivity(intent,
-//                        ActivityOptions.makeSceneTransitionAnimation(activity,
-//                                holder.getParentView().findViewById(R.id.item_img),
-//                                mAdapter.list.get(position).url).toBundle())
-//            } else {
-//                startActivity(intent)
-//            }
+//        if (Build.VERSION.SDK_INT >= 22) {
+//            startActivity(mIntent,
+//                    ActivityOptions.makeSceneTransitionAnimation(activity,
+//                            holder.getParentView().findViewById(R.id.item_img),
+//                            mAdapter.list?.get(position)?.url).toBundle())
+//        } else {
+//            startActivity(mIntent)
+//        }
 
     }
 
@@ -264,6 +250,11 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
                     })
         }
     }
+
+
+//    override fun getMvpPresenter(): GankMeiziPresenter {
+//        return GankMeiziPresenter()
+//    }
 
 
 }
