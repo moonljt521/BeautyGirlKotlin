@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "579853403051",
+    "firebase_url": "https://everydaygirl-56661.firebaseio.com",
+    "project_id": "everydaygirl-56661",
+    "storage_bucket": "everydaygirl-56661.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579853403051:android:69bc7967077ce0bc",
+        "android_client_info": {
+          "package_name": "com.moon.beautygirlkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579853403051-kcj4pkgni7c0mi3teqpjvqdh120efhvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3NHN8GFcsFstmOUVaBJfX6djaGOAJAMU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

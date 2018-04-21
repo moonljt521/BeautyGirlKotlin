@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+//apply plugin: 'com.google.gms.google-services'
+
 def library = rootProject.ext.dependencies
 def version = rootProject.ext.android
 
@@ -34,6 +36,8 @@ android {
             //设置支持的SO库架构
             abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -46,6 +50,16 @@ android {
             path "CMakeLists.txt"
         }
     }
+
+    // 添加之
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+}
+
+configurations {
+    all*.exclude group: 'com.google.android.gms', module: 'play-services-wallet'
 }
 
 dependencies {
@@ -85,7 +99,10 @@ dependencies {
 
     // bugly
     implementation 'com.tencent.bugly:crashreport:latest.release'
+    // Google ad
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
+    // firebase
+//    implementation 'com.google.firebase:firebase-core:11.8.0'
     //compile 'com.tencent.bugly:nativecrashreport:latest.release'
 
 }

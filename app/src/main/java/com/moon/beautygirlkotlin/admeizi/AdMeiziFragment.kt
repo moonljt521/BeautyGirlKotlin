@@ -44,7 +44,9 @@ class AdMeiziFragment : BaseIdFragment<Nothing, Nothing>() {
     }
 
     override fun initViews(view: View?) {
-        val adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder()
+//                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build()
         my_adView.loadAd(adRequest)
 
 
