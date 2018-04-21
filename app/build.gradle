@@ -85,6 +85,7 @@ dependencies {
 
     // bugly
     implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.google.android.gms:play-services-ads:15.0.0'
     //compile 'com.tencent.bugly:nativecrashreport:latest.release'
 
 }

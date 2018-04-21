@@ -4,15 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.moon.mvpframework.factory.PresenterMvpFactory;
 import com.moon.mvpframework.factory.PresenterMvpFactoryImpl;
@@ -28,13 +22,11 @@ import com.trello.rxlifecycle.components.support.RxFragment;
  * description:  fragment mvp 基类
  */
 
-public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPresenter<V>> extends RxFragment implements PresenterProxyInterface<V, P> {
+public abstract class BaseIdFragment<V extends BaseMvpView, P extends BaseMvpPresenter<V>> extends RxFragment implements PresenterProxyInterface<V, P> {
 
     protected Activity mActivity;
 
     protected abstract int getLayoutId();
-
-    protected abstract View getFragmentView();
 
     protected abstract void initData();
 
@@ -51,7 +43,7 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
     private BaseMvpProxy<V, P> mProxy = new BaseMvpProxy<>(PresenterMvpFactoryImpl.<V, P>createFactory(getClass()));
 
 
-    public BaseFragment() {
+    public BaseIdFragment() {
 
     }
 
@@ -73,10 +65,7 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (null == getFragmentView()) {
-            return inflater.inflate(getLayoutId(), container, false);
-        }
-        return getFragmentView();
+        return inflater.inflate(getLayoutId(), container, false);
 
     }
 

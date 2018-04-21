@@ -86,7 +86,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
 
     class OrderListHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
 
-        var item_img : ImageView = itemView!!.findViewById(R.id.item_img) as ImageView
+        var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 
         var item_title: TextView = itemView!!.findViewById<View>(R.id.item_title) as TextView
 

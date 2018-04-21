@@ -9,6 +9,12 @@
             android:title="@string/gank_meizi" />
 
         <item
+            android:id="@+id/nav_ad_meizi"
+            android:checked="true"
+            android:icon="@drawable/picture"
+            android:title="@string/ad_meizitu" />
+
+        <item
             android:id="@+id/nav_meizitu"
             android:checked="true"
             android:icon="@drawable/picture"

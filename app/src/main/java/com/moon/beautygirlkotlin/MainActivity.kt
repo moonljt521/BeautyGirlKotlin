@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.glide.GlideCircleTransform
 import com.moon.beautygirlkotlin.mengmeizi.GankFragment
 import com.tencent.bugly.crashreport.CrashReport
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var mCircleImageView : ImageView
+    lateinit var mCircleImageView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initData()
     }
 
-    fun initViews(){
+    fun initViews() {
         nav_view.setNavigationItemSelectedListener(this)
 
         var headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
@@ -46,24 +47,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
 
-
-//        Handler().postDelayed(
-//                {
-//                    CrashReport.testJavaCrash();
-//
-//                },12000
-//
-//        )
-
-
     }
 
-    fun initData(){
-        Glide.with(this).load( R.drawable.ic_avatar1).transform(GlideCircleTransform(this)).into(mCircleImageView)
+    fun initData() {
+        Glide.with(this).load(R.drawable.ic_avatar1).transform(GlideCircleTransform(this)).into(mCircleImageView)
 
+        // 添加 Fragment 萌妹子
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, GankFragment.getInstance(0))
                 .commit()
+
+//        supportFragmentManager.beginTransaction()
+//                .replace(R.id.content, AdMeiziFragment.getInstance(0))
+//                .commit()
 
     }
 
@@ -72,6 +68,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         when (item.itemId) {
             R.id.nav_home -> {
+                // 添加 Fragment 萌妹子
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.content, GankFragment.getInstance(0))
+                        .commit()
+
+                toolbar.setTitle("萌妹纸")
+
+            }
+
+            R.id.nav_ad_meizi -> {
+
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.content, AdMeiziFragment.getInstance(0))
+                        .commit()
+
+                toolbar.setTitle("AD萌妹")
 
 
             }
