@@ -15,6 +15,11 @@
             android:title="@string/ad_meizitu" />
 
         <item
+            android:id="@+id/nav_douban"
+            android:icon="@drawable/bow_tie"
+            android:title="@string/douban_meizi" />
+
+        <item
             android:id="@+id/nav_meizitu"
             android:checked="true"
             android:icon="@drawable/picture"
@@ -25,10 +30,7 @@
             android:checked="true"
             android:icon="@drawable/wedding_dress"
             android:title="@string/tao_female" />
-        <item
-            android:id="@+id/nav_douban"
-            android:icon="@drawable/bow_tie"
-            android:title="@string/douban_meizi" />
+
         <item
             android:id="@+id/nav_huaban"
             android:icon="@drawable/flower"
@@ -43,7 +45,6 @@
     <item android:title="Other">
         <menu>
 
-
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/share"
@@ -53,7 +54,6 @@
                 android:id="@+id/nav_about"
                 android:icon="@drawable/high_importance"
                 android:title="关于App" />
-
 
         </menu>
     </item>
