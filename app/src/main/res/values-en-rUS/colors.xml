@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/black</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="light_blue">#f08a1a</color>
+    <!--<color name="blue">#03a9f4</color>-->
+    <color name="app_base_color">@color/black</color>
+    <color name="blue_dark">#2a36b1</color>
+    <color name="grey">#58616d</color>
+    <color name="lightransparent">#a0000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="light_silver">#B7B7B7</color>
+    <color name="red">#EE4130</color>
+    <color name="green">#6db94f</color>
+
+    <color name="venuse_color">#4e4e4e</color>
+    <color name="venuse_nocolor">#727272</color>
+    <color name="manage_line_grey">#d0d0d0</color>
+
+    <!-- 输入框 输入后颜色-->
+    <color name="inputColor">@color/text_color_black</color>
+    <color name="inputHintColor">#b8b8b8</color>
+    <color name="backgroundColor">#f8f8f8</color>
+    <color name="transparent_background">#F2F2F2</color>
+
+
+    <!-- 登录按钮 涟漪 -->
+    <color name="loginButtonRippeColor">#0288de</color>
+    <!-- 白色文字颜色  -->
+    <color name="common_white">#ffffff</color>
+
+    <!-- 重置 文字颜色  -->
+    <color name="CommonButtonColor">#ff9800</color>
+    <!-- 重置  涟漪文字颜色  -->
+    <color name="CommonButtonRippeColor">#f57c00</color>
+
+    <!-- 主要 tab 签 -->
+    <color name="mainTab_unselected">#ababab</color>
+
+    <color name="grey_text">#999999</color>
+    <color name="grey_class_list_text">#666666</color>
+
+
+    <color name="hasSignButtonColor">#47d011</color>
+    <!-- 注册页面  -->
+    <color name="devider_line">#f8f8f8</color>
+    <color name="textColorText">#3e3e3e</color>
+
+    <!-- v2.0.0  -->
+
+    <!-- 文本灰 -->
+    <color name="text_color_grey">#999999</color>
+    <color name="tab_unselect_color">#f0d0ad</color>
+    <!-- 文本 黑-->
+    <color name="text_color_black">#333333</color>
+    <color name="text_color_black_light">#888888</color>
+
+    <!-- 间隔线 -->
+    <color name="divider_line_color">#f0f0f0</color>
+
+    <!-- 筛选 -->
+    <color name="stroke_color">#f4f4f4</color>
+
+
+    <color name="lightblack">#949494</color>
+
+
+    <color name="diveider_adapter_color">#fff7da</color>
+
+
+    <color name="c666666">#666666</color>
+    <color name="c333333">#333333</color>
+    <color name="c999999">@color/text_color_grey</color>
+
+    <!-- 合同的六种状态-->
+    <color name="contact_wait_make">#4FB4F4</color>
+    <color name="contact_wait_sign">#4FB4F4</color>
+    <color name="contract_wait_pay">#FF6363</color>
+    <color name="contract_no_pay_all">#FF6161</color>
+    <color name="contract_checking">#4FB4F4</color>
+    <color name="contract_all_pay">#2FDA2B</color>
+
+
+    <!--服务状态颜色-->
+    <color name="server_wait">#FB8900</color>
+    <color name="server_ing">#4FB4F4</color>
+    <color name="server_stop">#FF6363</color>
+    <color name="server_complete">@color/contract_all_pay</color>
+
+    <!-- 表格边框颜色 -->
+    <color name="table_border_color">#FF979797</color>
+
+    <color name="live_top_bg">#99000000</color>
+
+    <color name="font_normal">#555555</color>
+
+</resources>
