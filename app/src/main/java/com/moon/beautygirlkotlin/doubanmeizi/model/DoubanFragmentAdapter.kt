@@ -31,6 +31,7 @@ class DoubanFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm)
     }
 
     override fun restoreState(state: Parcelable?, loader: ClassLoader?) {
+        // 空实现，不写super
     }
 
     override fun getCount(): Int {

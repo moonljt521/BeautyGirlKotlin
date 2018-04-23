@@ -64,12 +64,15 @@ configurations {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
     implementation 'com.android.support:appcompat-v7:26.0.2'
     implementation 'com.android.support:design:26.0.2'
     implementation 'com.android.support:recyclerview-v7:26.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
+    //KOTLIN
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.1"
     // anko
     implementation 'org.jetbrains.anko:anko-sdk15:0.8.3'
     implementation 'org.jetbrains.anko:anko-appcompat-v7:0.8.3'
@@ -105,4 +108,12 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-core:11.8.0'
     //compile 'com.tencent.bugly:nativecrashreport:latest.release'
 
+}
+
+
+
+kotlin{             //开始协程实验性功能
+    experimental{
+        coroutines 'enable'
+    }
 }
