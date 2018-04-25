@@ -11,7 +11,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.doubanmeizi.DoubanMeiziFragment
-import com.moon.beautygirlkotlin.glide.GlideCircleTransform
+import com.moon.beautygirlkotlin.glide.GlideCircleTransForm
 import com.moon.beautygirlkotlin.mengmeizi.GankFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DoubanMeiziFragment.getInstance(0))  // 豆瓣妹子
 
-        Glide.with(this).load(R.drawable.ic_avatar1).transform(GlideCircleTransform(this)).into(mCircleImageView)
+        Glide.with(this).load(R.drawable.ic_avatar1).transform(GlideCircleTransForm(this)).into(mCircleImageView)
 
         // 添加 Fragment 萌妹子
         supportFragmentManager.beginTransaction()
