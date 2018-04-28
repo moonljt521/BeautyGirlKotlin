@@ -2,7 +2,7 @@ package com.moon.beautygirlkotlin.network.api;
 
 
 
-import com.moon.beautygirlkotlin.mengmeizi.model.GankMeiziResult;
+import com.moon.beautygirlkotlin.gank.model.GankMeiziResult;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

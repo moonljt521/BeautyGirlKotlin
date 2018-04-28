@@ -8,11 +8,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.doubanmeizi.DoubanMeiziFragment
-import com.moon.beautygirlkotlin.glide.GlideCircleTransForm
-import com.moon.beautygirlkotlin.mengmeizi.GankFragment
+import com.moon.beautygirlkotlin.gank.GankFragment
+import com.moon.beautygirlkotlin.utils.ImageLoader
+import com.moon.beautygirlkotlin.utils.ShareUtil
+import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var fragmentList: ArrayList<Fragment> = java.util.ArrayList()
 
     var currentTabIndex : Int = 0
+
+    var exitTime:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DoubanMeiziFragment.getInstance(0))  // 豆瓣妹子
 
-        Glide.with(this).load(R.drawable.ic_avatar1).transform(GlideCircleTransForm(this)).into(mCircleImageView)
+        ImageLoader.load(this,R.drawable.ic_avatar1,mCircleImageView)
 
         // 添加 Fragment 萌妹子
         supportFragmentManager.beginTransaction()
@@ -84,6 +87,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_douban -> {
                 navigationFragment(2,getString(R.string.douban_meizi),item)
             }
+
+            R.id.nav_share -> {
+                ShareUtil.shareAppLink(this,"https://www.gushiwen.org/mingju_770.aspx","每日妹子")
+            }
+
         }
 
         return true
@@ -110,8 +118,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         toolbar.setTitle(title)
         drawer_layout.closeDrawers()
-
     }
 
+    override fun onBackPressed() {
+
+        if (System.currentTimeMillis() - exitTime > 2000){
+
+            SnackbarUtil.showMessage(drawer_layout, getString(R.string.back_message))
+
+            exitTime = System.currentTimeMillis()
+
+            return
+        }
+        super.onBackPressed()
+    }
 
 }

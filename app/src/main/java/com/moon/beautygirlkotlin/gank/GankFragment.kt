@@ -1,34 +1,23 @@
-package com.moon.beautygirlkotlin.mengmeizi
+package com.moon.beautygirlkotlin.gank
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.SharedElementCallback
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewTreeObserver
-import com.facebook.stetho.common.LogUtil
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.mengmeizi.model.GankMeiziAdapter
-import com.moon.beautygirlkotlin.mengmeizi.model.GankMeiziBody
-import com.moon.beautygirlkotlin.mengmeizi.presenter.GankMeiziPresenter
-import com.moon.beautygirlkotlin.mengmeizi.view.IGankMeiziView
+import com.moon.beautygirlkotlin.gank.model.GankMeiziAdapter
+import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
+import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
+import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.factory.PresenterMvpFactory
-import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.moon.mvpframework.view.BaseFragment
-import org.jetbrains.anko.matchParent
-import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.UI
-import org.jetbrains.anko.support.v4.swipeRefreshLayout
-import org.jetbrains.anko.verticalLayout
+import kotlinx.android.synthetic.main.fragment_gank_meizi.*
+import org.jetbrains.anko.startActivityForResult
 
 
 /**
@@ -38,18 +27,10 @@ import org.jetbrains.anko.verticalLayout
 class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
 
 
-    lateinit var rootView: View
-
-    lateinit var recyclerView: RecyclerView
-
-    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-
-    lateinit var mLayoutManager: StaggeredGridLayoutManager
+    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+//    val mLayoutManager: GridLayoutManager = GridLayoutManager(mActivity,2)
 
     lateinit var mAdapter: GankMeiziAdapter
-
-    val ID_RECYCLERVIEW: Int = 1
-    val ID_SWIPE_REFRESHLAYOUT: Int = 2
 
     var mIsRefreshing: Boolean = false
 
@@ -76,43 +57,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     override fun getLayoutId(): Int {
 
-        return 0
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun getFragmentView(): View {
-        rootView = UI {
-
-            verticalLayout {
-
-                swipeRefreshLayout {
-
-                    id = ID_SWIPE_REFRESHLAYOUT
-
-                    setColorSchemeResources(R.color.colorPrimary)
-
-                    recyclerView {
-
-                        id = ID_RECYCLERVIEW
-
-                        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-                        layoutManager = mLayoutManager
-
-                    }.lparams(width = matchParent, height = matchParent)
-
-                }.lparams(width = matchParent, height = matchParent)
-
-            }
-
-        }.view
-
-
-
-        return rootView
+        return R.layout.fragment_gank_meizi
     }
 
     /**
@@ -120,9 +65,9 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      */
     override fun initData() {
 
-        mSwipeRefreshLayout.post {
+        swipe_refresh.post {
 
-            mSwipeRefreshLayout.isRefreshing = true
+            swipe_refresh.isRefreshing = true
 
             mIsRefreshing = true
         }
@@ -131,20 +76,20 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     }
 
     override fun initViews(view: View?) {
-        recyclerView = view?.findViewById(ID_RECYCLERVIEW)!!
-        mSwipeRefreshLayout = view?.findViewById(ID_SWIPE_REFRESHLAYOUT)
 
         mAdapter = GankMeiziAdapter()
 
-        recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        gank_recyclerView.layoutManager = mLayoutManager
 
-        recyclerView.adapter = mAdapter
+        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+
+        gank_recyclerView.adapter = mAdapter
 
         mAdapter.itemListener = this
 
-        recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        gank_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
 
-        mSwipeRefreshLayout.setOnRefreshListener {
+        swipe_refresh.setOnRefreshListener {
             page = 1
 
             mIsRefreshing = true
@@ -168,10 +113,10 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
                 val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6
-                if (!mSwipeRefreshLayout.isRefreshing && isBottom) {
+                if (!swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
 
-                        mSwipeRefreshLayout.isRefreshing = true
+                        swipe_refresh.isRefreshing = true
 
                         page++
 
@@ -186,18 +131,12 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     override fun showError() {
 
-        mSwipeRefreshLayout.post({ mSwipeRefreshLayout.setRefreshing(false) })
+        swipe_refresh.post({ swipe_refresh.setRefreshing(false) })
 
-        SnackbarUtil.showMessage(recyclerView, getString(R.string.error_message))
+        SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.error_message))
     }
 
     override fun showSuccess(list: List<GankMeiziBody>?) {
-
-//        if (page * pageNum - pageNum - 1 > 0) {
-//            mAdapter.notifyItemRangeChanged(page * pageNum - pageNum - 1, pageNum)
-//        } else {
-//            mAdapter.notifyDataSetChanged()
-//        }
 
         if (page == 1) {
 
@@ -207,8 +146,8 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
             mAdapter.loadMoreData(list!!)
         }
 
-        if (mSwipeRefreshLayout.isRefreshing) {
-            mSwipeRefreshLayout.isRefreshing = false
+        if (swipe_refresh.isRefreshing) {
+            swipe_refresh.isRefreshing = false
         }
 
         mIsRefreshing = false
@@ -231,20 +170,25 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 //        } else {
 //            startActivity(mIntent)
 //        }
+        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
+        intent.putExtra("url",mAdapter?.list?.get(position)?.url)
+
+        mActivity.startActivity(intent)
+
 
     }
 
     fun scrollIndex() {
 
         if (imageIndex != -1) {
-            recyclerView.scrollToPosition(imageIndex)
-            recyclerView.getViewTreeObserver()
+            gank_recyclerView.scrollToPosition(imageIndex)
+            gank_recyclerView.getViewTreeObserver()
                     .addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 
                         override fun onPreDraw(): Boolean {
 
-                            recyclerView.getViewTreeObserver().removeOnPreDrawListener(this)
-                            recyclerView.requestLayout()
+                            gank_recyclerView.getViewTreeObserver().removeOnPreDrawListener(this)
+                            gank_recyclerView.requestLayout()
                             return true
                         }
                     })

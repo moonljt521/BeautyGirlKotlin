@@ -40,7 +40,7 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
 
     protected abstract int getLayoutId();
 
-    protected abstract void initData();
+    protected abstract void init();
 
     protected abstract void initViews(View view);
 
@@ -48,7 +48,7 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
         lazyLoad();
     }
 
-    protected abstract void lazyLoad();
+    protected abstract void loadData();
 
     protected void onInvisible(){}
 
@@ -94,12 +94,20 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initData();
+        init();
         isPrepared = true;
         lazyLoad();
     }
 
 
+    private void lazyLoad(){
+        if (!isPrepared || !isVisible || loadFinish) {
+            return;
+        }
+
+        loadData();
+
+    }
 
     // 懒加载 方法
     @Override
@@ -139,16 +147,7 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
         super.onPause();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mProxy.onDestroy();
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 
     /**
      * 可以实现自己PresenterMvpFactory工厂
@@ -180,57 +179,15 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
         return mProxy.getMvpPresenter();
     }
 
-
-    /**
-     * 显示一个等待框
-     *
-     * @param message
-     */
-    public void showProgressDialog(String message) {
-//        dismissProgressDialog();
-//        if (materialDialog == null) {
-//            materialDialog = new MaterialDialog(mActivity);
-//        }
-//
-//        View view = mActivity.getLayoutInflater().inflate(com.hongyuanshidai.common.R.layout.layout_progress, null);
-//        TextView textView = (TextView) view.findViewById(com.hongyuanshidai.common.R.id.progerss_textView);
-//        if (TextUtils.isEmpty(message)){
-//            message = "请稍后...";
-//        }
-//        textView.setText(message);
-//        materialDialog.setContentView(view);
-//
-//        materialDialog.show();
-//        materialDialog.setCanceledOnTouchOutside(true);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mProxy.onDestroy();
     }
 
-    /**
-     * 显示一个等待框
-     *
-     * @param
-     */
-    public void showProgressDialog() {
-//        dismissProgressDialog();
-//        if (materialDialog == null) {
-//            materialDialog = new MaterialDialog(mActivity);
-//        }
-//
-//        View view = mActivity.getLayoutInflater().inflate(com.hongyuanshidai.common.R.layout.layout_progress, null);
-//        TextView textView = (TextView) view.findViewById(com.hongyuanshidai.common.R.id.progerss_textView);
-//        textView.setText("请稍后...");
-//        materialDialog.setContentView(view);
-//
-//        materialDialog.show();
-//        materialDialog.setCanceledOnTouchOutside(true);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
-
-    /**
-     * 取消等待框
-     */
-    public void dismissProgressDialog() {
-//        if (materialDialog != null) {
-//            materialDialog.dismiss();
-//        }
-    }
 }

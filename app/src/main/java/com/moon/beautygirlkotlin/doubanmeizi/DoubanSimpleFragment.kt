@@ -1,16 +1,23 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.mvpframework.view.BaseIdFragment
+import com.moon.mvpframework.view.BaseLazeFragment
 
 /**
  * 豆瓣模块 子fragment
  */
-class DoubanSimpleFragment : BaseIdFragment<Nothing, Nothing>() {
+class DoubanSimpleFragment : BaseLazeFragment<Nothing, Nothing>() {
 
 
+    // 加载数据
+    override fun loadData() {
+        Log.i("moon", javaClass.name + " id = " + arguments.getInt("id"))
+
+        loadFinish = true
+    }
 
 
     companion object {
@@ -35,7 +42,7 @@ class DoubanSimpleFragment : BaseIdFragment<Nothing, Nothing>() {
     /**
      * 初始化
      */
-    override fun initData() {
+    override fun init() {
 
 
     }

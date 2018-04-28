@@ -98,6 +98,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //大图查看
+    implementation 'com.bm.photoview:library:1.4.1'
     implementation project(':mvp-module')
 
     // bugly

@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.mengmeizi.model
+package com.moon.beautygirlkotlin.gank.model
 
 data class GankMeiziBody(var _id : String
                          , var createdAt : String

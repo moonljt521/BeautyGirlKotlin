@@ -1,13 +1,10 @@
-package com.moon.beautygirlkotlin.mengmeizi.presenter
+package com.moon.beautygirlkotlin.gank.presenter
 
 import android.content.Context
 import android.util.Log
-import com.moon.beautygirlkotlin.mengmeizi.view.IGankMeiziView
+import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-import com.trello.rxlifecycle.ActivityEvent
-import com.trello.rxlifecycle.RxLifecycle.bindUntilEvent
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 

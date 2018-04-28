@@ -1,17 +1,16 @@
-package com.moon.beautygirlkotlin.mengmeizi.model
+package com.moon.beautygirlkotlin.gank.model
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.ImageLoader
 import java.util.*
 
 /**
@@ -56,15 +55,14 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
 
         var body : GankMeiziBody = list?.get(position)!!
 
-        Glide.with(context).load(body.url)
-                .placeholder(R.drawable.placeholder_image)
-                .into(holder?.item_img)
+
+        ImageLoader.load(context,body.url,R.drawable.placeholder_image, holder!!.item_img)
+
 
         holder?.item_title?.setText(body.desc)
 
 
         holder?.item_layout?.setTag(position)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrderListHolder {

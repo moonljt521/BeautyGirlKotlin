@@ -34,8 +34,6 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
 
     protected abstract int getLayoutId();
 
-    protected abstract View getFragmentView();
-
     protected abstract void initData();
 
     protected abstract void initViews(View view);
@@ -73,10 +71,7 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (null == getFragmentView()) {
-            return inflater.inflate(getLayoutId(), container, false);
-        }
-        return getFragmentView();
+        return inflater.inflate(getLayoutId(), container, false);
 
     }
 
