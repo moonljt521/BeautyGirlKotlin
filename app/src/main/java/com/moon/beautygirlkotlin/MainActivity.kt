@@ -1,5 +1,6 @@
 package com.moon.beautygirlkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DoubanMeiziFragment.getInstance(0))  // 豆瓣妹子
 
-        ImageLoader.load(this,R.drawable.ic_avatar1,mCircleImageView)
+        ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
         // 添加 Fragment 萌妹子
         supportFragmentManager.beginTransaction()
@@ -90,6 +91,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.nav_share -> {
                 ShareUtil.shareAppLink(this,"https://www.gushiwen.org/mingju_770.aspx","每日妹子")
+            }
+
+            R.id.nav_about -> {
+
+                startActivity(Intent(this,AboutActivity::class.java))
+
             }
 
         }

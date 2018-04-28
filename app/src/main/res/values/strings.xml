@@ -17,10 +17,10 @@
     <string name="headsup_title">萌妹</string>
     <string name="headsup_content">今天的妹纸已经准备好了，快来享用吧~</string>
     <string name="image_icon_dec">app icon</string>
-    <string name="about_introduce">「萌妹纸」- 每日更新妹纸福利图</string>
+    <string name="about_introduce">每日妹子</string>
     <string name="about_developers">关于我</string>
     <string name="about_open_source_lis">联系我</string>
-    <string name="about_introduce_and_help">介绍与帮助</string>
+    <string name="about_version_code">介绍与帮助</string>
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
     <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>

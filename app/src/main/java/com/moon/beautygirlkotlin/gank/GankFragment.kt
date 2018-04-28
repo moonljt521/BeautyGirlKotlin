@@ -2,33 +2,30 @@ package com.moon.beautygirlkotlin.gank
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewTreeObserver
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.gank.model.GankMeiziAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
+import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
-import org.jetbrains.anko.startActivityForResult
 
 
 /**
- * 萌妹子模块 fragment
+ * Gank 妹子模块 fragment
  */
 @CreatePresenter(GankMeiziPresenter::class)
 class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
 
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-//    val mLayoutManager: GridLayoutManager = GridLayoutManager(mActivity,2)
 
     lateinit var mAdapter: GankMeiziAdapter
 

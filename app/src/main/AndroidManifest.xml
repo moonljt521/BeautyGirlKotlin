@@ -40,6 +40,10 @@
                   android:theme="@style/AppTheme.StatusBar">
         </activity>
 
+        <activity android:name=".AboutActivity"
+                  android:theme="@style/AppTheme.StatusBar">
+        </activity>
+
         <meta-data
             android:name="com.moon.beautygirlkotlin.glide.MyGlideModule"
             android:value="GlideModule"/>

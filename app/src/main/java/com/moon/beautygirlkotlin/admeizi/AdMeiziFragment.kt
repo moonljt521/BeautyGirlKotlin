@@ -11,7 +11,7 @@ import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_ad_meizi.*
 
 /**
- * 萌妹子模块 fragment
+ * 广告 妹子模块 fragment
  */
 class AdMeiziFragment : BaseIdFragment<Nothing, Nothing>() {
 
