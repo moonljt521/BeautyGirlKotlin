@@ -24,16 +24,9 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ gankMeiziInfos ->
 
-                    if (mvpView == null){
-                        Log.i("moon", "mvpView ====== null")
-                    }
-
                     mvpView?.showSuccess(gankMeiziInfos)
 
                 }, { throwable ->
-
-
-                    Log.i("moon", "gankmeizi...error...")
 
                     mvpView?.showError()
 

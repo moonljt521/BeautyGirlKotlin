@@ -71,7 +71,7 @@ object RetrofitHelper {
 
 
     /**
-     * 豆瓣Api
+     * 豆瓣 Api
      */
     fun getDoubanMeiziApi(): DoubanMeizhiApi {
 

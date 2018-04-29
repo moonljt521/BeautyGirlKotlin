@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.nav_share -> {
-                ShareUtil.shareAppLink(this,"https://www.gushiwen.org/mingju_770.aspx","每日妹子")
+                ShareUtil.shareAppLink(this,getString(R.string.project_link),getString(R.string.app_name))
             }
 
             R.id.nav_about -> {

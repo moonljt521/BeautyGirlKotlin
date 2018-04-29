@@ -1,16 +1,12 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
-import android.support.v4.view.ViewPager
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanFragmentAdapter
 import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
-import org.jetbrains.anko.async
 
 /**
  * 豆瓣模块 base  fragment

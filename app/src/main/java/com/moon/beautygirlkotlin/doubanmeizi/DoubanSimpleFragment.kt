@@ -4,17 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
+import com.moon.beautygirlkotlin.doubanmeizi.presenter.DoubanPresenter
+import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
+import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.mvpframework.view.BaseLazeFragment
 
 /**
  * 豆瓣模块 子fragment
  */
-class DoubanSimpleFragment : BaseLazeFragment<Nothing, Nothing>() {
+class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDouBanView {
+
+    private val pageNum = 20
+
+    private var page = 1
 
 
     // 加载数据
     override fun loadData() {
-        Log.i("moon", javaClass.name + " id = " + arguments.getInt("id"))
+
 
         loadFinish = true
     }
@@ -34,7 +42,6 @@ class DoubanSimpleFragment : BaseLazeFragment<Nothing, Nothing>() {
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_simple_douban_meizi
     }
 
@@ -50,6 +57,15 @@ class DoubanSimpleFragment : BaseLazeFragment<Nothing, Nothing>() {
     override fun initViews(view: View?) {
 
 
+
+    }
+
+    override fun showError() {
+
+
+    }
+
+    override fun showSuccess(t: List<DoubanMeiziBody>?) {
 
     }
 
