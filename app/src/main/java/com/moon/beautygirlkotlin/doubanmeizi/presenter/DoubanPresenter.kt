@@ -5,8 +5,11 @@ import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.DataUtil
 import com.moon.mvpframework.presenter.BaseMvpPresenter
+import com.trello.rxlifecycle.ActivityEvent
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import java.lang.Exception
 
 
 /**
@@ -14,24 +17,29 @@ import rx.schedulers.Schedulers
  */
 class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
-    fun getDouBanMeiZiData(context: Context, cid: Int, page: Int, type: Int) {
+    fun getDouBanMeiZiData(context: RxAppCompatActivity, cid: Int, page: Int, type: Int) {
 
         RetrofitHelper.getDoubanMeiziApi()
                 .getDoubanMeizi(cid, page)
-                .subscribeOn(Schedulers.io())
+                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .map{
-
                     resp -> DataUtil.getDouBanList(type, resp)
                 }
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
-                    list ->
-                        mvpView?.showSuccess(list)
+                    list -> mvpView?.showSuccess(list)
 
-                }, { throwable ->
+                }, {
+                    try {
+                        mvpView?.showError()
 
-                    mvpView?.showError()
+                    }catch (e : Exception){
+                        e.printStackTrace()
+                    }
+//                    throwable ->
+
 
                 })
 

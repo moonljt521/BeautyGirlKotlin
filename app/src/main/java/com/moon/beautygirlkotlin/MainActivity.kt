@@ -15,12 +15,13 @@ import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 主页
  */
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var mCircleImageView: ImageView
 

@@ -15,6 +15,7 @@ import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseLazeFragment
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
@@ -108,7 +109,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
     override fun showError() {
         douban_swipe_refresh.post({ douban_swipe_refresh.setRefreshing(false) })
 
-        SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.error_message))
+        SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.error_message))
 
     }
 
@@ -134,7 +135,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(mActivity,arguments.getInt("id"),page,1)
+        mvpPresenter.getDouBanMeiZiData(mActivity as RxAppCompatActivity,arguments.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
