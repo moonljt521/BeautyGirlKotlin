@@ -10,7 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
-import com.moon.beautygirlkotlin.doubanmeizi.DoubanMeiziFragment
+import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
-        fragmentList.add(DoubanMeiziFragment.getInstance(0))  // 豆瓣妹子
+        fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 

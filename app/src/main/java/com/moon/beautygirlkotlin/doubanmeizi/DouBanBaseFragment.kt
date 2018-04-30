@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 /**
  * 豆瓣模块 base  fragment
  */
-class DoubanMeiziFragment : BaseIdFragment<Nothing, Nothing>()
+class DouBanBaseFragment : BaseIdFragment<Nothing, Nothing>()
 //        ,ViewPager.OnPageChangeListener
 {
 
@@ -20,8 +20,8 @@ class DoubanMeiziFragment : BaseIdFragment<Nothing, Nothing>()
 
     companion object {
 
-        fun getInstance(id: Int): DoubanMeiziFragment {
-            var fragment = DoubanMeiziFragment();
+        fun getInstance(id: Int): DouBanBaseFragment {
+            var fragment = DouBanBaseFragment();
             var bundle = Bundle()
             bundle.putInt("id", id)
 
@@ -45,7 +45,7 @@ class DoubanMeiziFragment : BaseIdFragment<Nothing, Nothing>()
         val pageMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources
                 .displayMetrics).toInt()
 
-        douban_viewpager.offscreenPageLimit = 5
+        douban_viewpager.offscreenPageLimit = 6
 
         douban_viewpager.setPageMargin(pageMargin)
         adapter = DoubanFragmentAdapter(childFragmentManager)

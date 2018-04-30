@@ -83,12 +83,14 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(),container,false);
-        initViews(view);
-
-        return view;
+        return inflater.inflate(getLayoutId(),container,false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews(view);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

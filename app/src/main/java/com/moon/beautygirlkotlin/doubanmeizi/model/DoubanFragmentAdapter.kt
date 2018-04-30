@@ -11,15 +11,16 @@ class DoubanFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm)
 
     var fragmentList : ArrayList<DoubanSimpleFragment>
 
-    private val titles = arrayOf("大胸妹", "小翘臀", "黑丝袜", "美图控", "高颜值")
+    private val titles = arrayOf("大胸妹", "小翘臀", "黑丝袜", "美图控", "高颜值","大杂烩")
 
     init {
         fragmentList = ArrayList()
-        fragmentList.add(DoubanSimpleFragment.getInstance(0))
-        fragmentList.add(DoubanSimpleFragment.getInstance(1))
         fragmentList.add(DoubanSimpleFragment.getInstance(2))
+        fragmentList.add(DoubanSimpleFragment.getInstance(6))
+        fragmentList.add(DoubanSimpleFragment.getInstance(7))
         fragmentList.add(DoubanSimpleFragment.getInstance(3))
         fragmentList.add(DoubanSimpleFragment.getInstance(4))
+        fragmentList.add(DoubanSimpleFragment.getInstance(5))
     }
 
     override fun getPageTitle(position: Int): CharSequence {

@@ -20,8 +20,6 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitHelper {
 
-
-
     init {
         initOkHttpClient();
     }
@@ -56,6 +54,23 @@ object RetrofitHelper {
 
 
     /**
+     * 豆瓣 Api
+     */
+    fun getDoubanMeiziApi(): DoubanMeizhiApi {
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl(BASE_DOUBAN_URL)
+                .client(OkHttpClient())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        return retrofit.create(DoubanMeizhiApi::class.java)
+    }
+
+
+
+    /**
      * 花瓣Api
      */
     fun getHuaBanMeiziApi(): HuaBanMeiziApi {
@@ -67,20 +82,6 @@ object RetrofitHelper {
                 .build()
 
         return retrofit.create(HuaBanMeiziApi::class.java)
-    }
-
-
-    /**
-     * 豆瓣 Api
-     */
-    fun getDoubanMeiziApi(): DoubanMeizhiApi {
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_DOUBAN_URL)
-                .client(OkHttpClient())
-                .build()
-
-        return retrofit.create(DoubanMeizhiApi::class.java)
     }
 
 
