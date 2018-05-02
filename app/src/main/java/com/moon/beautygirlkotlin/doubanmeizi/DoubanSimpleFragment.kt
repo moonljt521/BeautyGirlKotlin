@@ -102,15 +102,12 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
 
             loadHttpData()
         }
-
-
     }
 
     override fun showError() {
         douban_swipe_refresh.post({ douban_swipe_refresh.setRefreshing(false) })
 
         SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.error_message))
-
     }
 
     override fun showSuccess(list: List<DoubanMeiziBody>?) {

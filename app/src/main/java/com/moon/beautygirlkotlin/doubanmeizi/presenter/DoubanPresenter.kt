@@ -32,13 +32,15 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
                     list -> mvpView?.showSuccess(list)
 
                 }, {
+
+                    throwable ->
+
                     try {
                         mvpView?.showError()
 
                     }catch (e : Exception){
                         e.printStackTrace()
                     }
-//                    throwable ->
 
 
                 })

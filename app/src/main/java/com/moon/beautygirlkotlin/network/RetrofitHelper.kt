@@ -58,8 +58,8 @@ object RetrofitHelper: Interceptor {
     /**
      * 豆瓣 Api
      */
-    fun getDoubanMeiziApi(): DoubanMeizhiApi {
-        return getRetroFitBuilder(BASE_DOUBAN_URL).create(DoubanMeizhiApi::class.java)
+    fun getDoubanMeiziApi(): DouBanAPI {
+        return getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java)
     }
 
     /**
