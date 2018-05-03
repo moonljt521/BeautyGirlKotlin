@@ -8,7 +8,7 @@ import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.gank.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.meizitu.model.MeiZiTuAdapter
+import com.moon.beautygirlkotlin.meizitu.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.meizitu.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.meizitu.presenter.MeiZiTuPresenter
 import com.moon.beautygirlkotlin.meizitu.view.IMeiZiTuView
@@ -55,10 +55,10 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
     companion object {
 
-        fun getInstance(id: String): MeiZiTuSimpleFragment {
+        fun getInstance(cid: String): MeiZiTuSimpleFragment {
             var fragment = MeiZiTuSimpleFragment();
             var bundle = Bundle()
-            bundle.putString("id", id)
+            bundle.putString("type", cid)
 
             fragment.arguments = bundle
 
@@ -130,7 +130,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getMeizitu(mActivity as RxAppCompatActivity,arguments.getString("id"),page)
+        mvpPresenter.getMeizitu(mActivity as RxAppCompatActivity,arguments.getString("type"),page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {

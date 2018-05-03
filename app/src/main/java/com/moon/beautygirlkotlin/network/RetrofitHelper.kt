@@ -54,8 +54,8 @@ object RetrofitHelper: Interceptor {
     /**
      * Gank妹子Api
      */
-    fun getGankMeiziApi(): GankMeiziApi {
-        return getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziApi::class.java)
+    fun getGankMeiziApi(): GankMeiziAPI {
+        return getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)
     }
 
 
@@ -76,8 +76,8 @@ object RetrofitHelper: Interceptor {
     /**
      * 花瓣Api
      */
-    fun getHuaBanMeiziApi(): HuaBanMeiziApi {
-        return getRetroFitBuilder(BASE_HUABAN_URL).create(HuaBanMeiziApi::class.java)
+    fun getHuaBanMeiziApi(): HuaBanAPI {
+        return getRetroFitBuilder(BASE_HUABAN_URL).create(HuaBanAPI::class.java)
     }
 
 
@@ -87,26 +87,6 @@ object RetrofitHelper: Interceptor {
     fun getTaoFemaleApi(): TaoFemaleaApi {
         return getRetroFitBuilder(BASE_HUABAN_URL).create(TaoFemaleaApi::class.java)
     }
-
-
-//  /**
-//   * 煎蛋Api
-//   */
-//  public static JianDanMeiziApi getJianDanApi() {
-//
-//    Retrofit retrofit = new Retrofit.Builder()
-//        .baseUrl(BASE_JIANDAN_URL)
-//        .client(mOkHttpClient)
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//        .build();
-//
-//    return retrofit.create(JianDanMeiziApi.class);
-//  }
-
-
-
-
 
     /**
      * 初始化OKHttpClient

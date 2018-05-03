@@ -19,17 +19,11 @@
             android:icon="@drawable/bow_tie"
             android:title="@string/douban_meizi" />
 
-        <item
-            android:id="@+id/nav_meizitu"
-            android:checked="true"
-            android:icon="@drawable/picture"
-            android:title="@string/meizitu" />
-
-        <item
-            android:id="@+id/nav_tao"
-            android:checked="true"
-            android:icon="@drawable/wedding_dress"
-            android:title="@string/tao_female" />
+        <!--<item-->
+            <!--android:id="@+id/nav_meizitu"-->
+            <!--android:checked="true"-->
+            <!--android:icon="@drawable/picture"-->
+            <!--android:title="@string/meizitu" />-->
 
         <item
             android:id="@+id/nav_huaban"
@@ -37,9 +31,15 @@
             android:title="@string/huaban_meizi" />
 
         <item
-            android:id="@+id/nav_jiandan"
-            android:icon="@drawable/year_of_rooster"
-            android:title="@string/jiandan_meizi" />
+            android:id="@+id/nav_tao"
+            android:checked="true"
+            android:icon="@drawable/wedding_dress"
+            android:title="@string/tao_female" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_jiandan"-->
+            <!--android:icon="@drawable/year_of_rooster"-->
+            <!--android:title="@string/jiandan_meizi" />-->
     </group>
 
     <item android:title="Other">
@@ -48,12 +48,12 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/share"
-                android:title="分享App" />
+                android:title="@string/main_share_app" />
 
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/high_importance"
-                android:title="关于App" />
+                android:title="@string/main_about_app" />
 
         </menu>
     </item>

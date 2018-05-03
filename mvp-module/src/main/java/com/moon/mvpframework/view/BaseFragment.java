@@ -19,6 +19,7 @@ import com.moon.mvpframework.factory.PresenterMvpFactoryImpl;
 import com.moon.mvpframework.presenter.BaseMvpPresenter;
 import com.moon.mvpframework.proxy.BaseMvpProxy;
 import com.moon.mvpframework.proxy.PresenterProxyInterface;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 
@@ -30,7 +31,7 @@ import com.trello.rxlifecycle.components.support.RxFragment;
 
 public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPresenter<V>> extends RxFragment implements PresenterProxyInterface<V, P> {
 
-    protected Activity mActivity;
+    protected RxAppCompatActivity mActivity;
 
     protected abstract int getLayoutId();
 
@@ -56,7 +57,7 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (Activity) context;
+        mActivity = (RxAppCompatActivity) context;
     }
 
     @Override

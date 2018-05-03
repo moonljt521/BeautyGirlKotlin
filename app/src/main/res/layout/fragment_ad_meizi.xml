@@ -16,7 +16,7 @@
     </com.google.android.gms.ads.AdView>
 
     <TextView
-        android:text="这是一条google广告"
+        android:text="@string/ad_fragment_tip"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

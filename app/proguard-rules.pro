@@ -91,7 +91,7 @@
 -keep public class * extends android.support.v7.**
 -keep class android.support.v13.** { *; }
 -keep public class * extends android.support.v13.**
--keep class * extends com.hongyuanshidai.attendance,fragment.**{*;}
+
 
 #如果引用了v4或者v7包，可以忽略警告，因为用不到android.support
 #-dontwarn android.support.**
@@ -167,7 +167,6 @@
 
 
 #允许你的GlideModule可以通过反射实例化：
-
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
@@ -175,17 +174,16 @@
 }
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
+#steho
+-keep class com.facebook.stetho.** { *; }
+-dontwarn org.mozilla.javascript.**
+-dontwarn org.mozilla.classfile.**
+-keep class org.mozilla.javascript.** { *; }
 
-# butterknife 配置
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
+# kotlin 混淆
+-dontwarn kotlin.**
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
 }
 
 
@@ -201,9 +199,6 @@
 ##---------------End: proguard configuration for Gson  ----------
 
 
--keep public class com.hongyuanshidai.attendance.R$*{
-    public static final int *;
-}
 
 
 #--------------------------- RxJava RxAndroid ---------------------------------
@@ -221,66 +216,31 @@
 -keep class rx.internal.**{*;}
 -dontwarn rx.internal.**
 
-#===============eventBus======================
-     -keep class org.greenrobot.eventbus.**{*;}
-     -dontwarn org.greenrobot.eventbus.**
-     -keepclassmembers class ** {
-         @org.greenrobot.eventbus.Subscribe <methods>;
-     }
-     -keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
-     # Only required if you use AsyncExecutor
-     -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-         <init>(Java.lang.Throwable);
-     }
-
-
- -keep  class com.hongyuanshidai.common.**{*; }
 
 -keep class **.R$* {
 *;
 }
 
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}
+#okhttp
+
+
+# Retrofit
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+
 
 #保护注解
 -keepattributes *JavascriptInterface*
 
-
-#router
--keep  class com.winterrunner.router.bean.**{*;}
--keep  class * extends com.winterrunner.router.action.Action{*; }
-
-
--keep public class com.tencent.tinker.loader.app.ApplicationLifeCycle {
-    *;
-}
--keep public class * implements com.tencent.tinker.loader.app.ApplicationLifeCycle {
-    *;
-}
-
--keep public class com.tencent.tinker.loader.TinkerLoader {
-    *;
-}
--keep public class * extends com.tencent.tinker.loader.TinkerLoader {
-    *;
-}
-
--keep public class com.tencent.tinker.loader.TinkerTestDexLoad {
-    *;
-}
-
--keep public class com.tencent.tinker.loader.TinkerTestAndroidNClassLoader {
-    *;
-}
-
-#for command line version, we must keep all the loader class to avoid proguard mapping conflict
-#your dex.loader pattern here
--keep public class com.tencent.tinker.loader.** {
-    *;
-}
--keep class tinker.sample.android.app.TinkerApplicationLike {
-    *;
-}
 #在proguard-rules.pro文件中添加混淆
 -keepattributes SourceFile,LineNumberTable
 

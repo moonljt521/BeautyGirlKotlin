@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_head_avatar"
         android:padding="10dp"
-        android:text="萌妹,每日妹子福利"
+        android:text="@string/main_nav_header_title"
         android:layout_centerInParent="true"
         android:textColor="@android:color/white"
         android:textSize="16sp" />

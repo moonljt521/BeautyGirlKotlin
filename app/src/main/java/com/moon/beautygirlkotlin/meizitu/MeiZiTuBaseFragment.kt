@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.meizitu.model.MeiZiTuFragmentAdapter
+import com.moon.beautygirlkotlin.meizitu.adapter.MeiZiTuFragmentAdapter
 import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_base_meizitu.*
 

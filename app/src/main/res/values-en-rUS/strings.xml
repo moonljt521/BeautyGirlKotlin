@@ -9,7 +9,7 @@
     <string name="gank_meizi">Gank girl</string>
     <string name="meizitu">妹纸图</string>
     <string name="ad_meizitu">ADGirl</string>
-    <string name="tao_female">淘女郎</string>
+    <string name="tao_female">taoFemale</string>
     <string name="douban_meizi">doubanGirl</string>
     <string name="huaban_meizi">huabanGirl</string>
     <string name="jiandan_meizi">jiandanGirl</string>
@@ -25,5 +25,10 @@
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
     <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>
+
+    <string name="ad_fragment_tip">sorry,this is a google ad</string>
+    <string name="main_nav_header_title">gankGirl</string>
+    <string name="main_share_app">shareApp</string>
+    <string name="main_about_app">aboutApp</string>
 
 </resources>

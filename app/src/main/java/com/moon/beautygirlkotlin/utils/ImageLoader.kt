@@ -32,8 +32,14 @@ class ImageLoader {
         fun loadCircle(context : Context, url: String , view: ImageView){
 
             Glide.with(context).load(url).transform(GlideCircleTransForm(context)).into(view)
-
         }
+
+
+        fun loadCircle(context : Context, url: Int , view: ImageView){
+
+            Glide.with(context).load(url).transform(GlideCircleTransForm(context)).into(view)
+        }
+
 
         fun load(context : Context, id: Int , view: ImageView){
 
@@ -42,9 +48,15 @@ class ImageLoader {
         }
 
 
-        fun loadCircle(context : Context, id: Int , view: ImageView){
+        fun loadCircle(context : Context, id: Int , placeholder: Int,view: ImageView){
 
-            Glide.with(context).load(id).transform(GlideCircleTransForm(context)).into(view)
+            Glide.with(context).load(id).placeholder(placeholder).transform(GlideCircleTransForm(context)).into(view)
+
+        }
+
+        fun loadCircle(context : Context, imageUrl: String , placeholder: Int,view: ImageView){
+
+            Glide.with(context).load(imageUrl).placeholder(placeholder).transform(GlideCircleTransForm(context)).into(view)
 
         }
 

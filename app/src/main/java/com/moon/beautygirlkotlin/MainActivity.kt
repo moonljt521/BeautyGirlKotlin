@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
+import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
 import com.moon.beautygirlkotlin.meizitu.MeiZiTuBaseFragment
+import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -66,15 +67,16 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
         fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
+        fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图
+        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
-        // 添加 Fragment 萌妹子 , 初始化 先显示 gank 妹子
+        // 初始化显示 [gank]妹子模块
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -91,8 +93,16 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
                 navigationFragment(2,getString(R.string.douban_meizi),item)
             }
 
-            R.id.nav_meizitu -> {
-                navigationFragment(3,getString(R.string.meizitu),item)
+//            R.id.nav_meizitu -> {
+//                navigationFragment(3,getString(R.string.meizitu),item)
+//            }
+
+            R.id.nav_huaban-> {
+                navigationFragment(4,getString(R.string.huaban_meizi),item)
+            }
+
+            R.id.nav_tao-> {
+                navigationFragment(5,getString(R.string.tao_female),item)
             }
 
             R.id.nav_share -> {
@@ -104,12 +114,10 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
                 startActivity(Intent(this,AboutActivity::class.java))
 
             }
-
         }
 
         return true
     }
-
 
     /**
      * 切换主页各个fragment

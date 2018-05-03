@@ -1,5 +1,6 @@
 package com.moon.beautygirlkotlin.meizitu.presenter
 
+import android.util.Log
 import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
 import com.moon.beautygirlkotlin.meizitu.view.IMeiZiTuView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
@@ -23,7 +24,10 @@ class MeiZiTuPresenter : BaseMvpPresenter<IMeiZiTuView>() {
                 .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .map{
                     resp ->
-                    DataUtil.parserMeiziTuHtml(resp.toString(),type)
+
+                    Log.i("moon", "meizitu html->" + resp.string())
+
+                    DataUtil.parserMeiziTuHtml(resp.string(),type)
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

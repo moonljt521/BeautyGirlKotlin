@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
 
 
-    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
     lateinit var mAdapter: GankMeiziAdapter
 
@@ -108,8 +108,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(
-                        IntArray(2))[1] >= mAdapter.getItemCount() - 6
+                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
                 if (!swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
 
@@ -155,20 +154,8 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     override fun itemClick(v: View, position: Int) {
 
-//        val mIntent = Intent(activity, GankMeiziPageActivity::class.java)
-//        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        mIntent.putExtra(EXTRA_INDEX, position)
-//
-//        if (Build.VERSION.SDK_INT >= 22) {
-//            startActivity(mIntent,
-//                    ActivityOptions.makeSceneTransitionAnimation(activity,
-//                            holder.getParentView().findViewById(R.id.item_img),
-//                            mAdapter.list?.get(position)?.url).toBundle())
-//        } else {
-//            startActivity(mIntent)
-//        }
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.url)
+        intent.putExtra("url", mAdapter?.list?.get(position)?.url)
 
         mActivity.startActivity(intent)
 

@@ -13,11 +13,11 @@ import rx.schedulers.Schedulers
 
 class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 
-    fun getGankList(context: Context, pageNum: Int , page :Int){
+    fun getGankList(context: RxAppCompatActivity, pageNum: Int , page :Int){
 
         RetrofitHelper.getGankMeiziApi()
                 .getGankMeizi(pageNum, page)
-//                .compose((context).<GankMeiziResult>bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .filter({ gankMeiziResult -> !gankMeiziResult.error })
                 .map({ gankMeiziResult -> gankMeiziResult.results })
                 .subscribeOn(Schedulers.io())
