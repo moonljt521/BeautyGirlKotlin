@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
+import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * 主页
  */
-class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var mCircleImageView: ImageView
 
@@ -34,16 +35,8 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     var exitTime:Long = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        initViews()
-
-        initData()
-    }
-
-    fun initViews() {
+    override fun initViews() {
         nav_view.setNavigationItemSelectedListener(this)
 
         var headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
@@ -62,8 +55,8 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
     }
 
-    fun initData() {
 
+    override fun loadData() {
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
@@ -78,6 +71,12 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
     }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
