@@ -26,15 +26,19 @@ object RetrofitHelper: Interceptor {
 
     private var mOkHttpClient: OkHttpClient? = null
 
-
+    // gank 妹子
     private val BASE_GANK_URL = "http://gank.io/api/"
 
+    // 花瓣
     private val BASE_HUABAN_URL = "http://route.showapi.com/"
 
+    // 豆瓣
     private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/dbgroup/"
 
+    // 煎蛋
     private val BASE_JIANDAN_URL = "http://jandan.net/"
 
+    //妹子图
     private val BASE_MEIZITU_URL = "http://www.mzitu.com/"
 
 
@@ -60,6 +64,13 @@ object RetrofitHelper: Interceptor {
      */
     fun getDoubanMeiziApi(): DouBanAPI {
         return getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java)
+    }
+
+    /**
+     * 获取妹子图Api
+     */
+    fun getMeiziTuApi(): MeiziTuApi {
+        return getRetroFitBuilder(BASE_MEIZITU_URL).create(MeiziTuApi::class.java)
     }
 
     /**
@@ -94,12 +105,7 @@ object RetrofitHelper: Interceptor {
 //  }
 
 
-    /**
-     * 获取妹子图Api
-     */
-    fun getMeiziTuApi(): MeiziTuApi {
-        return getRetroFitBuilder(BASE_MEIZITU_URL).create(MeiziTuApi::class.java)
-    }
+
 
 
     /**
@@ -123,6 +129,8 @@ object RetrofitHelper: Interceptor {
                             .addNetworkInterceptor(this)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
+                            .readTimeout(10,TimeUnit.SECONDS)
+                            .writeTimeout(10,TimeUnit.SECONDS)
                             .build()
                 }
             }

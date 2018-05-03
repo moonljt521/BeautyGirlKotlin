@@ -12,6 +12,7 @@ import android.widget.ImageView
 import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
+import com.moon.beautygirlkotlin.meizitu.MeiZiTuBaseFragment
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -64,14 +65,14 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
         fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
+        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
-        // 添加 Fragment 萌妹子
+        // 添加 Fragment 萌妹子 , 初始化 先显示 gank 妹子
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
-
     }
 
 
@@ -88,6 +89,10 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             R.id.nav_douban -> {
                 navigationFragment(2,getString(R.string.douban_meizi),item)
+            }
+
+            R.id.nav_meizitu -> {
+                navigationFragment(3,getString(R.string.meizitu),item)
             }
 
             R.id.nav_share -> {
