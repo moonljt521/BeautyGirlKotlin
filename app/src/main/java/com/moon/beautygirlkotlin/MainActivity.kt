@@ -14,6 +14,7 @@ import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
 import com.moon.beautygirlkotlin.meizitu.MeiZiTuBaseFragment
 import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
+import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -149,9 +150,11 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             exitTime = System.currentTimeMillis()
 
-            return
+        }else{
+
+            AppManager.getAppManager().exitApp(applicationContext)
+
         }
-        super.onBackPressed()
     }
 
 }

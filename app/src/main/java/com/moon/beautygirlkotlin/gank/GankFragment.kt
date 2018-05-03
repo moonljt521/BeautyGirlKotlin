@@ -12,9 +12,11 @@ import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
+import com.moon.mvpframework.view.BaseLazeFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
 
@@ -24,6 +26,16 @@ import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 @CreatePresenter(GankMeiziPresenter::class)
 class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
 
+    override fun initData() {
+        swipe_refresh.post {
+
+            swipe_refresh.isRefreshing = true
+
+            mIsRefreshing = true
+        }
+
+        loadHttpData()
+    }
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -55,21 +67,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     override fun getLayoutId(): Int {
 
         return R.layout.fragment_gank_meizi
-    }
-
-    /**
-     * 初始化
-     */
-    override fun initData() {
-
-        swipe_refresh.post {
-
-            swipe_refresh.isRefreshing = true
-
-            mIsRefreshing = true
-        }
-
-        loadHttpData()
     }
 
     override fun initViews(view: View?) {
@@ -158,27 +155,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         intent.putExtra("url", mAdapter?.list?.get(position)?.url)
 
         mActivity.startActivity(intent)
-
-
     }
-
-    fun scrollIndex() {
-
-        if (imageIndex != -1) {
-            gank_recyclerView.scrollToPosition(imageIndex)
-            gank_recyclerView.getViewTreeObserver()
-                    .addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-
-                        override fun onPreDraw(): Boolean {
-
-                            gank_recyclerView.getViewTreeObserver().removeOnPreDrawListener(this)
-                            gank_recyclerView.requestLayout()
-                            return true
-                        }
-                    })
-        }
-    }
-
 
 //    override fun getMvpPresenter(): GankMeiziPresenter {
 //        return GankMeiziPresenter()

@@ -17,10 +17,10 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 
         RetrofitHelper.getGankMeiziApi()
                 .getGankMeizi(pageNum, page)
+                .subscribeOn(Schedulers.io())
                 .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .filter({ gankMeiziResult -> !gankMeiziResult.error })
                 .map({ gankMeiziResult -> gankMeiziResult.results })
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ gankMeiziInfos ->
 

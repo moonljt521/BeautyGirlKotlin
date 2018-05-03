@@ -5,6 +5,7 @@ import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
 import com.moon.beautygirlkotlin.meizitu.view.IMeiZiTuView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.DataUtil
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.ActivityEvent
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
@@ -25,7 +26,7 @@ class MeiZiTuPresenter : BaseMvpPresenter<IMeiZiTuView>() {
                 .map{
                     resp ->
 
-                    Log.i("moon", "meizitu html->" + resp.string())
+                    Logger.i("moon", "meizitu html->" + resp.string())
 
                     DataUtil.parserMeiziTuHtml(resp.string(),type)
                 }

@@ -4,3 +4,4 @@
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/armeabi-v7a/buglySymbol_libnative-lib_armeabi-v7a-7d823.zip --> d5ce11f96884827fd01cb04363f609dedfc609c4
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86/buglySymbol_libnative-lib_x86-dca65.zip --> 5de54dc923fc8115465f7d57c8f1f17b25625036
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86_64/buglySymbol_libnative-lib_x86_64-606c2.zip --> 56a9c4539dd47775e44fd58b8af72b9ab47a81f9
+/Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> e5f7e6cdf02b34bf99d9e61a254492356d935a22

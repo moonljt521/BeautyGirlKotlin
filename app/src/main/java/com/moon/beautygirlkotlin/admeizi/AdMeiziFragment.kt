@@ -47,13 +47,13 @@ class AdMeiziFragment : BaseIdFragment<Nothing, Nothing>() {
         val adRequest = AdRequest.Builder()
 //                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build()
+
         my_adView.loadAd(adRequest)
 
 
         my_adView.adListener = object :AdListener(){
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
-                Log.i("moon","onAdLoaded...")
             }
 
             override fun onAdFailedToLoad(errorCode : Int) {

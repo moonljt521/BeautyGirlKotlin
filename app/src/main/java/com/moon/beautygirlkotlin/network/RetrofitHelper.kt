@@ -94,7 +94,7 @@ object RetrofitHelper: Interceptor {
     private fun initOkHttpClient() {
 
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        interceptor.level = HttpLoggingInterceptor.Level.NONE
 
         if (mOkHttpClient == null) {
             synchronized(RetrofitHelper::class.java) {
