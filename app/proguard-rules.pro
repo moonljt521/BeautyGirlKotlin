@@ -194,7 +194,8 @@
 -keep class sun.misc.Unsafe { *; }
 #-keep class com.google.gson.stream.** { *; }
 # Application classes that will be serialized/deserialized over Gson
--keep class com.hongyuanshidai.attendance.bean.** { *; }  ##这里需要改成解析到哪个  javabean
+-keep class com.moon.beautygirlkotlin.base.** { *; }  ##这里需要改成解析到哪个  javabean
+-keep class * extends com.moon.beautygirlkotlin.base.BaseBean{*; }
 
 ##---------------End: proguard configuration for Gson  ----------
 
@@ -230,12 +231,15 @@
 #okhttp
 
 
-# Retrofit
--dontnote retrofit2.Platform
--dontnote retrofit2.Platform$IOS$MainThreadExecutor
--dontwarn retrofit2.Platform$Java8
+# Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
--keepattributes Exceptions
+# Retain service method parameters.
+-keepclassmembernames,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
+}
+# Ignore annotation used for build tooling.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
 
 
 #保护注解
@@ -262,3 +266,6 @@
 
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+
+#jsoup
+-keeppackagenames org.jsoup.nodes

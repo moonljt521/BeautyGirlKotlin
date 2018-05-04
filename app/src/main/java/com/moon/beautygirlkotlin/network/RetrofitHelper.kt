@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin.network
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.network.api.*
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -94,7 +95,12 @@ object RetrofitHelper: Interceptor {
     private fun initOkHttpClient() {
 
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.NONE
+        if (Logger.DEBUG){
+            interceptor.level = HttpLoggingInterceptor.Level.BASIC
+
+        }else{
+            interceptor.level = HttpLoggingInterceptor.Level.NONE
+        }
 
         if (mOkHttpClient == null) {
             synchronized(RetrofitHelper::class.java) {

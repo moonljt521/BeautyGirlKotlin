@@ -6,3 +6,4 @@
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86_64/buglySymbol_libnative-lib_x86_64-606c2.zip --> 56a9c4539dd47775e44fd58b8af72b9ab47a81f9
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> e5f7e6cdf02b34bf99d9e61a254492356d935a22
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> c661ac83ee6f79f80a6216d2726813b7bb62024d
+/Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> 8b4e26f652224bebd6b2833333ef9cc6cfd9ab28

@@ -1,5 +1,7 @@
 package com.moon.beautygirlkotlin.taofemale.model
 
+import com.moon.beautygirlkotlin.base.BaseBean
+
 /**
  * author: moon
  * created on: 18/5/3 下午5:06
@@ -10,5 +12,5 @@ data class Contentlist(var totalFavorNum : Int , var realName: String,
                        var weight : String , var avatarUrl : String,
                        var type : String , var userId :String,
                        var city : String , var height :String,
-                       var imgList : ArrayList<String> , var cardUrl :String) {
+                       var imgList : ArrayList<String> , var cardUrl :String) : BaseBean(){
 }

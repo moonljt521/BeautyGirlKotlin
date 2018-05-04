@@ -10,7 +10,7 @@ public class Logger {
 
     private static final String TAG = "moon";
     
-    public static boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public static void i(String value) {
         if (DEBUG) {
