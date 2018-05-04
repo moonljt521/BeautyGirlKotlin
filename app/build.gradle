@@ -104,7 +104,7 @@ android {
 
     // 添加之
     dexOptions {
-        incremental true
+//        incremental true
         javaMaxHeapSize "4g"
     }
 }
