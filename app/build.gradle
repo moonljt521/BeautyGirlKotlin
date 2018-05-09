@@ -73,6 +73,7 @@ android {
             signingConfig signingConfigs.KOTLIN_GIRL
             minifyEnabled true
             shrinkResources true
+            zipAlignEnabled true  // 在Android中，当资源文件通过内存映射对齐到4字节边界时，访问资源文件的代码才是有效率的。但是，如果资源本身没有进行对齐处理（未使用zipalign工具），它就必须回到老路上，显式地读取它们——这个过程将会比较缓慢且会花费额外的内存。
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             //指定文件名格式  kotlin_girl_v1.0.0.apk
