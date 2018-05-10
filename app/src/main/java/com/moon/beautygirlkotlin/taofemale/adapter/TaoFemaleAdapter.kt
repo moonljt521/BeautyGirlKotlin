@@ -66,8 +66,8 @@ class TaoFemaleAdapter( ) : RecyclerView.Adapter<TaoFemaleAdapter.OrderListHolde
         holder?.item_type?.setText(body.type)
         holder?.item_location?.setText(body.city)
         holder?.item_fans_num?.setText(body.totalFanNum+"")
-        holder?.item_height?.setText(body.height+"")
-        holder?.item_wight?.setText(body.weight+"")
+        holder?.item_height?.setText("身高："+body.height)
+        holder?.item_wight?.setText("体重："+body.weight)
 
         ImageLoader.load(context, body.avatarUrl, R.drawable.placeholder_image, holder!!.item_img)
 
