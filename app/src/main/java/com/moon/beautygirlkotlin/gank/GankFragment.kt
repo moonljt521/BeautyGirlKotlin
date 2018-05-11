@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
@@ -32,6 +34,8 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         }
 
         loadHttpData()
+
+
     }
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -91,9 +95,41 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     /**
      * 加载网络数据：开始[萌妹子数据]的请求
+     * 同时开始加重admob 广告
      */
     fun loadHttpData() {
         mvpPresenter?.getGankList(mActivity, pageNum, page)
+
+        val adRequest = AdRequest.Builder()
+                .build()
+
+        gank_adView.loadAd(adRequest)
+
+
+        gank_adView.adListener = object : AdListener(){
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            override fun onAdFailedToLoad(errorCode : Int) {
+                // Code to be executed when an ad request fails.
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        }
+
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {

@@ -2,25 +2,21 @@ package com.moon.beautygirlkotlin
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
-import com.moon.beautygirlkotlin.meizitu.MeiZiTuBaseFragment
 import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
 import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -59,7 +55,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun loadData() {
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
-//        fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
 //        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
         fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图

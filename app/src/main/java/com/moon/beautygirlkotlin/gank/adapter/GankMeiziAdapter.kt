@@ -19,7 +19,7 @@ import java.util.*
  * created on: 18/4/4 下午4:37
  * description:
  */
-class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHolder>(), View.OnClickListener{
+class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewHolder>(), View.OnClickListener{
 
     lateinit var context: Context
 
@@ -57,18 +57,18 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
     }
 
 
-    override fun getItemViewType(position: Int): Int {
-        val type = list?.get(position)?.itemType
-        if (type == 0){
+//    override fun getItemViewType(position: Int): Int {
+//        val type = list?.get(position)?.itemType
+//        if (type == 0){
+//
+//            return AD_ITEM_TYPE
+//        }else
+//
+//            return COMMON_ITEM_TYPE
+//    }
 
-            return AD_ITEM_TYPE
-        }else
 
-            return COMMON_ITEM_TYPE
-    }
-
-
-    override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
+    override fun onBindViewHolder(holder: GankItemViewHolder?, position: Int) {
 
         var body : GankMeiziBody = list?.get(position)!!
 
@@ -82,10 +82,10 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
         holder?.item_layout?.setTag(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrderListHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): GankItemViewHolder {
         var v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
-        var holder = OrderListHolder(v)
+        var holder = GankItemViewHolder(v)
 
         context = parent?.context!!
 
@@ -99,15 +99,18 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
     }
 
 
-    class OrderListHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class GankAdViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+
+    }
+
+
+    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
 
         var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 
         var item_title: TextView = itemView!!.findViewById<View>(R.id.item_title) as TextView
 
         var item_layout: LinearLayout = itemView!!.findViewById<View>(R.id.item_layout) as LinearLayout
-
-
     }
 
 
