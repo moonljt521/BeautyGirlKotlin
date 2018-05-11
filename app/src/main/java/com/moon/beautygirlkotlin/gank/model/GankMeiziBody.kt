@@ -10,5 +10,6 @@ data class GankMeiziBody(var _id : String
                          , var type :String
                          , var url :String
                          , var used :Boolean
-                         , var who :String) : BaseBean() {
+                         , var who :String
+                         , var itemType : Int) : BaseBean() {
 }

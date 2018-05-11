@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.gank.model
+package com.moon.beautygirlkotlin.gank.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import java.util.*
@@ -21,6 +22,10 @@ import java.util.*
 class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHolder>(), View.OnClickListener{
 
     lateinit var context: Context
+
+    private val AD_ITEM_TYPE = 0
+
+    private val COMMON_ITEM_TYPE = 1
 
     override fun onClick(v: View?) {
         var position : Int = v?.getTag() as Int
@@ -50,6 +55,18 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.OrderListHold
         this.list?.addAll(list)
         notifyDataSetChanged()
     }
+
+
+    override fun getItemViewType(position: Int): Int {
+        val type = list?.get(position)?.itemType
+        if (type == 0){
+
+            return AD_ITEM_TYPE
+        }else
+
+            return COMMON_ITEM_TYPE
+    }
+
 
     override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
 
