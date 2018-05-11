@@ -1,6 +1,7 @@
 package com.moon.beautygirlkotlin
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -58,9 +59,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun loadData() {
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
-        fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
+//        fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
+//        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
         fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图
         fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
 
@@ -85,28 +86,28 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationFragment(0, getString(R.string.gank_meizi),item)
             }
 
-            R.id.nav_ad_meizi -> {
-                navigationFragment(1,getString(R.string.ad_meizitu),item)
-            }
-
-            R.id.nav_douban -> {
-                navigationFragment(2,getString(R.string.douban_meizi),item)
-            }
-
-//            R.id.nav_meizitu -> {
-//                navigationFragment(3,getString(R.string.meizitu),item)
+//            R.id.nav_ad_meizi -> {
+//                navigationFragment(1,getString(R.string.ad_meizitu),item)
 //            }
 
+            R.id.nav_douban -> {
+                navigationFragment(1,getString(R.string.douban_meizi),item)
+            }
+
             R.id.nav_huaban-> {
-                navigationFragment(4,getString(R.string.huaban_meizi),item)
+                navigationFragment(2,getString(R.string.huaban_meizi),item)
             }
 
             R.id.nav_tao-> {
-                navigationFragment(5,getString(R.string.tao_female),item)
+                navigationFragment(3,getString(R.string.tao_female),item)
             }
 
             R.id.nav_share -> {
                 ShareUtil.shareAppLink(this,getString(R.string.project_link),getString(R.string.app_name))
+            }
+
+            R.id.nav_score -> {
+                navigationWebView()
             }
 
             R.id.nav_about -> {
@@ -140,6 +141,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toolbar.setTitle(title)
         drawer_layout.closeDrawers()
     }
+
+
+    /**
+     * 去打开页面
+     */
+    fun navigationWebView(){
+
+        val i = Intent()
+        i.setAction("android.intent.action.VIEW")
+        i.setData(Uri.parse(getString(R.string.project_link)))
+        startActivity(i)
+
+    }
+
 
     override fun onBackPressed() {
 

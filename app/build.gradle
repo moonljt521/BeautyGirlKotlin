@@ -54,8 +54,8 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.KOTLIN_GIRL
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             //指定文件名格式  kotlin_girl_v1.0.0.apk

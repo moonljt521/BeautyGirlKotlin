@@ -24,12 +24,13 @@
     <string name="about_version_code">版本</string>
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
-    <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>
+    <string name="project_link">https://play.google.com/store/apps/details?id=com.moon.beautygirlkotlin</string>
 
 
     <string name="ad_fragment_tip">抱歉，这是一条google广告</string>
     <string name="main_nav_header_title">萌妹子</string>
     <string name="main_share_app">分享App</string>
+    <string name="main_score_app">去评分</string>
     <string name="main_about_app">关于App</string>
 
 </resources>

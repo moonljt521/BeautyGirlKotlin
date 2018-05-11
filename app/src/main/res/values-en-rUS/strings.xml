@@ -24,11 +24,11 @@
     <string name="about_version_code">version</string>
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
-    <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>
 
     <string name="ad_fragment_tip">sorry,this is a google ad</string>
     <string name="main_nav_header_title">gankGirl</string>
     <string name="main_share_app">shareApp</string>
+    <string name="main_score_app">score</string>
     <string name="main_about_app">aboutApp</string>
 
 </resources>
