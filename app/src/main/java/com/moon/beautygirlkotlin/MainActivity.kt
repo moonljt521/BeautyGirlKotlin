@@ -12,6 +12,7 @@ import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
+import com.moon.beautygirlkotlin.my_collect.MyCollectFragment
 import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
 import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
@@ -56,9 +57,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun loadData() {
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-//        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
         fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图
         fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
+        fragmentList.add(MyCollectFragment.getInstance(0))  // 我的收藏
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
@@ -81,10 +82,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationFragment(0, getString(R.string.gank_meizi),item)
             }
 
-//            R.id.nav_ad_meizi -> {
-//                navigationFragment(1,getString(R.string.ad_meizitu),item)
-//            }
-
             R.id.nav_douban -> {
                 navigationFragment(1,getString(R.string.douban_meizi),item)
             }
@@ -97,6 +94,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationFragment(3,getString(R.string.tao_female),item)
             }
 
+            R.id.nav_mycollect-> {
+                navigationFragment(4,getString(R.string.my_collect),item)
+            }
+
+
             R.id.nav_share -> {
                 ShareUtil.shareAppLink(this,getString(R.string.project_link),getString(R.string.app_name))
             }
@@ -104,6 +106,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_score -> {
                 navigationWebView()
             }
+
 
             R.id.nav_about -> {
 

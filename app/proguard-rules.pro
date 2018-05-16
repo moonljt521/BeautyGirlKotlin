@@ -196,6 +196,7 @@
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.moon.beautygirlkotlin.base.** { *; }  ##这里需要改成解析到哪个  javabean
 -keep class * extends com.moon.beautygirlkotlin.base.BaseBean{*; }
+-keep class * extends io.realm.RealmObject{*; }
 
 ##---------------End: proguard configuration for Gson  ----------
 

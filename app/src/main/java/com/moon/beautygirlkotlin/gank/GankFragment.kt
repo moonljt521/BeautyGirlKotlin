@@ -13,6 +13,7 @@ import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
@@ -99,37 +100,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      */
     fun loadHttpData() {
         mvpPresenter?.getGankList(mActivity, pageNum, page)
-
-        val adRequest = AdRequest.Builder()
-                .build()
-
-        gank_adView.loadAd(adRequest)
-
-
-        gank_adView.adListener = object : AdListener(){
-            override fun onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            override fun onAdFailedToLoad(errorCode : Int) {
-                // Code to be executed when an ad request fails.
-            }
-
-            override fun onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            override fun onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            override fun onAdClosed() {
-                // Code to be executed when when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        }
-
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
@@ -177,6 +147,12 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         }
 
         mIsRefreshing = false
+
+        val adRequest = AdRequest.Builder()
+                .build()
+
+        gank_adView.loadAd(adRequest)
+
     }
 
     private val EXTRA_INDEX = "extra_index"
@@ -186,13 +162,8 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
         intent.putExtra("url", mAdapter?.list?.get(position)?.url)
+        intent.putExtra("title", mAdapter?.list?.get(position)?.desc)
 
         mActivity.startActivity(intent)
     }
-
-//    override fun getMvpPresenter(): GankMeiziPresenter {
-//        return GankMeiziPresenter()
-//    }
-
-
 }
