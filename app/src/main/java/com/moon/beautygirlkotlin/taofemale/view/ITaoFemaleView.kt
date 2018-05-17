@@ -5,6 +5,4 @@ import com.moon.mvpframework.view.BaseMvpView
 
 interface ITaoFemaleView : BaseMvpView<List<Contentlist>> {
 
-
-
 }

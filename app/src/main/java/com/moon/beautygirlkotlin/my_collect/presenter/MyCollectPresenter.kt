@@ -10,32 +10,17 @@ import java.lang.Exception
 
 class MyCollectPresenter : BaseMvpPresenter<IMyCollectView>() {
 
-    fun getMyCollectList(context: RxAppCompatActivity) {
+    fun getMyCollectList() {
 
         try {
             val list = RealmUtil.getRealm().where(MyCollectBody::class.java).findAll()
 
-            Logger.i("size = " + list?.size)
-
-            if (mvpView == null){
-                Logger.i("mvpView == null")
-            }
-
             mvpView?.showSuccess(list)
 
-            for (i: MyCollectBody in list) {
-                Logger.i("url = " + i.url + ",title = " + i.title)
-            }
         }catch (e: Exception){
             e.printStackTrace()
-
             mvpView?.showError()
-
         }
-
-
-
-
     }
 
 }

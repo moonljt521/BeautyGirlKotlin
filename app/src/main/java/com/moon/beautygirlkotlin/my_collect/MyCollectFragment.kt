@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_my_collect.*
 @CreatePresenter(MyCollectPresenter::class)
 class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IMyCollectView, ViewItemListener {
 
-
     val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
 
     lateinit var mAdapter: MyCollectAdapter
@@ -64,9 +63,11 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
             myCollect_swipe_refresh.isRefreshing = true
 
             mIsRefreshing = true
+
+            queryMyCollect4db()
+
         }
 
-        queryMyCollect4db()
     }
 
     override fun initViews(view: View?) {
@@ -98,7 +99,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
      *  查询db
      */
     fun queryMyCollect4db() {
-        mvpPresenter?.getMyCollectList(mActivity)
+        mvpPresenter?.getMyCollectList()
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {

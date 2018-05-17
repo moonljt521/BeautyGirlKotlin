@@ -61,12 +61,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
         fragmentList.add(MyCollectFragment.getInstance(0))  // 我的收藏
 
+
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
         // 初始化显示 [gank]妹子模块
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
+
     }
 
     override fun getLayoutId(): Int {
@@ -98,7 +100,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationFragment(4,getString(R.string.my_collect),item)
             }
 
-
             R.id.nav_share -> {
                 ShareUtil.shareAppLink(this,getString(R.string.project_link),getString(R.string.app_name))
             }
@@ -107,11 +108,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationWebView()
             }
 
-
             R.id.nav_about -> {
-
                 startActivity(Intent(this,AboutActivity::class.java))
-
             }
         }
 
@@ -142,7 +140,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     /**
-     * 去打开页面
+     * 去跳转系统浏览器
      */
     fun navigationWebView(){
 
