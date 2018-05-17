@@ -96,7 +96,7 @@ object RetrofitHelper: Interceptor {
 
         val interceptor = HttpLoggingInterceptor()
         if (Logger.DEBUG){
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
 
         }else{
             interceptor.level = HttpLoggingInterceptor.Level.NONE
@@ -112,6 +112,8 @@ object RetrofitHelper: Interceptor {
                     mOkHttpClient = OkHttpClient.Builder()
                             .cache(cache)
                             .addInterceptor(interceptor)
+                            // 自定义 拦截器 ，打印日志
+                            .addInterceptor(NetWorkInterceptor())
                             .addNetworkInterceptor(this)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
@@ -133,12 +135,17 @@ object RetrofitHelper: Interceptor {
         if (NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_NETWORK)//有网络时只从网络获取
+                    ?.removeHeader("User-Agent")
+                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         } else {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_CACHE)//无网络时只从缓存中读取
+                    ?.removeHeader("User-Agent")
+                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         }
+
         var response = chain?.proceed(request)
         if (NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
             response = response?.newBuilder()
