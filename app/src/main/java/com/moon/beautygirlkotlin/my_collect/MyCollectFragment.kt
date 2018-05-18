@@ -17,6 +17,7 @@ import com.moon.beautygirlkotlin.my_collect.presenter.MyCollectPresenter
 import com.moon.beautygirlkotlin.my_collect.view.IMyCollectView
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.utils.SpUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_collect.*
@@ -170,6 +171,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
         intent.putExtra("url",mAdapter?.list?.get(position)?.url)
         intent.putExtra("title",mAdapter?.list?.get(position)?.title)
+        intent.putExtra("source",1)
 
         mActivity.startActivity(intent)
     }
@@ -189,6 +191,10 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
         }
 
         mIsRefreshing = false
+
+        if (!SpUtil.tipSwipeDelFavourite()){
+            SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.swipe_del_favourite))
+        }
     }
 
 

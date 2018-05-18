@@ -26,6 +26,8 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
     private var url: String = "";
     private var title: String = "";
 
+    private var source: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,7 +39,11 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
             title= (intent?.getStringExtra("title"))!!
         }
 
+        source= (intent?.getIntExtra("source",0))!!
 
+        if (source == 1){
+            toCollect.visibility = View.GONE
+        }
 
         ImageLoader.load(this,url!!,gank_big_img)
 
