@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewTreeObserver
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
 import com.moon.beautygirlkotlin.taofemale.model.Contentlist

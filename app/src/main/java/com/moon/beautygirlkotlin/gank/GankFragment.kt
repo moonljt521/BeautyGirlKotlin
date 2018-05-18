@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
@@ -13,8 +12,8 @@ import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*

@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.my_collect.component.ItemMoveListener
 import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
+import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import java.util.*
 
@@ -19,7 +21,23 @@ import java.util.*
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewHolder>(), View.OnClickListener {
+class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewHolder>(), View.OnClickListener
+    , ItemMoveListener{
+    override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
+        return false
+    }
+
+    override fun onItemRemove(position: Int): Boolean {
+
+        RealmUtil.delOneFavourite(list?.get(position)!!)
+
+        list?.removeAt(position)
+
+        notifyItemRemoved(position)
+
+        return true
+
+    }
 
     lateinit var context: Context
 
@@ -55,18 +73,6 @@ class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewH
         this.list?.addAll(list)
         notifyDataSetChanged()
     }
-
-
-//    override fun getItemViewType(position: Int): Int {
-//        val type = list?.get(position)?.itemType
-//        if (type == 0){
-//
-//            return AD_ITEM_TYPE
-//        }else
-//
-//            return COMMON_ITEM_TYPE
-//    }
-
 
     override fun onBindViewHolder(holder: MyCollectViewHolder?, position: Int) {
 

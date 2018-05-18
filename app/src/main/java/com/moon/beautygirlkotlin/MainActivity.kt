@@ -151,7 +151,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
-
     override fun onBackPressed() {
 
         if (System.currentTimeMillis() - exitTime > 2000){

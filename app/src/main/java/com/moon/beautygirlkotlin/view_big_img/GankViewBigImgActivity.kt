@@ -1,15 +1,17 @@
-package com.moon.beautygirlkotlin.gank
+package com.moon.beautygirlkotlin.view_big_img
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.my_collect.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * author: moon
@@ -54,28 +56,24 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
             try {
 
-                val res = realm.where(MyCollectBody::class.java).equalTo("url",url).findFirst()
-
-
-                if (res != null){
+                if (RealmUtil.isCollected(url)){
                     SnackbarUtil.showMessage( v,getString(R.string.collect_has))
 
                     return
                 }
 
-
-                realm.beginTransaction()
-
-                var body = MyCollectBody()
+                val body = MyCollectBody()
                 body.title = title
                 body.url = url
                 body.id = url
 
-                realm.copyToRealmOrUpdate(body)
-
-                realm.commitTransaction()
+                RealmUtil.addOneCollect(body)
 
                 SnackbarUtil.showMessage( v,getString(R.string.collect_success))
+
+
+                EventBus.getDefault().post(EventUpdateFavourite(0))
+
 
             }catch (e: Exception){
                 e.printStackTrace()

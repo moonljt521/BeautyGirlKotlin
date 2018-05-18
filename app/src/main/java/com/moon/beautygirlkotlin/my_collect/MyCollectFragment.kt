@@ -4,18 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.my_collect.adapter.MyCollectAdapter
+import com.moon.beautygirlkotlin.my_collect.component.MyItemTouchHelperCallBack
+import com.moon.beautygirlkotlin.my_collect.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
 import com.moon.beautygirlkotlin.my_collect.presenter.MyCollectPresenter
 import com.moon.beautygirlkotlin.my_collect.view.IMyCollectView
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_collect.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * [我的收藏] 模块 fragment
@@ -26,6 +32,11 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
     val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
 
     lateinit var mAdapter: MyCollectAdapter
+
+
+    private var callBack: MyItemTouchHelperCallBack? = null
+
+    private var itemTouchHelper: ItemTouchHelper? = null
 
     var mIsRefreshing: Boolean = false
 
@@ -48,6 +59,11 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
+    }
+
     override fun getLayoutId(): Int {
 
         return R.layout.fragment_my_collect
@@ -67,12 +83,19 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
             queryMyCollect4db()
 
         }
-
     }
+
+    @Subscribe
+    fun refreshFavouriteList(u: EventUpdateFavourite){
+        queryMyCollect4db()
+    }
+
 
     override fun initViews(view: View?) {
 
         mAdapter = MyCollectAdapter()
+
+        callBack = MyItemTouchHelperCallBack(mAdapter)
 
         myCollect_recyclerView.layoutManager = mLayoutManager
 
@@ -81,6 +104,10 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
 //        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
 
         myCollect_recyclerView.adapter = mAdapter
+
+        itemTouchHelper = ItemTouchHelper(callBack)
+
+        itemTouchHelper!!.attachToRecyclerView(myCollect_recyclerView)
 
         mAdapter.itemListener = this
 
@@ -99,7 +126,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
      *  查询db
      */
     fun queryMyCollect4db() {
-        mvpPresenter?.getMyCollectList()
+        mvpPresenter?.getMyCollectList(mActivity)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -130,7 +157,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
 
         myCollect_swipe_refresh.post({ myCollect_swipe_refresh.setRefreshing(false) })
 
-        SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.error_message))
+        SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.image_error))
     }
 
 
@@ -162,6 +189,12 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
         }
 
         mIsRefreshing = false
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }
