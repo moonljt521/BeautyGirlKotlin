@@ -94,12 +94,20 @@ object RetrofitHelper: Interceptor {
      */
     private fun initOkHttpClient() {
 
-        val interceptor = HttpLoggingInterceptor()
+//        val interceptor = HttpLoggingInterceptor()
+//        if (Logger.DEBUG){
+//            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+//
+//        }else{
+//            interceptor.level = HttpLoggingInterceptor.Level.NONE
+//        }
+
+        var logInterceptor = HttpLoggingInterceptor(OkhttpLogInterceptor())
         if (Logger.DEBUG){
-            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         }else{
-            interceptor.level = HttpLoggingInterceptor.Level.NONE
+            logInterceptor.level = HttpLoggingInterceptor.Level.NONE
         }
 
         if (mOkHttpClient == null) {
@@ -111,10 +119,11 @@ object RetrofitHelper: Interceptor {
 
                     mOkHttpClient = OkHttpClient.Builder()
                             .cache(cache)
-                            .addInterceptor(interceptor)
                             // 自定义 拦截器 ，打印日志
-                            .addInterceptor(NetWorkInterceptor())
-                            .addNetworkInterceptor(this)
+//                            .addInterceptor(NetWorkInterceptor())
+                            .addInterceptor(this)
+                            .addInterceptor(logInterceptor)
+//                            .addNetworkInterceptor(logInterceptor)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
                             .readTimeout(10,TimeUnit.SECONDS)
