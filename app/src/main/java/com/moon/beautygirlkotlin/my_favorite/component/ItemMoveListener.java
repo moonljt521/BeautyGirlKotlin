@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.my_collect.component;
+package com.moon.beautygirlkotlin.my_favorite.component;
 
 /**
  * Created by moon on 2017/9/8.

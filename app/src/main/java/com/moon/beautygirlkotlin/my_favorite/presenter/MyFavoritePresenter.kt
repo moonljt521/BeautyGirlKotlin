@@ -1,6 +1,6 @@
-package com.moon.beautygirlkotlin.my_collect.presenter
+package com.moon.beautygirlkotlin.my_favorite.presenter
 
-import com.moon.beautygirlkotlin.my_collect.view.IMyCollectView
+import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
@@ -10,7 +10,7 @@ import java.lang.Exception
 /**
  * 图片收藏 p
  */
-class MyCollectPresenter : BaseMvpPresenter<IMyCollectView>() {
+class MyFavoritePresenter : BaseMvpPresenter<IMyFavoriteView>() {
 
     fun getMyCollectList(context: RxAppCompatActivity) {
 

@@ -1,6 +1,6 @@
 package com.moon.beautygirlkotlin.realm
 
-import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
+import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 
 /**
  * author: moon
@@ -9,6 +9,6 @@ import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
  */
 interface RealmResultCallBack {
 
-    fun findResult(list : List<MyCollectBody>)
+    fun findResult(list : List<MyFavoriteBody>)
     
 }

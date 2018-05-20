@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.my_collect.adapter
+package com.moon.beautygirlkotlin.my_favorite.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.my_collect.component.ItemMoveListener
-import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
+import com.moon.beautygirlkotlin.my_favorite.component.ItemMoveListener
+import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import java.util.*
@@ -21,7 +21,7 @@ import java.util.*
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewHolder>(), View.OnClickListener
+class MyFavoriteAdapter( ) : RecyclerView.Adapter<MyFavoriteAdapter.MyCollectViewHolder>(), View.OnClickListener
     , ItemMoveListener{
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         return false
@@ -50,7 +50,7 @@ class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewH
         itemListener?.itemClick(v,position)
     }
 
-    var list: ArrayList<MyCollectBody>? = null
+    var list: ArrayList<MyFavoriteBody>? = null
 
     lateinit var itemListener : ViewItemListener
 
@@ -58,12 +58,12 @@ class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewH
         this.list = ArrayList()
     }
 
-    fun loadMoreData(list:List<MyCollectBody>){
+    fun loadMoreData(list:List<MyFavoriteBody>){
         this.list?.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun refreshData(list:List<MyCollectBody>){
+    fun refreshData(list:List<MyFavoriteBody>){
 
         if (this.list?.size!! > 0){
             this.list?.clear()
@@ -76,7 +76,7 @@ class MyCollectAdapter( ) : RecyclerView.Adapter<MyCollectAdapter.MyCollectViewH
 
     override fun onBindViewHolder(holder: MyCollectViewHolder?, position: Int) {
 
-        var body : MyCollectBody = list?.get(position)!!
+        var body : MyFavoriteBody = list?.get(position)!!
 
 
         ImageLoader.load(context, body.url, R.drawable.placeholder_image, holder!!.item_img)

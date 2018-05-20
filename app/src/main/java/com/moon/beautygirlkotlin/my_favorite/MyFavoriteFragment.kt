@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.my_collect
+package com.moon.beautygirlkotlin.my_favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,30 +9,29 @@ import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.my_collect.adapter.MyCollectAdapter
-import com.moon.beautygirlkotlin.my_collect.component.MyItemTouchHelperCallBack
-import com.moon.beautygirlkotlin.my_collect.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
-import com.moon.beautygirlkotlin.my_collect.presenter.MyCollectPresenter
-import com.moon.beautygirlkotlin.my_collect.view.IMyCollectView
-import com.moon.beautygirlkotlin.utils.Logger
+import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
+import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
+import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
+import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
+import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
+import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import com.moon.mvpframework.view.BaseFragment
-import kotlinx.android.synthetic.main.fragment_my_collect.*
+import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 /**
  * [我的收藏] 模块 fragment
  */
-@CreatePresenter(MyCollectPresenter::class)
-class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IMyCollectView, ViewItemListener {
+@CreatePresenter(MyFavoritePresenter::class)
+class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(), IMyFavoriteView, ViewItemListener {
 
     val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
 
-    lateinit var mAdapter: MyCollectAdapter
+    lateinit var mAdapter: MyFavoriteAdapter
 
 
     private var callBack: MyItemTouchHelperCallBack? = null
@@ -49,8 +48,8 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
 
     companion object {
 
-        fun getInstance(id: Int): MyCollectFragment {
-            var fragment = MyCollectFragment();
+        fun getInstance(id: Int): MyFavoriteFragment {
+            var fragment = MyFavoriteFragment();
             var bundle = Bundle()
             bundle.putInt("id", id)
 
@@ -67,7 +66,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
 
     override fun getLayoutId(): Int {
 
-        return R.layout.fragment_my_collect
+        return R.layout.fragment_my_favorite
     }
 
     /**
@@ -87,14 +86,14 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
     }
 
     @Subscribe
-    fun refreshFavouriteList(u: EventUpdateFavourite){
+    public fun refreshFavouriteList(u: EventUpdateFavourite){
         queryMyCollect4db()
     }
 
 
     override fun initViews(view: View?) {
 
-        mAdapter = MyCollectAdapter()
+        mAdapter = MyFavoriteAdapter()
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
@@ -176,7 +175,7 @@ class MyCollectFragment : BaseFragment<IMyCollectView, MyCollectPresenter>(), IM
         mActivity.startActivity(intent)
     }
 
-    override fun showSuccess(list : List<MyCollectBody>?) {
+    override fun showSuccess(list : List<MyFavoriteBody>?) {
 
         if (page == 1) {
 

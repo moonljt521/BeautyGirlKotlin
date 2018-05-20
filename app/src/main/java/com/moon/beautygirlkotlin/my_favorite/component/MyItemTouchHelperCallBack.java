@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.my_collect.component;
+package com.moon.beautygirlkotlin.my_favorite.component;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;

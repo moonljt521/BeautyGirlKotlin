@@ -12,7 +12,7 @@ object Logger {
 
     private val TAG = "moon"
 
-    var DEBUG = true
+    var DEBUG = false
 
     fun i(value: String) {
         if (DEBUG) {

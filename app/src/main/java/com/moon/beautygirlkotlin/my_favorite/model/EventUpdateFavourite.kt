@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.my_collect.model
+package com.moon.beautygirlkotlin.my_favorite.model
 
 /**
  * author: moon

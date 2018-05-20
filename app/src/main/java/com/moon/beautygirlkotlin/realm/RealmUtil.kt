@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.realm
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
-import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
+import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import io.realm.Realm
 import io.realm.RealmConfiguration
 
@@ -41,9 +41,9 @@ object RealmUtil {
     /**
      * 获取 整个收藏列表 同步
      */
-    fun getCollectAll():List<MyCollectBody> {
+    fun getCollectAll():List<MyFavoriteBody> {
 
-        val list = getRealm().where(MyCollectBody::class.java).findAll()
+        val list = getRealm().where(MyFavoriteBody::class.java).findAll()
 
         return list
     }
@@ -53,12 +53,12 @@ object RealmUtil {
      */
     fun getCollectAllAsync(callBack: RealmResultCallBack) {
 
-        var list: List<MyCollectBody>;
+        var list: List<MyFavoriteBody>;
 
         getRealm().executeTransactionAsync({
 
             realm ->
-            list =  Realm.getDefaultInstance().where(MyCollectBody::class.java).findAll()
+            list =  Realm.getDefaultInstance().where(MyFavoriteBody::class.java).findAll()
 
             callBack.findResult(list)
 
@@ -71,7 +71,7 @@ object RealmUtil {
      * 判断当前 图片是否收藏过
      */
     fun isCollected(url:String):Boolean {
-        var result = getRealm().where(MyCollectBody::class.java).equalTo("url",url).findFirst()
+        var result = getRealm().where(MyFavoriteBody::class.java).equalTo("url",url).findFirst()
         return result != null
     }
 
@@ -79,7 +79,7 @@ object RealmUtil {
     /**
      * 添加一个收藏
      */
-    fun addOneCollect(body: MyCollectBody) {
+    fun addOneCollect(body: MyFavoriteBody) {
         getRealm().beginTransaction()
 
         getRealm().copyToRealmOrUpdate(body)
@@ -92,7 +92,7 @@ object RealmUtil {
     /**
      * 删除 一个收藏
      */
-    fun delOneFavourite(body: MyCollectBody) {
+    fun delOneFavourite(body: MyFavoriteBody) {
         getRealm().beginTransaction()
 
         body.deleteFromRealm()

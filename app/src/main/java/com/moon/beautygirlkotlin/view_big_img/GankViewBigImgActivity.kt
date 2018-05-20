@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.my_collect.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.my_collect.model.MyCollectBody
+import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
+import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -68,7 +68,7 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
                     return
                 }
 
-                val body = MyCollectBody()
+                val body = MyFavoriteBody()
                 body.title = title
                 body.url = url
                 body.id = url
