@@ -10,6 +10,7 @@
     <string name="meizitu">紙纸图</string>
     <string name="ad_meizitu">AD紙纸图</string>
     <string name="tao_female">淘女郎</string>
+    <string name="my_collect">我的收藏</string>
     <string name="douban_meizi">豆瓣紙纸</string>
     <string name="huaban_meizi">花瓣紙纸</string>
     <string name="jiandan_meizi">煎蛋紙纸</string>
@@ -23,11 +24,11 @@
     <string name="about_version_code">版本</string>
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
-    <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>
 
     <string name="ad_fragment_tip">抱歉，這是一條google廣告</string>
     <string name="main_nav_header_title">萌紙子</string>
     <string name="main_share_app">分享App</string>
+    <string name="main_score_app">去評分</string>
     <string name="main_about_app">關於App</string>
 
 </resources>

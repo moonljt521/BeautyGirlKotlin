@@ -1,8 +1,5 @@
 package com.moon.beautygirlkotlin.gank.presenter
 
-import android.content.Context
-import android.util.Log
-import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.mvpframework.presenter.BaseMvpPresenter
@@ -17,10 +14,10 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 
         RetrofitHelper.getGankMeiziApi()
                 .getGankMeizi(pageNum, page)
+                .subscribeOn(Schedulers.io())
                 .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
                 .filter({ gankMeiziResult -> !gankMeiziResult.error })
                 .map({ gankMeiziResult -> gankMeiziResult.results })
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ gankMeiziInfos ->
 

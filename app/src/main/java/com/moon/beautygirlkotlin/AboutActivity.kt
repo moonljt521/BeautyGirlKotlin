@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_about.*
 
 /**
@@ -11,13 +12,9 @@ import kotlinx.android.synthetic.main.activity_about.*
  * created on: 18/4/28 下午3:10
  * description: 关于
  */
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
-
+    override fun initViews() {
         setSupportActionBar(about_toolbar)
 
         val supportActionBar = supportActionBar
@@ -26,6 +23,14 @@ class AboutActivity : AppCompatActivity() {
         collapsing_toolbar.setTitle(getString(R.string.about_title))
 
         about_title_v.setText(getVersion())
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_about
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

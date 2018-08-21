@@ -4,7 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.google.android.gms.ads.MobileAds
+import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.tencent.bugly.crashreport.CrashReport
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 
 /**
@@ -27,6 +30,10 @@ class BeautyGirlKotlinApp: Application() {
         MobileAds.initialize(this,"ca-app-pub-5604418926465302~4667836816")
 
         CrashReport.initCrashReport(getApplicationContext(), "1400017522", true);
+
+        // realm 初始化
+        RealmUtil.init()
+
     }
 
     override fun attachBaseContext(base: Context?) {

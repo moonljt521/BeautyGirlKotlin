@@ -3,13 +3,12 @@
 
     <string name="navigation_drawer_open">打开抽屉</string>
     <string name="navigation_drawer_close">关闭抽屉</string>
-    <string name="error_message">哎呀,加载失败了,请检查下网络或者下拉重新刷新下~</string>
-    <string name="image_error">图片加载失败啦~</string>
-    <string name="back_message">再按一次退出</string>
+
     <string name="gank_meizi">萌妹纸</string>
     <string name="meizitu">妹纸图</string>
     <string name="ad_meizitu">AD妹纸图</string>
     <string name="tao_female">淘女郎</string>
+    <string name="my_collect">我的收藏</string>
     <string name="douban_meizi">豆瓣妹纸</string>
     <string name="huaban_meizi">花瓣妹纸</string>
     <string name="jiandan_meizi">煎蛋妹纸</string>
@@ -24,12 +23,23 @@
     <string name="about_version_code">版本</string>
     <string name="about_open_source_libraries_list">QQ:446741151</string>
     <string name="about_version">1.0</string>
-    <string name="project_link">https://github.com/moonljt521/BeautyGirlKotlin</string>
+    <string name="project_link">https://play.google.com/store/apps/details?id=com.moon.beautygirlkotlin</string>
 
 
     <string name="ad_fragment_tip">抱歉，这是一条google广告</string>
     <string name="main_nav_header_title">萌妹子</string>
     <string name="main_share_app">分享App</string>
+    <string name="main_score_app">去评分</string>
     <string name="main_about_app">关于App</string>
+
+    <!-- tip -->
+    <string name="error_message">哎呀,加载失败了,请检查下网络或者下拉重新刷新下~</string>
+    <string name="image_error">图片加载失败啦~</string>
+    <string name="back_message">再按一次退出</string>
+    <string name="no_data">没有数据</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="collect_has">您已经收藏过了</string>
+    <string name="collect_fail">收藏失败</string>
+    <string name="swipe_del_favourite">左右滑动可以删除收藏</string>
 
 </resources>

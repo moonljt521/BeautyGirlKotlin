@@ -20,6 +20,7 @@ import com.moon.mvpframework.presenter.BaseMvpPresenter;
 import com.moon.mvpframework.proxy.BaseMvpProxy;
 import com.moon.mvpframework.proxy.PresenterProxyInterface;
 import com.moon.mvpframework.view.BaseMvpView;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 /**
@@ -36,7 +37,7 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
 
     protected boolean loadFinish;
 
-    protected Activity mActivity;
+    protected RxAppCompatActivity mActivity;
 
     protected abstract int getLayoutId();
 
@@ -69,7 +70,7 @@ public abstract class BaseLazeFragment<V extends BaseMvpView, P extends BaseMvpP
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (Activity) context;
+        mActivity = (RxAppCompatActivity) context;
     }
 
     @Override

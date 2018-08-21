@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.bm.library.PhotoView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/gank_big_img"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleType="centerCrop"
     android:background="@color/black"
-     />
+    >
+
+    <com.bm.library.PhotoView
+
+        android:id="@+id/gank_big_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+
+
+    <ImageView
+        android:id="@+id/toCollect"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="70dp"
+        android:src="@drawable/nav_socre"/>
+
+</RelativeLayout>
 

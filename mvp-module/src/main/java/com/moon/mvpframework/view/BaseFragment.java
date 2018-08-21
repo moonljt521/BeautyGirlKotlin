@@ -85,16 +85,19 @@ public abstract class BaseFragment<V extends BaseMvpView, P extends BaseMvpPrese
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
-    }
 
-    public void onResume() {
-        super.onResume();
         try {
             mProxy.onResume((V) this);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        initData();
+    }
+
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void onPause() {

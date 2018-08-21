@@ -10,13 +10,15 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import com.moon.beautygirlkotlin.MainActivity
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import rx.Observable
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
+
 
 
     private val ANIMATION_TIME = 2000
@@ -25,14 +27,18 @@ class SplashActivity : AppCompatActivity() {
 
     private var subscribe: Subscription? = null
 
+    override fun initViews() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    }
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+    override fun loadData() {
         subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { aLong -> startAnim() }
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_splash
     }
 
 

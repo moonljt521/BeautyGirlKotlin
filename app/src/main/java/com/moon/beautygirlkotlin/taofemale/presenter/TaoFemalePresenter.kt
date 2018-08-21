@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.taofemale.presenter
 
-import android.content.Context
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.ConstantUtil

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.huaban.model.HuaBanAdapter
 import com.moon.beautygirlkotlin.huaban.model.HuaBanBody
 import com.moon.beautygirlkotlin.huaban.presenter.HuaBanPresenter

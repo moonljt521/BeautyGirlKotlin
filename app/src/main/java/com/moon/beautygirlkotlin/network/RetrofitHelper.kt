@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin.network
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.network.api.*
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -93,8 +94,21 @@ object RetrofitHelper: Interceptor {
      */
     private fun initOkHttpClient() {
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+//        val interceptor = HttpLoggingInterceptor()
+//        if (Logger.DEBUG){
+//            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+//
+//        }else{
+//            interceptor.level = HttpLoggingInterceptor.Level.NONE
+//        }
+
+        var logInterceptor = HttpLoggingInterceptor(OkhttpLogInterceptor())
+        if (Logger.DEBUG){
+            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        }else{
+            logInterceptor.level = HttpLoggingInterceptor.Level.NONE
+        }
 
         if (mOkHttpClient == null) {
             synchronized(RetrofitHelper::class.java) {
@@ -105,8 +119,11 @@ object RetrofitHelper: Interceptor {
 
                     mOkHttpClient = OkHttpClient.Builder()
                             .cache(cache)
-                            .addInterceptor(interceptor)
-                            .addNetworkInterceptor(this)
+                            // 自定义 拦截器 ，打印日志
+//                            .addInterceptor(NetWorkInterceptor())
+                            .addInterceptor(this)
+                            .addInterceptor(logInterceptor)
+//                            .addNetworkInterceptor(logInterceptor)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
                             .readTimeout(10,TimeUnit.SECONDS)
@@ -127,12 +144,17 @@ object RetrofitHelper: Interceptor {
         if (NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_NETWORK)//有网络时只从网络获取
+                    ?.removeHeader("User-Agent")
+                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         } else {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_CACHE)//无网络时只从缓存中读取
+                    ?.removeHeader("User-Agent")
+                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         }
+
         var response = chain?.proceed(request)
         if (NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
             response = response?.newBuilder()

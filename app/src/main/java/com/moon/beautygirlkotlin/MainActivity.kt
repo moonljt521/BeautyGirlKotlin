@@ -1,29 +1,29 @@
 package com.moon.beautygirlkotlin
 
 import android.content.Intent
-import android.os.Bundle
+import android.net.Uri
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import com.moon.beautygirlkotlin.admeizi.AdMeiziFragment
+import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
-import com.moon.beautygirlkotlin.meizitu.MeiZiTuBaseFragment
+import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
 import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
+import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 主页
  */
-class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var mCircleImageView: ImageView
 
@@ -33,16 +33,8 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     var exitTime:Long = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        initViews()
-
-        initData()
-    }
-
-    fun initViews() {
+    override fun initViews() {
         nav_view.setNavigationItemSelectedListener(this)
 
         var headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
@@ -61,14 +53,14 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
     }
 
-    fun initData() {
 
+    override fun loadData() {
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
-        fragmentList.add(AdMeiziFragment.getInstance(0))  // 含有广告帖的妹子
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-        fragmentList.add(MeiZiTuBaseFragment.getInstance(0))  // 妹子图
         fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图
         fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
+        fragmentList.add(MyFavoriteFragment.getInstance(0))  // 我的收藏
+
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
@@ -76,7 +68,14 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
+
     }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -85,34 +84,32 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
                 navigationFragment(0, getString(R.string.gank_meizi),item)
             }
 
-            R.id.nav_ad_meizi -> {
-                navigationFragment(1,getString(R.string.ad_meizitu),item)
-            }
-
             R.id.nav_douban -> {
-                navigationFragment(2,getString(R.string.douban_meizi),item)
+                navigationFragment(1,getString(R.string.douban_meizi),item)
             }
-
-//            R.id.nav_meizitu -> {
-//                navigationFragment(3,getString(R.string.meizitu),item)
-//            }
 
             R.id.nav_huaban-> {
-                navigationFragment(4,getString(R.string.huaban_meizi),item)
+                navigationFragment(2,getString(R.string.huaban_meizi),item)
             }
 
             R.id.nav_tao-> {
-                navigationFragment(5,getString(R.string.tao_female),item)
+                navigationFragment(3,getString(R.string.tao_female),item)
+            }
+
+            R.id.nav_mycollect-> {
+                navigationFragment(4,getString(R.string.my_collect),item)
             }
 
             R.id.nav_share -> {
                 ShareUtil.shareAppLink(this,getString(R.string.project_link),getString(R.string.app_name))
             }
 
+            R.id.nav_score -> {
+                navigationWebView()
+            }
+
             R.id.nav_about -> {
-
                 startActivity(Intent(this,AboutActivity::class.java))
-
             }
         }
 
@@ -141,6 +138,19 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
         drawer_layout.closeDrawers()
     }
 
+
+    /**
+     * 去跳转系统浏览器
+     */
+    fun navigationWebView(){
+
+        val i = Intent()
+        i.setAction("android.intent.action.VIEW")
+        i.setData(Uri.parse(getString(R.string.project_link)))
+        startActivity(i)
+
+    }
+
     override fun onBackPressed() {
 
         if (System.currentTimeMillis() - exitTime > 2000){
@@ -149,9 +159,11 @@ class MainActivity : RxAppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             exitTime = System.currentTimeMillis()
 
-            return
+        }else{
+
+            AppManager.getAppManager().exitApp(applicationContext)
+
         }
-        super.onBackPressed()
     }
 
 }

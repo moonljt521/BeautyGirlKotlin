@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewTreeObserver
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
 import com.moon.beautygirlkotlin.taofemale.model.Contentlist
@@ -155,47 +154,9 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     override fun itemClick(v: View, position: Int) {
 
-//        val mIntent = Intent(activity, GankMeiziPageActivity::class.java)
-//        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        mIntent.putExtra(EXTRA_INDEX, position)
-//
-//        if (Build.VERSION.SDK_INT >= 22) {
-//            startActivity(mIntent,
-//                    ActivityOptions.makeSceneTransitionAnimation(activity,
-//                            holder.getParentView().findViewById(R.id.item_img),
-//                            mAdapter.list?.get(position)?.url).toBundle())
-//        } else {
-//            startActivity(mIntent)
-//        }
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
         intent.putExtra("url",mAdapter?.list?.get(position)?.avatarUrl)
 
         mActivity.startActivity(intent)
-
-
     }
-
-    fun scrollIndex() {
-
-        if (imageIndex != -1) {
-            gank_recyclerView.scrollToPosition(imageIndex)
-            gank_recyclerView.getViewTreeObserver()
-                    .addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-
-                        override fun onPreDraw(): Boolean {
-
-                            gank_recyclerView.getViewTreeObserver().removeOnPreDrawListener(this)
-                            gank_recyclerView.requestLayout()
-                            return true
-                        }
-                    })
-        }
-    }
-
-
-//    override fun getMvpPresenter(): GankMeiziPresenter {
-//        return GankMeiziPresenter()
-//    }
-
-
 }

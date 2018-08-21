@@ -1,16 +1,31 @@
 package com.moon.beautygirlkotlin.base
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.moon.beautygirlkotlin.utils.AppManager
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 
 
 /**
  *  baseActivity
  */
-class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : RxAppCompatActivity() {
+
+
+    abstract fun initViews();
+    abstract fun loadData();
+
+    abstract fun getLayoutId() : Int;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppManager.getAppManager().addActivity(this)
+
+        setContentView(getLayoutId())
+
+        initViews()
+
+        loadData()
+
     }
 
 

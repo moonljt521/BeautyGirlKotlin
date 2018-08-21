@@ -4,3 +4,12 @@
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/armeabi-v7a/buglySymbol_libnative-lib_armeabi-v7a-7d823.zip --> d5ce11f96884827fd01cb04363f609dedfc609c4
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86/buglySymbol_libnative-lib_x86-dca65.zip --> 5de54dc923fc8115465f7d57c8f1f17b25625036
 /Users/moon/Documents/demo/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86_64/buglySymbol_libnative-lib_x86_64-606c2.zip --> 56a9c4539dd47775e44fd58b8af72b9ab47a81f9
+/Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> e5f7e6cdf02b34bf99d9e61a254492356d935a22
+/Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> c661ac83ee6f79f80a6216d2726813b7bb62024d
+/Users/moon/Documents/demo/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> 8b4e26f652224bebd6b2833333ef9cc6cfd9ab28
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/arm64-v8a/buglySymbol_libnative-lib_arm64-v8a-5e137.zip --> 3e3996fb8c83a0125f0827432c40036d5a0a9fc3
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/armeabi/buglySymbol_libnative-lib_armeabi-v5te-b5df1.zip --> 0f53f00c7a1a9a091236f805abf45bd232cd4213
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/armeabi-v7a/buglySymbol_libnative-lib_armeabi-v7a-fd9da.zip --> eeac981d704535b48de83ab9aafb2454c5485f04
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86/buglySymbol_libnative-lib_x86-a9255.zip --> ae7936fcaf90428a4d4874e737129dcf218d3f99
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/x86_64/buglySymbol_libnative-lib_x86_64-4876c.zip --> 01f0325c1861734cf79af908ef38935e84e0d7c6
+/Users/moon/Documents/Android_workspace/BeautyGirlKotlin/app/build/outputs/mapping/release/app-mapping.txt --> cad3a42b551e9878285aaa928cdb96efe0f2bb2f
