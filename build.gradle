@@ -5,8 +5,12 @@ buildscript {
     ext.kotlin_version = '1.2.30'
     repositories {
         google()
+        mavenCentral()
         jcenter()
-
+        maven { url "https://jitpack.io" }
+        maven {
+            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -21,8 +25,12 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven {
+            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
+        }
     }
 }
 
