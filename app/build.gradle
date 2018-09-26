@@ -21,9 +21,8 @@ bugly {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-
+    compileSdkVersion project.properties.'compileSdkVersion'.toString().toInteger()
+//    buildToolsVersion project.properties.'buildToolsVersion'
 
     signingConfigs {
         KOTLIN_GIRL {
@@ -38,10 +37,11 @@ android {
 
     defaultConfig {
         applicationId "com.moon.beautygirlkotlin"
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 22
-        versionName "2.2"
+        minSdkVersion project.properties.'minSdkVersion'.toString().toInteger()
+        targetSdkVersion project.properties.'targetSdkVersion'.toString().toInteger()
+        versionCode project.properties.'versionCode'.toString().toInteger()
+        versionName project.properties.'versionName'
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -171,12 +171,6 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:latest.release'
     // Google ad
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
-    // firebase
-//    implementation 'com.google.firebase:firebase-core:11.8.0'
-    //compile 'com.tencent.bugly:nativecrashreport:latest.release'
-//    implementation 'io.realm:realm-android:0.87.5'
-//    kapt 'io.realm:realm-annotations:0.87.5'
-//    kapt 'io.realm:realm-annotations-processor:0.87.5'
 }
 
 
