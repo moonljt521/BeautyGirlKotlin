@@ -1,13 +1,13 @@
-def supportVersion = "26.0.2"
+def supportVersion = "28.0.3"
 def stethoVersion = "1.5.0"
 
 project.ext {
     android = [
-            compileSdkVersion: 26,
-            buildToolsVersion: "26.0.2",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
             applicationId    : "com.doing.pos",
             minSdkVersion    : 18,
-            targetSdkVersion : 26,
+            targetSdkVersion : 28,
             versionCode      : 1,
             versionName      : "1.0.0",
             javaVersion      : JavaVersion.VERSION_1_8
@@ -56,7 +56,7 @@ project.ext {
 
             "logger"                  : "com.orhanobut:logger:1.15",
 
-            //facebook
+            //facebook 弃用
             "stetho"                  : "com.facebook.stetho:stetho:${stethoVersion}",
 
             //material
