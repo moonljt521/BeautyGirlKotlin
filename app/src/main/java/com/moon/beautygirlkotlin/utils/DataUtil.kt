@@ -26,7 +26,7 @@ object DataUtil {
         val list = ArrayList<DoubanMeiziBody>()
 
         try {
-            val string = response.body().string()
+            val string = response.body()?.string()
             val parse = Jsoup.parse(string)
             val elements = parse.select("div[class=thumbnail]>div[class=img_single]>a>img")
             var meizi: DoubanMeiziBody
