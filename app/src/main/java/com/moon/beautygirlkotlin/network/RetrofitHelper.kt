@@ -1,15 +1,21 @@
 package com.moon.beautygirlkotlin.network
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
+import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import com.moon.beautygirlkotlin.network.api.*
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 
@@ -18,7 +24,7 @@ import java.util.concurrent.TimeUnit
  * created on: 18/4/25 下午3:03
  * description:
  */
-object RetrofitHelper: Interceptor {
+object RetrofitHelper: Interceptor ,BaseRepository() {
 
     init {
         initOkHttpClient();
@@ -27,7 +33,7 @@ object RetrofitHelper: Interceptor {
 
     private var mOkHttpClient: OkHttpClient? = null
 
-    // gank 妹子
+    // gank(萌妹子) 妹子
     private val BASE_GANK_URL = "http://gank.io/api/"
 
     // 豆瓣
@@ -57,8 +63,17 @@ object RetrofitHelper: Interceptor {
     /**
      * Gank妹子Api
      */
-    fun getGankMeiziApi(): GankMeiziAPI {
-        return getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)
+//    fun getGankMeiziApi(): GankMeiziAPI {
+//        return getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)
+//    }
+
+
+    /**
+     * todo
+     * Gank妹子Api  协程用法 from 3.0
+     */
+    suspend fun getGankMeiziApi(): GankMeiziAPI {
+        return apiCall { getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)}
     }
 
 
@@ -105,6 +120,54 @@ object RetrofitHelper: Interceptor {
 //        }
 
         var logInterceptor = HttpLoggingInterceptor(OkhttpLogInterceptor())
+
+//        Deprecated
+        val REWRITE_CACHE_CONTROL_INTERCEPTOR = object : Interceptor {
+            @Throws(IOException::class)
+            override fun intercept(chain: Interceptor.Chain): Response {
+                val originalResponse = chain.proceed(chain.request())
+                return originalResponse.newBuilder()
+                        .removeHeader("Pragma")
+                        .header("Cache-Control",
+                                String.format("max-age=%d", 60))
+                        .build()
+            }
+        }
+
+
+        val REWRITE_RESPONSE_INTERCEPTOR = object : Interceptor {
+            @Throws(IOException::class)
+            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+                val originalResponse = chain.proceed(chain.request())
+                val cacheControl = originalResponse.header("Cache-Control")
+                return if (cacheControl == null || cacheControl!!.contains("no-store") || cacheControl!!.contains("no-cache") ||
+                        cacheControl!!.contains("must-revalidate") || cacheControl!!.contains("max-age=0")) {
+                    originalResponse.newBuilder()
+                            .removeHeader("Pragma")
+                            .header("Cache-Control", "public, max-age=" + 5000)
+                            .build()
+                } else {
+                    originalResponse
+                }
+            }
+        }
+
+
+        var REWRITE_RESPONSE_INTERCEPTOR_OFFLINE =  object :  Interceptor {
+            @Override
+            override fun intercept(chain : Interceptor.Chain) : okhttp3.Response{
+                var request = chain.request()
+                if (!NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
+                    request = request.newBuilder()
+                            .removeHeader("Pragma")
+                            .header("Cache-Control", "public, only-if-cached")
+                            .build();
+                }
+                return chain.proceed(request);
+            }
+        };
+
+
         if (Logger.DEBUG){
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -125,7 +188,8 @@ object RetrofitHelper: Interceptor {
 //                            .addInterceptor(NetWorkInterceptor())
                             .addInterceptor(this)
                             .addInterceptor(logInterceptor)
-//                            .addNetworkInterceptor(logInterceptor)
+//                            .addNetworkInterceptor(REWRITE_RESPONSE_INTERCEPTOR)
+//                            .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
                             .readTimeout(10,TimeUnit.SECONDS)
