@@ -6,16 +6,18 @@ import android.content.Context;
 import java.util.Stack;
 
 
-public class AppManager {
+public final class AppManager {
 	private static Stack<Activity> activityStack = new Stack<>();
-	private static AppManager instance;
+	private static volatile AppManager instance;
 	private AppManager(){}
-	/**
-	 * 单一实例
-	 */
+
 	public static AppManager getAppManager(){
 		if(instance==null){
-			instance=new AppManager();
+			synchronized (AppManager.class){
+				if (instance == null){
+					instance =new AppManager();
+				}
+			}
 		}
 		return instance;
 	}

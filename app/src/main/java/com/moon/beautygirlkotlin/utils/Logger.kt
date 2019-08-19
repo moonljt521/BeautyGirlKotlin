@@ -10,9 +10,9 @@ import android.util.Log
 object Logger {
 
 
-    private val TAG = "moon"
+    private val TAG = "BeautyGirlKotlin"
 
-    var DEBUG = false
+    var DEBUG = true
 
     fun i(value: String) {
         if (DEBUG) {

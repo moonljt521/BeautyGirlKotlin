@@ -21,9 +21,8 @@ bugly {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-
+    compileSdkVersion project.properties.'compileSdkVersion'.toString().toInteger()
+//    buildToolsVersion project.properties.'buildToolsVersion'
 
     signingConfigs {
         KOTLIN_GIRL {
@@ -38,10 +37,11 @@ android {
 
     defaultConfig {
         applicationId "com.moon.beautygirlkotlin"
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 22
-        versionName "2.2"
+        minSdkVersion project.properties.'minSdkVersion'.toString().toInteger()
+        targetSdkVersion project.properties.'targetSdkVersion'.toString().toInteger()
+        versionCode project.properties.'versionCode'.toString().toInteger()
+        versionName project.properties.'versionName'
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -130,8 +130,9 @@ dependencies {
     implementation 'com.android.support:support-annotations:26.0.2'
     testImplementation 'junit:junit:4.12'
     //KOTLIN
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     // anko
 //    implementation 'org.jetbrains.anko:anko-sdk15:0.8.3'
 //    implementation 'org.jetbrains.anko:anko-appcompat-v7:0.8.3'
@@ -171,12 +172,6 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:latest.release'
     // Google ad
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
-    // firebase
-//    implementation 'com.google.firebase:firebase-core:11.8.0'
-    //compile 'com.tencent.bugly:nativecrashreport:latest.release'
-//    implementation 'io.realm:realm-android:0.87.5'
-//    kapt 'io.realm:realm-annotations:0.87.5'
-//    kapt 'io.realm:realm-annotations-processor:0.87.5'
 }
 
 
