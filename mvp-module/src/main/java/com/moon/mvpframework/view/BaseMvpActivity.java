@@ -72,6 +72,7 @@ public abstract class BaseMvpActivity<V extends BaseMvpView, P extends BaseMvpPr
         setContentView(getLayoutId());
         initViews();
         init();
+
     }
 
     @Override
