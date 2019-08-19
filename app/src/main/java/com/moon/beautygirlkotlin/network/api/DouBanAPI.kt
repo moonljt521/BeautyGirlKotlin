@@ -17,7 +17,7 @@ interface DouBanAPI {
     /**
      * 根据cid查询不同类型的妹子图片
      */
-    @GET("show.htm")
+    @GET("index.htm")
     fun getDoubanMeizi(@Query("cid") cid: Int, @Query("pager_offset") pageNum: Int): Observable<Response<ResponseBody>>
 
 }

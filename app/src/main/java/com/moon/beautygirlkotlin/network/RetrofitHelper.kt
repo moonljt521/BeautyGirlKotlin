@@ -30,11 +30,13 @@ object RetrofitHelper: Interceptor {
     // gank 妹子
     private val BASE_GANK_URL = "http://gank.io/api/"
 
+    // 豆瓣
+//    private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/dbgroup/"
+    private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/"
+
     // 花瓣
     private val BASE_HUABAN_URL = "http://route.showapi.com/"
 
-    // 豆瓣
-    private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/dbgroup/"
 
     // 煎蛋
     private val BASE_JIANDAN_URL = "http://jandan.net/"
