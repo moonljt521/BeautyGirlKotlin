@@ -32,14 +32,18 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
                     }
 
                     withContext(Dispatchers.Main) {
-                        mvpView?.showSuccess(result)
+                        if (result.size <= 0) {
+                            mvpView.showError()
+                        }else{
+                            mvpView?.showSuccess(result)
+                        }
                     }
                 },
 
                 onFail = {
                     mvpView?.showError()
                 }
-                )
+        )
 
 
 //        RetrofitHelper.getDoubanMeiziApi()
