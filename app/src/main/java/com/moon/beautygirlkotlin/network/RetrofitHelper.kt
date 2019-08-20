@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
  * created on: 18/4/25 下午3:03
  * description:
  */
-object RetrofitHelper: Interceptor ,BaseRepository() {
+object RetrofitHelper : Interceptor, BaseRepository() {
 
     init {
         initOkHttpClient();
@@ -37,7 +37,6 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
     private val BASE_GANK_URL = "http://gank.io/api/"
 
     // 豆瓣
-//    private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/dbgroup/"
     private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/"
 
     // 花瓣
@@ -51,7 +50,7 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
     private val BASE_MEIZITU_URL = "http://www.mzitu.com/"
 
 
-    fun getRetroFitBuilder(url :String) : Retrofit {
+    fun getRetroFitBuilder(url: String): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(url)
                 .client(mOkHttpClient)
@@ -69,19 +68,22 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
 
 
     /**
-     * todo
      * Gank妹子Api  协程用法 from 3.0
      */
     suspend fun getGankMeiziApi(): GankMeiziAPI {
-        return apiCall { getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)}
+        return apiCall { getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java) }
     }
 
 
     /**
      * 豆瓣 Api
      */
-    fun getDoubanMeiziApi(): DouBanAPI {
-        return getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java)
+//    fun getDoubanMeiziApi(): DouBanAPI {
+//        return getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java)
+//    }
+
+    suspend fun getDoubanMeiziApi(): DouBanAPI {
+        return apiCall { getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java) }
     }
 
     /**
@@ -110,14 +112,6 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
      * 初始化OKHttpClient
      */
     private fun initOkHttpClient() {
-
-//        val interceptor = HttpLoggingInterceptor()
-//        if (Logger.DEBUG){
-//            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
-//
-//        }else{
-//            interceptor.level = HttpLoggingInterceptor.Level.NONE
-//        }
 
         var logInterceptor = HttpLoggingInterceptor(OkhttpLogInterceptor())
 
@@ -153,9 +147,9 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
         }
 
 
-        var REWRITE_RESPONSE_INTERCEPTOR_OFFLINE =  object :  Interceptor {
+        var REWRITE_RESPONSE_INTERCEPTOR_OFFLINE = object : Interceptor {
             @Override
-            override fun intercept(chain : Interceptor.Chain) : okhttp3.Response{
+            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
                 var request = chain.request()
                 if (!NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
                     request = request.newBuilder()
@@ -168,10 +162,10 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
         };
 
 
-        if (Logger.DEBUG){
+        if (Logger.DEBUG) {
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        }else{
+        } else {
             logInterceptor.level = HttpLoggingInterceptor.Level.NONE
         }
 
@@ -192,8 +186,8 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
 //                            .addInterceptor(REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
                             .retryOnConnectionFailure(true)
                             .connectTimeout(20, TimeUnit.SECONDS)
-                            .readTimeout(10,TimeUnit.SECONDS)
-                            .writeTimeout(10,TimeUnit.SECONDS)
+                            .readTimeout(10, TimeUnit.SECONDS)
+                            .writeTimeout(10, TimeUnit.SECONDS)
                             .build()
                 }
             }
@@ -211,13 +205,13 @@ object RetrofitHelper: Interceptor ,BaseRepository() {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_NETWORK)//有网络时只从网络获取
                     ?.removeHeader("User-Agent")
-                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
+                    ?.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         } else {
             request = request?.newBuilder()
                     ?.cacheControl(CacheControl.FORCE_CACHE)//无网络时只从缓存中读取
                     ?.removeHeader("User-Agent")
-                    ?.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
+                    ?.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ")
                     ?.build()
         }
 

@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.network.api
 
-import com.moon.beautygirlkotlin.base.BaseResponse
 import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,7 +18,6 @@ interface GankMeiziAPI {
 //    fun getGankMeizi(@Path("number") number: Int, @Path("page") page: Int): Observable<GankMeiziResult>
 
     @GET("data/福利/{number}/{page}")
-//    suspend fun getGankMeizi(@Path("number") number: Int, @Path("page") page: Int): BaseResponse<GankMeiziResult>
     suspend fun getGankMeizi(@Path("number") number: Int, @Path("page") page: Int): GankMeiziResult
 
 }

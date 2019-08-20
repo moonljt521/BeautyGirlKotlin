@@ -1,8 +1,6 @@
 package com.moon.beautygirlkotlin.utils
 
-import com.moon.beautygirlkotlin.base.BaseResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.*
 
 /**
  * author: jiangtao.liang
@@ -10,11 +8,35 @@ import kotlinx.coroutines.coroutineScope
  * des : 扩展函数
  */
 
-
-suspend fun executeResponse(response: BaseResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
-                            errorBlock: suspend CoroutineScope.() -> Unit) {
-    coroutineScope {
-        if (response.errorCode == -1) errorBlock()
-        else successBlock()
+fun <T> executeRequest4Gank(request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Job {
+    val uiScope = CoroutineScope(Dispatchers.Main)
+    return uiScope.launch {
+        try {
+            val res: T? = withContext(Dispatchers.IO) { request() }
+            res?.let {
+                onSuccess(it)
+            }
+        } catch (e: Exception) {
+            onFail(e)
+        }
     }
 }
+
+/**
+ * onSuccess 方法 有可能切换线程 所以使用 了 suspend ，待优化 todo
+ */
+fun <T> executeRequest(request: suspend () -> T?, onSuccess: suspend (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Job {
+    val uiScope = CoroutineScope(Dispatchers.Main)
+    return uiScope.launch {
+        try {
+            val res: T? = withContext(Dispatchers.IO) { request() }
+            res?.let {
+                onSuccess(it)
+            }
+        } catch (e: Exception) {
+            onFail(e)
+        }
+    }
+}
+
+

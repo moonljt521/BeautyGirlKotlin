@@ -21,12 +21,12 @@ object DataUtil {
     /**
      * 解析豆瓣 数据
      */
-    fun getDouBanList(type: Int, response: Response<ResponseBody>): List<DoubanMeiziBody> {
+    suspend fun getDouBanList(type: Int, response: Response<ResponseBody>?): List<DoubanMeiziBody> {
 
         val list = ArrayList<DoubanMeiziBody>()
 
         try {
-            val string = response.body()?.string()
+            val string = response?.body()?.string()
             val parse = Jsoup.parse(string)
             val elements = parse.select("div[class=thumbnail]>div[class=img_single]>a>img")
             var meizi: DoubanMeiziBody
