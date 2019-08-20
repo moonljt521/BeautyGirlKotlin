@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
@@ -18,7 +19,6 @@ import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.Subscribe
 @CreatePresenter(MyFavoritePresenter::class)
 class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(), IMyFavoriteView, ViewItemListener {
 
-    val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
+    var mLayoutManager: LinearLayoutManager? = null ;
 
     lateinit var mAdapter: MyFavoriteAdapter
 
@@ -97,8 +97,9 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
-        myCollect_recyclerView.layoutManager = mLayoutManager
+        mLayoutManager = LinearLayoutManager(mActivity)
 
+        myCollect_recyclerView.layoutManager = mLayoutManager
 
         // 暂时不支持翻页
 //        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseLazeFragment
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.meizitu.adapter.MeiZiTuAdapter
@@ -14,7 +15,6 @@ import com.moon.beautygirlkotlin.meizitu.presenter.MeiZiTuPresenter
 import com.moon.beautygirlkotlin.meizitu.view.IMeiZiTuView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseLazeFragment
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 @CreatePresenter(MeiZiTuPresenter::class)
 class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>(), IMeiZiTuView, ViewItemListener {
 
-    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    var mLayoutManager: StaggeredGridLayoutManager? = null
 
     lateinit var mAdapter: MeiZiTuAdapter
 
@@ -83,9 +83,11 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
         mAdapter = MeiZiTuAdapter()
 
+        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         douban_recyclerView.layoutManager = mLayoutManager
 
-        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         douban_recyclerView.adapter = mAdapter
 
@@ -139,7 +141,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(
+                val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6
                 if (!douban_swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {

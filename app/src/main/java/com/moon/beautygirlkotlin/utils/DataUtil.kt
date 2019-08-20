@@ -21,7 +21,9 @@ object DataUtil {
     /**
      * 解析豆瓣 数据
      */
-    suspend fun getDouBanList(type: Int, response: Response<ResponseBody>?): List<DoubanMeiziBody> {
+    fun getDouBanList(type: Int, response: Response<ResponseBody>?): List<DoubanMeiziBody> {
+
+        Logger.i("3 = " + Thread.currentThread().name)
 
         val list = ArrayList<DoubanMeiziBody>()
 

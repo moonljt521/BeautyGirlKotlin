@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
@@ -14,7 +15,6 @@ import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
 /**
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), ITaoFemaleView, ViewItemListener {
 
 
-    val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
+    var mLayoutManager: LinearLayoutManager? = null ;
 
     lateinit var mAdapter: TaoFemaleAdapter
 
@@ -41,8 +41,8 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
     companion object {
 
         fun getInstance(id: Int): TaoFemaleFragment {
-            var fragment = TaoFemaleFragment();
-            var bundle = Bundle()
+            val fragment = TaoFemaleFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
 
             fragment.arguments = bundle
@@ -75,9 +75,11 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
         mAdapter = TaoFemaleAdapter()
 
+        mLayoutManager = LinearLayoutManager(mActivity)
+
         gank_recyclerView.layoutManager = mLayoutManager
 
-        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         gank_recyclerView.adapter = mAdapter
 
@@ -157,6 +159,6 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
         intent.putExtra("url",mAdapter?.list?.get(position)?.avatarUrl)
 
-        mActivity.startActivity(intent)
+        mActivity?.startActivity(intent)
     }
 }

@@ -6,10 +6,12 @@ import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import kotlinx.coroutines.Job
 
 class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 
-    fun getGankList(context: RxAppCompatActivity, pageNum: Int, page: Int) {
+//    fun getGankList(context: RxAppCompatActivity, pageNum: Int, page: Int) {
+    fun getGankList(pageNum: Int, page: Int) :Job{
 
 //        RetrofitHelper.getGankMeiziApi()
 //                .getGankMeizi(pageNum, page)
@@ -28,8 +30,7 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 //
 //                })
 
-
-        executeRequest<GankMeiziResult>(
+       return executeRequest<GankMeiziResult>(
                 request = {
                     RetrofitHelper.getGankMeiziApi().getGankMeizi(pageNum, page)
                 },

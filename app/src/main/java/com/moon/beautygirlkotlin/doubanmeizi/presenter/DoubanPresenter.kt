@@ -7,6 +7,7 @@ import com.moon.beautygirlkotlin.utils.DataUtil
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+import kotlinx.coroutines.Job
 import okhttp3.ResponseBody
 import retrofit2.Response
 
@@ -16,34 +17,9 @@ import retrofit2.Response
  */
 class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
-    fun getDouBanMeiZiData(context: RxAppCompatActivity, cid: Int, page: Int, type: Int) {
+    fun getDouBanMeiZiData(cid: Int, page: Int, type: Int) :Job{
 
-//        executeRequest<Response<ResponseBody>>(
-//
-//                request = {
-//                    RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
-//                },
-//
-//                onSuccess = {
-//                    val result: List<DoubanMeiziBody> = withContext(Dispatchers.IO) {
-//                        DataUtil.getDouBanList(type, it)
-//                    }
-//
-//                    withContext(Dispatchers.Main) {
-//                        if (result.size <= 0) {
-//                            mvpView.showError()
-//                        }else{
-//                            mvpView?.showSuccess(result)
-//                        }
-//                    }
-//                },
-//
-//                onFail = {
-//                    mvpView?.showError()
-//                }
-//        )
-
-        executeRequest<List<DoubanMeiziBody>>(
+       return executeRequest<List<DoubanMeiziBody>>(
 
                 request = {
                     val response : Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)

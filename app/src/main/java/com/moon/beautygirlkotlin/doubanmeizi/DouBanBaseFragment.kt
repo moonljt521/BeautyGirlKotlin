@@ -11,28 +11,22 @@ import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 /**
  * 豆瓣模块 base  fragment
  */
-class DouBanBaseFragment : BaseIdFragment<Nothing, Nothing>()
-//        ,ViewPager.OnPageChangeListener
-{
-
+class DouBanBaseFragment : BaseIdFragment<Nothing, Nothing>() {
 
     lateinit var adapter: DoubanFragmentAdapter
 
     companion object {
 
         fun getInstance(id: Int): DouBanBaseFragment {
-            var fragment = DouBanBaseFragment();
-            var bundle = Bundle()
+            val fragment = DouBanBaseFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_base_douban_meizi
     }
 
