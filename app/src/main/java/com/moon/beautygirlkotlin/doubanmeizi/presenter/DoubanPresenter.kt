@@ -7,8 +7,6 @@ import com.moon.beautygirlkotlin.utils.DataUtil
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
 import retrofit2.Response
 
@@ -20,23 +18,43 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
     fun getDouBanMeiZiData(context: RxAppCompatActivity, cid: Int, page: Int, type: Int) {
 
-        executeRequest<Response<ResponseBody>>(
+//        executeRequest<Response<ResponseBody>>(
+//
+//                request = {
+//                    RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
+//                },
+//
+//                onSuccess = {
+//                    val result: List<DoubanMeiziBody> = withContext(Dispatchers.IO) {
+//                        DataUtil.getDouBanList(type, it)
+//                    }
+//
+//                    withContext(Dispatchers.Main) {
+//                        if (result.size <= 0) {
+//                            mvpView.showError()
+//                        }else{
+//                            mvpView?.showSuccess(result)
+//                        }
+//                    }
+//                },
+//
+//                onFail = {
+//                    mvpView?.showError()
+//                }
+//        )
+
+        executeRequest<List<DoubanMeiziBody>>(
 
                 request = {
-                    RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
+                    val response : Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
+                    DataUtil.getDouBanList(type,response)
                 },
 
                 onSuccess = {
-                    val result: List<DoubanMeiziBody> = withContext(Dispatchers.IO) {
-                        DataUtil.getDouBanList(type, it)
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        if (result.size <= 0) {
-                            mvpView.showError()
-                        }else{
-                            mvpView?.showSuccess(result)
-                        }
+                    if (it.size <= 0) {
+                        mvpView.showError()
+                    }else{
+                        mvpView?.showSuccess(it)
                     }
                 },
 

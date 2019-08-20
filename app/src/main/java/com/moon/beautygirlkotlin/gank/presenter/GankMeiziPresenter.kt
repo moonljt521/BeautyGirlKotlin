@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.gank.presenter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
-import com.moon.beautygirlkotlin.utils.executeRequest4Gank
+import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 
@@ -29,7 +29,7 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 //                })
 
 
-        executeRequest4Gank<GankMeiziResult>(
+        executeRequest<GankMeiziResult>(
                 request = {
                     RetrofitHelper.getGankMeiziApi().getGankMeizi(pageNum, page)
                 },
