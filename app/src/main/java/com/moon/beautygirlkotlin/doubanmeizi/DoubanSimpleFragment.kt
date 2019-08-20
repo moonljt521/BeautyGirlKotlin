@@ -15,7 +15,6 @@ import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
 
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 @CreatePresenter(DoubanPresenter::class)
 class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),IDouBanView, ViewItemListener {
 
-    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    var mLayoutManager: StaggeredGridLayoutManager? = null
 
     lateinit var mAdapter: DouBanAdapter
 
@@ -81,9 +80,11 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
         mAdapter = DouBanAdapter()
 
+        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         douban_recyclerView.layoutManager = mLayoutManager
 
-        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         douban_recyclerView.adapter = mAdapter
 
@@ -137,7 +138,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(
+                val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6
                 if (!douban_swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
