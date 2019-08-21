@@ -18,7 +18,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.getAppManager().addActivity(this)
+        AppManager.instance?.addActivity(this)
 
         setContentView(getLayoutId())
 
@@ -29,7 +29,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        AppManager.getAppManager().finishActivity(this)
+        AppManager.instance?.finishActivity(this)
     }
 
 
