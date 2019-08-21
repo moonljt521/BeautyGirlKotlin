@@ -49,7 +49,7 @@
 
             <item
                 android:id="@+id/nav_score"
-                android:icon="@drawable/nav_socre"
+                android:icon="@drawable/collected"
                 android:title="@string/main_score_app" />
 
             <item

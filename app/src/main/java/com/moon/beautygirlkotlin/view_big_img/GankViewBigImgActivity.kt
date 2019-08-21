@@ -42,7 +42,7 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
         source= (intent?.getIntExtra("source",0))!!
 
         if (source == 1){
-            toCollect.visibility = View.GONE
+            collect_btn.visibility = View.GONE
         }
 
         ImageLoader.load(this,url!!,gank_big_img)
@@ -51,20 +51,23 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
         gank_big_img.setOnClickListener(this)
 
+        collect_btn.setOnClickListener(this)
 
-        toCollect.setOnClickListener(this)
-
+        if (RealmUtil.isCollected(url)){
+            toCollect.setImageResource(R.drawable.collected)
+        }else{
+            toCollect.setImageResource(R.drawable.uncollected)
+        }
     }
 
     override fun onClick(v: View?) {
 
-        if (v?.id == R.id.toCollect){
+        if (v?.id == R.id.collect_btn){
 
             try {
 
                 if (RealmUtil.isCollected(url)){
                     SnackbarUtil.showMessage( v,getString(R.string.collect_has))
-
                     return
                 }
 
@@ -77,19 +80,16 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
                 SnackbarUtil.showMessage( v,getString(R.string.collect_success))
 
+                toCollect.setImageResource(R.drawable.collected)
 
                 EventBus.getDefault().post(EventUpdateFavourite(0))
-
 
             }catch (e: Exception){
                 e.printStackTrace()
                 SnackbarUtil.showMessage( v,getString(R.string.collect_fail))
-
             }
 
-
         }else if (v?.id == R.id.gank_big_img){
-
             finish()
         }
 
