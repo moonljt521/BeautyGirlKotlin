@@ -4,11 +4,11 @@ import com.google.gson.Gson
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.huaban.model.HuaBanBody
 import com.moon.beautygirlkotlin.huaban.model.HuaBanResp
-import com.moon.beautygirlkotlin.meizitu.model.MeiZiTuBody
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Element
 import retrofit2.Response
+import java.net.URL
 import java.util.ArrayList
 
 /**
@@ -50,36 +50,34 @@ object DataUtil {
 
 
     /**
-     * 解析妹子图html
+     * since 3.0
+     * 解析【唯一图库】 html
      */
-    fun parserMeiziTuHtml(html: String, type: String): List<MeiZiTuBody> {
-
+    fun parserMeiziTuHtml(url: String): List<MeiZiTuBody> {
         val list = ArrayList<MeiZiTuBody>()
-        val doc = Jsoup.parse(html)
-        val links = doc.select("li")
 
-        var aelement: Element
-        var imgelement: Element
-        for (i in 7 until links.size) {
+        try {
+            val doc = Jsoup.parse(URL(url).openStream(),"GB2312" ,url)
+            val element = doc.select("div[class=item masonry_brick masonry-brick]>div[class=item_t]>div[class=img]>" +
+                    "div[class=ABox]>a>img")
 
-            imgelement = links[i].select("img").first()
-            aelement = links[i].select("a").first()
-
-            val url = aelement.attr("href")
-
-            var bean = MeiZiTuBody(
-                                0,
-                                354,
-                                236,
-                                imgelement.attr("data-original"),
-                                url,
-                                imgelement.attr("alt"),
-                                type,
-                                url2groupid(url),
-                                i)
-
-            list.add(bean)
+            for (e in element) {
+                var bean = MeiZiTuBody(
+                        0,
+                        354,
+                        236,
+                        e.attr("src"),
+                        e.attr("src"),
+                        e.attr("alt"),
+                        "",
+                        0,
+                        0)
+                list.add(bean)
+            }
+        }catch (e : java.lang.Exception){
+            e.printStackTrace()
         }
+
         return list
     }
 

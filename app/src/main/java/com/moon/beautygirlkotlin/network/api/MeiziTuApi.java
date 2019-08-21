@@ -18,4 +18,8 @@ public interface MeiziTuApi {
    */
   @GET("{type}/comment-page-{page}#comments")
   Observable<ResponseBody> getHomeMeiziApi(@Path("type") String type, @Path("page") int page);
+
+
+  @GET("{type}{page}.html")
+  Observable<ResponseBody> getOnlyOnePicture(@Path("type") String type, @Path("page") int page);
 }

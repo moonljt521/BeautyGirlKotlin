@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.meizitu.adapter
+package com.moon.beautygirlkotlin.wei1.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.meizitu.model.MeiZiTuBody
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import java.util.ArrayList
 

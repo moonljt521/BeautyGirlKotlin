@@ -37,11 +37,8 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     private val BASE_HUABAN_URL = "http://route.showapi.com/"
 
 
-    // 煎蛋
-    private val BASE_JIANDAN_URL = "http://jandan.net/"
-
-    //妹子图
-    private val BASE_MEIZITU_URL = "http://www.mzitu.com/"
+    //唯一图库
+    public val BASE_MEIZITU_URL = "http://www.mmonly.cc/mmtp/mnmx/"
 
 
     fun getRetroFitBuilder(url: String): Retrofit {
@@ -54,14 +51,6 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     }
 
     /**
-     * Gank妹子Api
-     */
-//    fun getGankMeiziApi(): GankMeiziAPI {
-//        return getRetroFitBuilder(BASE_GANK_URL).create(GankMeiziAPI::class.java)
-//    }
-
-
-    /**
      * Gank妹子Api  协程用法 from 3.0
      */
     suspend fun getGankMeiziApi(): GankMeiziAPI {
@@ -69,22 +58,8 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     }
 
 
-    /**
-     * 豆瓣 Api
-     */
-//    fun getDoubanMeiziApi(): DouBanAPI {
-//        return getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java)
-//    }
-
     suspend fun getDoubanMeiziApi(): DouBanAPI {
         return apiCall { getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java) }
-    }
-
-    /**
-     * 获取妹子图Api
-     */
-    fun getMeiziTuApi(): MeiziTuApi {
-        return getRetroFitBuilder(BASE_MEIZITU_URL).create(MeiziTuApi::class.java)
     }
 
     /**

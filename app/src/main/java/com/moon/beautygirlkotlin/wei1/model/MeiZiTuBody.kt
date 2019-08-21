@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.meizitu.model
+package com.moon.beautygirlkotlin.wei1.model
 
 /**
  * author: moon

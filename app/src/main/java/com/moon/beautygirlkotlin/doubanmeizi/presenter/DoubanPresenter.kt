@@ -6,7 +6,6 @@ import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.DataUtil
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Job
 import okhttp3.ResponseBody
 import retrofit2.Response
@@ -38,35 +37,5 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
                     mvpView?.showError()
                 }
         )
-
-
-//        RetrofitHelper.getDoubanMeiziApi()
-//                .getDoubanMeizi(cid, page)
-//                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
-//                .map{
-//                    resp -> DataUtil.getDouBanList(type, resp)
-//                }
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//
-//                    list -> mvpView?.showSuccess(list)
-//
-//                }, {
-//
-//                    throwable ->
-//
-//                    try {
-//                        mvpView?.showError()
-//
-//                    }catch (e : Exception){
-//                        e.printStackTrace()
-//                    }
-//
-//
-//                })
-
     }
-
-
 }

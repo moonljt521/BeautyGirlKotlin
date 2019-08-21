@@ -10,7 +10,7 @@
     <string name="tao_female">淘女郎</string>
     <string name="my_collect">我的收藏</string>
     <string name="douban_meizi">豆瓣妹纸</string>
-    <string name="huaban_meizi">花瓣妹纸</string>
+    <string name="weiyi_pic">花瓣妹纸</string>
     <string name="jiandan_meizi">煎蛋妹纸</string>
     <string name="action_notifiable">每天中午提醒</string>
     <string name="headsup_title">萌妹</string>
@@ -34,6 +34,7 @@
 
     <!-- tip -->
     <string name="error_message">哎呀,加载失败了,请检查下网络或者下拉重新刷新下~</string>
+    <string name="nodata_message">没有更多数据了~~</string>
     <string name="image_error">图片加载失败啦~</string>
     <string name="back_message">再按一次退出</string>
     <string name="no_data">没有数据</string>

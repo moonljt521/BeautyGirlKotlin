@@ -10,7 +10,6 @@ import kotlinx.coroutines.cancel
  * author: jiangtao.liang
  * date:   On 2019/8/21 13:18
  */
-@ExperimentalCoroutinesApi
 abstract class AbstractFragment : RxFragment() , CoroutineScope by MainScope() {
 
     override fun onDestroy() {

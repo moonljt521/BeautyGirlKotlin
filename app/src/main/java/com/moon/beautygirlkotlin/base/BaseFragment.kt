@@ -64,7 +64,6 @@ abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : Abstr
         try {
             mProxy.onResume(this as V)
         } catch (e: Exception) {
-            e.printStackTrace()
         }
 
         initData()
