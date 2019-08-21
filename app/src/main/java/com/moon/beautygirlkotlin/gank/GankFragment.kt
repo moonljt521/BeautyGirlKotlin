@@ -13,10 +13,13 @@ import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -93,8 +96,9 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      * 同时开始加重admob 广告
      */
     fun loadHttpData() {
-        job?.cancel()
-        job = mvpPresenter?.getGankList(pageNum, page)
+        launch {
+            mvpPresenter?.getGankList(pageNum, page)
+        }
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {

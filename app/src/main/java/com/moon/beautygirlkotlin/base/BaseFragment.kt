@@ -13,9 +13,6 @@ import com.moon.mvpframework.proxy.BaseMvpProxy
 import com.moon.mvpframework.proxy.PresenterProxyInterface
 import com.moon.mvpframework.view.BaseMvpView
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
-import com.trello.rxlifecycle.components.support.RxFragment
-import kotlinx.coroutines.Job
-
 
 /**
  * author: moon
@@ -23,9 +20,8 @@ import kotlinx.coroutines.Job
  * description:  fragment mvp 基类
  */
 
-abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : RxFragment(), PresenterProxyInterface<V, P> {
-
-    protected var job: Job? = null
+abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : AbstractFragment(),
+        PresenterProxyInterface<V, P> {
 
     protected lateinit var mActivity: RxAppCompatActivity
 
@@ -96,8 +92,6 @@ abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : RxFra
     override fun onDestroy() {
         super.onDestroy()
         mProxy.onDestroy()
-        job?.cancel()
-
     }
 
     override fun onDestroyView() {
