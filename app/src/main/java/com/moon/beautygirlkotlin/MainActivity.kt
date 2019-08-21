@@ -161,7 +161,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         }else{
 
-            AppManager.appManager.exitApp(applicationContext)
+            AppManager.instance.exitApp(applicationContext)
 
         }
     }
