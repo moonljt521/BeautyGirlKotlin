@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.meizitu.adapter.MeiZiTuFragmentAdapter
-import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_base_meizitu.*
 
 /**
  * 妹子图 模块 base  fragment
  */
-class MeiZiTuBaseFragment : BaseIdFragment<Nothing, Nothing>()
+class MeiZiTuBaseFragment : BaseFragment<Nothing, Nothing>()
 {
 
     lateinit var adapter: MeiZiTuFragmentAdapter

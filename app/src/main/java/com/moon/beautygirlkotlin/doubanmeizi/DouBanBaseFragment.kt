@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanFragmentAdapter
-import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 
 /**
  * 豆瓣模块 base  fragment
  */
-class DouBanBaseFragment : BaseIdFragment<Nothing, Nothing>() {
+class DouBanBaseFragment : BaseFragment<Nothing, Nothing>() {
 
     lateinit var adapter: DoubanFragmentAdapter
 

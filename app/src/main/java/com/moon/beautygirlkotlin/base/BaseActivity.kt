@@ -25,7 +25,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
         initViews()
 
         loadData()
-
     }
 
 
