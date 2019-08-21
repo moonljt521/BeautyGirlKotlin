@@ -27,5 +27,10 @@ abstract class BaseActivity : RxAppCompatActivity() {
         loadData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        AppManager.getAppManager().finishActivity(this)
+    }
+
 
 }
