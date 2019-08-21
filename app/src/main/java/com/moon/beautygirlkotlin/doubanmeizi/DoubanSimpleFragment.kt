@@ -132,14 +132,16 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
         job = mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
     }
 
-    internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
+    internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
-                        IntArray(2))[1] >= mAdapter.getItemCount() - 6
+                val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
+
+                val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
+
                 if (!douban_swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
 
