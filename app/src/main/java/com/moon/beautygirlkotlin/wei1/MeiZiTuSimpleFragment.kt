@@ -17,6 +17,7 @@ import com.moon.beautygirlkotlin.wei1.view.IMeiZiTuView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
+import kotlinx.coroutines.launch
 
 /**
  * 妹子图 模块 子fragment
@@ -78,7 +79,6 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
      * 初始化
      */
     override fun init() {
-
 
     }
 
@@ -142,7 +142,9 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getMeizitu(type!!,page)
+        launch {
+            mvpPresenter.getMeizitu(type!!,page)
+        }
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
