@@ -1,14 +1,9 @@
 package com.moon.beautygirlkotlin.network
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
-import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import com.moon.beautygirlkotlin.network.api.*
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +24,6 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     init {
         initOkHttpClient();
     }
-
 
     private var mOkHttpClient: OkHttpClient? = null
 
@@ -53,7 +47,7 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     fun getRetroFitBuilder(url: String): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(url)
-                .client(mOkHttpClient)
+                .client(mOkHttpClient!!)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -128,40 +122,6 @@ object RetrofitHelper : Interceptor, BaseRepository() {
             }
         }
 
-
-        val REWRITE_RESPONSE_INTERCEPTOR = object : Interceptor {
-            @Throws(IOException::class)
-            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-                val originalResponse = chain.proceed(chain.request())
-                val cacheControl = originalResponse.header("Cache-Control")
-                return if (cacheControl == null || cacheControl!!.contains("no-store") || cacheControl!!.contains("no-cache") ||
-                        cacheControl!!.contains("must-revalidate") || cacheControl!!.contains("max-age=0")) {
-                    originalResponse.newBuilder()
-                            .removeHeader("Pragma")
-                            .header("Cache-Control", "public, max-age=" + 5000)
-                            .build()
-                } else {
-                    originalResponse
-                }
-            }
-        }
-
-
-        var REWRITE_RESPONSE_INTERCEPTOR_OFFLINE = object : Interceptor {
-            @Override
-            override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
-                var request = chain.request()
-                if (!NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
-                    request = request.newBuilder()
-                            .removeHeader("Pragma")
-                            .header("Cache-Control", "public, only-if-cached")
-                            .build();
-                }
-                return chain.proceed(request);
-            }
-        };
-
-
         if (Logger.DEBUG) {
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
@@ -215,7 +175,7 @@ object RetrofitHelper : Interceptor, BaseRepository() {
                     ?.build()
         }
 
-        var response = chain?.proceed(request)
+        var response = chain?.proceed(request!!)
         if (NetWorkUtil.isNetworkReachable(BeautyGirlKotlinApp.application)) {
             response = response?.newBuilder()
                     ?.removeHeader("Pragma")

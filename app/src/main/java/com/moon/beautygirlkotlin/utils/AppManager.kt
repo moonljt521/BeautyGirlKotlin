@@ -8,24 +8,6 @@ import java.util.Stack
 
 class AppManager private constructor() {
 
-//    companion object {
-//
-//        @Volatile
-//        private var instance: AppManager? = null
-//
-//        val appManager: AppManager?
-//            get() {
-//                if (instance == null) {
-//                    synchronized(AppManager::class.java) {
-//                        if (instance == null) {
-//                            instance = AppManager()
-//                        }
-//                    }
-//                }
-//                return instance
-//            }
-//    }
-
     companion object {
         val instance : AppManager by lazy (mode = LazyThreadSafetyMode.SYNCHRONIZED){
             AppManager()

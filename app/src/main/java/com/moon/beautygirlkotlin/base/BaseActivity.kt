@@ -10,7 +10,6 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
  */
 abstract class BaseActivity : RxAppCompatActivity() {
 
-
     abstract fun initViews();
     abstract fun loadData();
 
@@ -18,7 +17,7 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.instance?.addActivity(this)
+        AppManager.instance.addActivity(this)
 
         setContentView(getLayoutId())
 
@@ -29,8 +28,6 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        AppManager.instance?.finishActivity(this)
+        AppManager.instance.finishActivity(this)
     }
-
-
 }
