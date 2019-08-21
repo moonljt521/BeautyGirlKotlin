@@ -7,10 +7,10 @@ package com.moon.beautygirlkotlin.utils;
 public class ConstantUtil {
 
   //易源接口AppId
-  public static final String APP_ID = "15314";
+  public static final String APP_ID = "103400";
 
   //易源接口AppSign
-  public static final String APP_SIGN = "d424376f51f1467da1b8c75debebf148";
+  public static final String APP_SIGN = "14a34b2d0c03422da913b1102162dfec";
 
   //本地存储dir目录
   public static final String FILE_DIR = "moe_quest";

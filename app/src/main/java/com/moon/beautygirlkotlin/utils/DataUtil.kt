@@ -104,11 +104,10 @@ object DataUtil {
         while (iterator.hasNext()) {
             val element = iterator.next()
             try {
-                var bean: HuaBanBody = Gson().fromJson<HuaBanBody>(element.value, HuaBanBody::class.java)
-
+                val bean: HuaBanBody = Gson().fromJson<HuaBanBody>(element.value, HuaBanBody::class.java)
                 list.add(bean)
             } catch (e: Exception) {
-
+                e.printStackTrace()
             }
 
         }
