@@ -34,7 +34,7 @@
         <item
             android:id="@+id/nav_mycollect"
             android:checked="true"
-            android:icon="@drawable/wedding_dress"
+            android:icon="@drawable/collected"
             android:title="@string/my_collect" />
 
     </group>
@@ -49,7 +49,7 @@
 
             <item
                 android:id="@+id/nav_score"
-                android:icon="@drawable/collected"
+                android:icon="@drawable/to_score"
                 android:title="@string/main_score_app" />
 
             <item
