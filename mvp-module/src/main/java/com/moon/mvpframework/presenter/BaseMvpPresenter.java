@@ -12,7 +12,7 @@ import com.moon.mvpframework.view.BaseMvpView;
 public class BaseMvpPresenter<V extends BaseMvpView> {
 
     /**
-     * V层view∑∑
+     * V层view
      */
     private V mView;
 
