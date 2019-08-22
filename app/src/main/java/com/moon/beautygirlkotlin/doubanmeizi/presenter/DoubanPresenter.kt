@@ -27,7 +27,7 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
                 onSuccess = {
                     if (it.size <= 0) {
-                        mvpView.showError()
+                        mvpView?.showError()
                     }else{
                         mvpView?.showSuccess(it)
                     }
