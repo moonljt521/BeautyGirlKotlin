@@ -10,5 +10,5 @@ interface BaseMvpView<T> {
 
     fun showError()
 
-    fun showSuccess(t: T)
+    fun showSuccess(t: T?)
 }
