@@ -17,6 +17,7 @@ fun <T> executeRequest(request: suspend () -> T?, onSuccess: (T) -> Unit = {}, o
                 onSuccess(it)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             onFail(e)
         }
     }

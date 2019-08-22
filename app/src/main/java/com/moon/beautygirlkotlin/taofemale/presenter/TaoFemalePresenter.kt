@@ -1,33 +1,33 @@
 package com.moon.beautygirlkotlin.taofemale.presenter
 
-import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
-import com.moon.beautygirlkotlin.utils.ConstantUtil
+import com.moon.beautygirlkotlin.utils.DataUtil
+import com.moon.beautygirlkotlin.utils.executeRequest
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-import com.trello.rxlifecycle.ActivityEvent
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 class TaoFemalePresenter : BaseMvpPresenter<ITaoFemaleView>() {
 
-    fun getGankList(context: RxAppCompatActivity, pageNum: Int){
+    fun getTaoFemaleList(pageNum: Int) {
+        executeRequest<List<MeiZiTuBody>>(
+                request = {
+                    var url: String? = null
+                    if (pageNum == 1) {
+                        url = "https://www.7160.com/xiaohua/"
+                    }else{
+                        url = "https://www.7160.com/xiaohua/list_6_" + pageNum + ".html"
+                    }
+                    DataUtil.parserMeiTuLuHtml(url)
+                },
 
-        RetrofitHelper.getTaoFemaleApi()
-                .getTaoFemale(pageNum, ConstantUtil.APP_ID, ConstantUtil.APP_SIGN)
-                .compose(context.bindUntilEvent(ActivityEvent.DESTROY))
-                .map({ taofemale -> taofemale.showapi_res_body.pagebean.contentlist })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ list ->
+                onSuccess = {
+                    mvpView?.showSuccess(it)
+                },
 
-                    mvpView?.showSuccess(list)
-
-                }, { throwable ->
-
-                    mvpView?.showError()
-
-                })
+                onFail = {
+                    mvpView.showError()
+                }
+        )
 
     }
 

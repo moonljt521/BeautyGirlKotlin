@@ -7,6 +7,7 @@ import com.moon.beautygirlkotlin.huaban.model.HuaBanResp
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
+import org.jsoup.select.Elements
 import retrofit2.Response
 import java.net.URL
 import java.util.ArrayList
@@ -37,14 +38,12 @@ object DataUtil {
                 val title = e.attr("title")
 
                 meizi = DoubanMeiziBody(title, src, type)
-
                 list.add(meizi)
             }
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         return list
     }
 
@@ -55,31 +54,48 @@ object DataUtil {
      */
     fun parserMeiziTuHtml(url: String): List<MeiZiTuBody> {
         val list = ArrayList<MeiZiTuBody>()
-
         try {
-            val doc = Jsoup.parse(URL(url).openStream(),"GB2312" ,url)
+            val doc = Jsoup.parse(URL(url).openStream(), "GB2312", url)
             val element = doc.select("div[class=item masonry_brick masonry-brick]>div[class=item_t]>div[class=img]>" +
                     "div[class=ABox]>a>img")
-
             for (e in element) {
-                var bean = MeiZiTuBody(
-                        0,
-                        354,
-                        236,
-                        e.attr("src"),
-                        e.attr("src"),
-                        e.attr("alt"),
-                        "",
-                        0,
-                        0)
+                val imageUrl : String = e.attr("src")
+                val title : String = e.attr("alt")
+                val bean = MeiZiTuBody(0, 354, 236,imageUrl,imageUrl,title,"",0,0)
                 list.add(bean)
             }
-        }catch (e : java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-
         return list
     }
+
+    /**
+     * since 3.0
+     *
+     * 解析【7160】 html
+     */
+    fun parserMeiTuLuHtml(url: String): List<MeiZiTuBody> {
+        val list = ArrayList<MeiZiTuBody>()
+        try {
+            val doc = Jsoup.parse(URL(url).openStream(), "GB2312", url)
+            val element : Elements = doc.getElementsByClass("news_bom-left")
+            val datas = element.select("li[target=_blank]>img")
+
+//            val element = doc.select("div[class=item masonry_brick masonry-brick]>div[class=item_t]>div[class=img]>" +
+//                    "div[class=ABox]>a>img")
+            for (e in datas) {
+                val imageUrl : String = e.attr("src")
+                val title : String = e.attr("alt")
+                val bean = MeiZiTuBody(0, 354, 236,imageUrl,imageUrl,title,"",0,0)
+                list.add(bean)
+            }
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return list
+    }
+
 
     /**
      * 获取妹子图的GroupId
@@ -97,7 +113,7 @@ object DataUtil {
 
         val result = Gson().fromJson<HuaBanResp>(json, HuaBanResp::class.java!!)
         val iterator = result.showapi_res_body.entrySet().iterator()
-        var list : ArrayList<HuaBanBody> = ArrayList()
+        var list: ArrayList<HuaBanBody> = ArrayList()
 
         while (iterator.hasNext()) {
             val element = iterator.next()

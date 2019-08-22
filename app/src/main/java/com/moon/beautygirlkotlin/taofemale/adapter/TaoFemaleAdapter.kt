@@ -10,8 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.taofemale.model.Contentlist
 import com.moon.beautygirlkotlin.utils.ImageLoader
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import java.util.ArrayList
 
 /**
@@ -19,16 +19,16 @@ import java.util.ArrayList
  * created on: 18/4/4 下午4:37
  * description:  淘女郎 adapter
  */
-class TaoFemaleAdapter( ) : RecyclerView.Adapter<TaoFemaleAdapter.OrderListHolder>(), View.OnClickListener {
+class TaoFemaleAdapter() : RecyclerView.Adapter<TaoFemaleAdapter.OrderListHolder>(), View.OnClickListener {
 
     lateinit var context: Context
 
     override fun onClick(v: View?) {
-        var position : Int = v?.getTag() as Int
-        itemListener?.itemClick(v,position)
+        val position : Int = v?.getTag() as Int
+        itemListener.itemClick(v,position)
     }
 
-    var list: ArrayList<Contentlist>? = null
+    var list: ArrayList<MeiZiTuBody>? = null
 
     lateinit var itemListener : ViewItemListener
 
@@ -36,12 +36,12 @@ class TaoFemaleAdapter( ) : RecyclerView.Adapter<TaoFemaleAdapter.OrderListHolde
         this.list = ArrayList()
     }
 
-    fun loadMoreData(list:List<Contentlist>){
+    fun loadMoreData(list:List<MeiZiTuBody>){
         this.list?.addAll(list)
         notifyDataSetChanged()
     }
 
-    fun refreshData(list:List<Contentlist>){
+    fun refreshData(list:List<MeiZiTuBody>){
 
         if (this.list?.size!! > 0){
             this.list?.clear()
@@ -54,22 +54,21 @@ class TaoFemaleAdapter( ) : RecyclerView.Adapter<TaoFemaleAdapter.OrderListHolde
 
     override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
 
-        var body : Contentlist = list?.get(position)!!
+        var body : MeiZiTuBody = list?.get(position)!!
 
 
+        ImageLoader.loadCircle(context, body.imageurl, R.drawable.placeholder_image, holder!!.item_avatar)
 
-        ImageLoader.loadCircle(context, body.avatarUrl, R.drawable.placeholder_image, holder!!.item_avatar)
 
-
-        holder?.item_name?.setText(body.realName)
+        holder?.item_name?.setText(body.title)
 
         holder?.item_type?.setText(body.type)
-        holder?.item_location?.setText(body.city)
-        holder?.item_fans_num?.setText(body.totalFanNum+"")
-        holder?.item_height?.setText("身高："+body.height)
-        holder?.item_wight?.setText("体重："+body.weight)
+//        holder?.item_location?.setText(body.city)
+//        holder?.item_fans_num?.setText(body.totalFanNum+"")
+//        holder?.item_height?.setText("身高："+body.height)
+//        holder?.item_wight?.setText("体重："+body.weight)
 
-        ImageLoader.load(context, body.avatarUrl, R.drawable.placeholder_image, holder!!.item_img)
+        ImageLoader.load(context, body.imageurl, R.drawable.placeholder_image, holder!!.item_img)
 
         holder?.item_layout?.setTag(position)
     }

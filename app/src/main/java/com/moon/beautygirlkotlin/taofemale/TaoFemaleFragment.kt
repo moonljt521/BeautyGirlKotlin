@@ -10,15 +10,17 @@ import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
-import com.moon.beautygirlkotlin.taofemale.model.Contentlist
 import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
+import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
+import kotlinx.coroutines.launch
 
 /**
- * [淘女郎] 模块 fragment
+ * [美图录] 模块 fragment
  */
 @CreatePresenter(TaoFemalePresenter::class)
 class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), ITaoFemaleView, ViewItemListener {
@@ -32,11 +34,11 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     var mIsLoadMore = true
 
-    var page: Int = 1
+    var page: Int = 2
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
+    var hasMoreData = true
 
     companion object {
 
@@ -44,9 +46,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
             val fragment = TaoFemaleFragment();
             val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
@@ -88,7 +88,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
         gank_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
 
         swipe_refresh.setOnRefreshListener {
-            page = 1
+            page = 2
 
             mIsRefreshing = true
 
@@ -100,7 +100,9 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
      * 加载网络数据：开始[淘女郎数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter?.getGankList(mActivity!!, page)
+        launch {
+            mvpPresenter.getTaoFemaleList(page)
+        }
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -109,9 +111,14 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 2
+                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 4
 
                 if (!swipe_refresh.isRefreshing && isBottom) {
+
+                    if (!hasMoreData){
+                        return
+                    }
+
                     if (!mIsLoadMore) {
 
                         swipe_refresh.isRefreshing = true
@@ -134,14 +141,21 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
         SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.error_message))
     }
 
-    override fun showSuccess(list: List<Contentlist>?) {
+    override fun showSuccess(list: List<MeiZiTuBody>?) {
 
-        if (page == 1) {
+        if (list?.size == 0){
+            SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.nodata_message))
+            hasMoreData = false
+        }else{
+            hasMoreData = true
 
-            mAdapter.refreshData(list!!)
+            if (page == 1) {
 
-        } else {
-            mAdapter.loadMoreData(list!!)
+                mAdapter.refreshData(list!!)
+
+            } else {
+                mAdapter.loadMoreData(list!!)
+            }
         }
 
         if (swipe_refresh.isRefreshing) {
@@ -157,7 +171,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
     override fun itemClick(v: View, position: Int) {
 
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.avatarUrl)
+        intent.putExtra("url",mAdapter?.list?.get(position)?.imageurl)
 
         mActivity?.startActivity(intent)
     }
