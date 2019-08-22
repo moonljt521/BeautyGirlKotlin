@@ -37,8 +37,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
-
+    var hasMoreData = true
 
     // 加载数据
     override fun loadData() {
@@ -60,9 +59,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
             val fragment = DoubanSimpleFragment();
             val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
@@ -109,12 +106,16 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
     }
 
     override fun showSuccess(list: List<DoubanMeiziBody>?) {
-        if (page == 1) {
+        if (list?.size == 0){
+            SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.nodata_message))
+            hasMoreData = false
+        }else {
+            if (page == 1) {
+                mAdapter.refreshData(list!!)
 
-            mAdapter.refreshData(list!!)
-
-        } else {
-            mAdapter.loadMoreData(list!!)
+            } else {
+                mAdapter.loadMoreData(list!!)
+            }
         }
 
         if (douban_swipe_refresh.isRefreshing) {
@@ -146,6 +147,9 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
                 val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
 
                 if (!douban_swipe_refresh.isRefreshing && isBottom) {
+                    if (!hasMoreData){
+                        return
+                    }
                     if (!mIsLoadMore) {
 
                         douban_swipe_refresh.isRefreshing = true

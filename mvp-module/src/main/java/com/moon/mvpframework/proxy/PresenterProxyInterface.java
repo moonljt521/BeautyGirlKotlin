@@ -6,9 +6,9 @@ import com.moon.mvpframework.presenter.BaseMvpPresenter;
 import com.moon.mvpframework.view.BaseMvpView;
 
 /**
- * @author 刘镓旗
- * @date 2017/11/20
- * @description 代理接口
+ * @author  jiangtao.liang
+ * @date  On 2018/4/8 14:12
+ * @des  代理接口
  */
 public interface PresenterProxyInterface<V extends BaseMvpView,P extends BaseMvpPresenter<V>> {
 
