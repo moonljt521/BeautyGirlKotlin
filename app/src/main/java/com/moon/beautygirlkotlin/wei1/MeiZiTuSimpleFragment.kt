@@ -8,13 +8,13 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.presenter.MeiZiTuPresenter
 import com.moon.beautygirlkotlin.wei1.view.IMeiZiTuView
-import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 import kotlinx.coroutines.launch

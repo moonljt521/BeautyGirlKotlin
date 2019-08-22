@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.huaban.presenter
 
-import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
 import com.moon.beautygirlkotlin.huaban.view.IHuaBanView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.ConstantUtil
@@ -10,7 +9,6 @@ import com.trello.rxlifecycle.ActivityEvent
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import java.lang.Exception
 
 /**
  *  花瓣妹子api 接口

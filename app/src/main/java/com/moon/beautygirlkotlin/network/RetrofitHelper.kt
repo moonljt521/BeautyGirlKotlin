@@ -1,7 +1,10 @@
 package com.moon.beautygirlkotlin.network
 
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
-import com.moon.beautygirlkotlin.network.api.*
+import com.moon.beautygirlkotlin.network.api.DouBanAPI
+import com.moon.beautygirlkotlin.network.api.GankMeiziAPI
+import com.moon.beautygirlkotlin.network.api.HuaBanAPI
+import com.moon.beautygirlkotlin.network.api.TaoFemaleaApi
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
 import okhttp3.*

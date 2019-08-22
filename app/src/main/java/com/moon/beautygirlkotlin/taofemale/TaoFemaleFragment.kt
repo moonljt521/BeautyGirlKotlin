@@ -7,16 +7,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
 import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
-import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 import kotlinx.coroutines.launch
 
 /**

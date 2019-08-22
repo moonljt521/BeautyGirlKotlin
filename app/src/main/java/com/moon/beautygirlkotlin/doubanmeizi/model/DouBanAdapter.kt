@@ -9,10 +9,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.ImageLoader
-import java.util.ArrayList
+import java.util.*
 
 /**
  * author: moon

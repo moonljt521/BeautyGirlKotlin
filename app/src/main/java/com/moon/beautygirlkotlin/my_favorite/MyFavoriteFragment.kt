@@ -8,7 +8,6 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
@@ -18,6 +17,7 @@ import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
 import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus

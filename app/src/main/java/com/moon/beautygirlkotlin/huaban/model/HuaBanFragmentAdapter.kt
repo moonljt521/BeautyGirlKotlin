@@ -4,9 +4,8 @@ import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.moon.beautygirlkotlin.doubanmeizi.DoubanSimpleFragment
 import com.moon.beautygirlkotlin.huaban.HuaBanSimpleFragment
-import java.util.ArrayList
+import java.util.*
 
 class HuaBanFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm) {
 

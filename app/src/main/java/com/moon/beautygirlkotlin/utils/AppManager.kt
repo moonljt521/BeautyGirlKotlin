@@ -2,8 +2,7 @@ package com.moon.beautygirlkotlin.utils
 
 import android.app.Activity
 import android.content.Context
-
-import java.util.Stack
+import java.util.*
 
 
 class AppManager private constructor() {

@@ -5,7 +5,6 @@ import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.coroutines.Job
 
 class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {

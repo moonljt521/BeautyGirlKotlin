@@ -12,7 +12,7 @@ import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
-import java.util.ArrayList
+import java.util.*
 
 /**
  * author: moon

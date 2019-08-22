@@ -4,7 +4,6 @@ import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
-import java.lang.Exception
 
 
 /**

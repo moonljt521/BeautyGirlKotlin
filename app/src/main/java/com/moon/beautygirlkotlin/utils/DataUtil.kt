@@ -10,7 +10,7 @@ import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import retrofit2.Response
 import java.net.URL
-import java.util.ArrayList
+import java.util.*
 
 /**
  * author: moon

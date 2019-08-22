@@ -10,9 +10,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.utils.ImageLoader
-import java.util.ArrayList
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
+import java.util.*
 
 /**
  * author: moon

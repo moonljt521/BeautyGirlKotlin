@@ -11,9 +11,9 @@ import com.moon.beautygirlkotlin.doubanmeizi.model.DouBanAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.doubanmeizi.presenter.DoubanPresenter
 import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 import kotlinx.coroutines.launch

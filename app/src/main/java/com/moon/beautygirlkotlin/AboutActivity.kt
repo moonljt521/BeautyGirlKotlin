@@ -1,8 +1,6 @@
 package com.moon.beautygirlkotlin
 
 import android.content.pm.PackageManager
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_about.*
