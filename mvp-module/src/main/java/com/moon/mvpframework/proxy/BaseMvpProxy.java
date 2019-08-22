@@ -64,7 +64,9 @@ public class BaseMvpProxy<V extends BaseMvpView, P extends BaseMvpPresenter<V>> 
         if (mFactory != null) {
             if (mPresenter == null) {
                 mPresenter = mFactory.createMvpPresenter();
-                mPresenter.onCreatePersenter(mBundle == null ? null : mBundle.getBundle(PRESENTER_KEY));
+                if (mBundle != null){
+                    mPresenter.onCreatePersenter(mBundle.getBundle(PRESENTER_KEY));
+                }
             }
         }
         return mPresenter;
