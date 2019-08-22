@@ -36,7 +36,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun initViews() {
         nav_view.setNavigationItemSelectedListener(this)
 
-        var headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
+        val headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
 
         mCircleImageView = headView.findViewById<View>(R.id.nav_head_avatar) as ImageView
 

@@ -6,8 +6,6 @@ import android.support.multidex.MultiDex
 import com.google.android.gms.ads.MobileAds
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.tencent.bugly.crashreport.CrashReport
-import io.realm.Realm
-import io.realm.RealmConfiguration
 
 
 /**

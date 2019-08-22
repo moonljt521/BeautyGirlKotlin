@@ -24,8 +24,8 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
     lateinit var context: Context
 
     override fun onClick(v: View?) {
-        var position : Int = v?.getTag() as Int
-        itemListener?.itemClick(v,position)
+        val position : Int = v?.getTag() as Int
+        itemListener.itemClick(v,position)
     }
 
     var list: ArrayList<MeiZiTuBody>? = null
@@ -54,26 +54,26 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
 
     override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
 
-        var body : MeiZiTuBody = list?.get(position)!!
+        val body : MeiZiTuBody = list?.get(position)!!
 
 
         ImageLoader.load(context, body.imageurl, R.drawable.placeholder_image, holder!!.item_img)
 
 
-        holder?.item_title?.setText(body.title)
+        holder.item_title.setText(body.title)
 
 
-        holder?.item_layout?.setTag(position)
+        holder.item_layout.setTag(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrderListHolder {
-        var v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
+        val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
-        var holder = OrderListHolder(v)
+        val holder = OrderListHolder(v)
 
         context = parent?.context!!
 
-        holder?.item_layout?.setOnClickListener(this)
+        holder.item_layout.setOnClickListener(this)
 
         return holder
     }
@@ -90,9 +90,5 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
         var item_title: TextView = itemView!!.findViewById<View>(R.id.item_title) as TextView
 
         var item_layout: LinearLayout = itemView!!.findViewById<View>(R.id.item_layout) as LinearLayout
-
-
     }
-
-
 }

@@ -36,7 +36,7 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
                 },
 
                 onSuccess = {
-                    mvpView?.showSuccess(it?.results)
+                    mvpView?.showSuccess(it.results)
                 },
 
                 onFail = {

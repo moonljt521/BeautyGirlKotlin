@@ -96,7 +96,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
         mAdapter.itemListener = this
 
-        douban_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        douban_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         douban_swipe_refresh.setOnRefreshListener {
             page = 1

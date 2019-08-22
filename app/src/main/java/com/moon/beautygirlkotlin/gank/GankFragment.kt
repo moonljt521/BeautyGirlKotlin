@@ -80,7 +80,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         mAdapter.itemListener = this
 
-        gank_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        gank_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         swipe_refresh.setOnRefreshListener {
             page = 1
@@ -159,8 +159,8 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     override fun itemClick(v: View, position: Int) {
 
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url", mAdapter?.list?.get(position)?.url)
-        intent.putExtra("title", mAdapter?.list?.get(position)?.desc)
+        intent.putExtra("url", mAdapter.list?.get(position)?.url)
+        intent.putExtra("title", mAdapter.list?.get(position)?.desc)
         mActivity.startActivity(intent)
     }
 }

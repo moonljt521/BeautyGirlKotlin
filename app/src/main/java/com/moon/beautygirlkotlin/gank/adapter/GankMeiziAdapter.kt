@@ -28,8 +28,8 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
     private val COMMON_ITEM_TYPE = 1
 
     override fun onClick(v: View?) {
-        var position : Int = v?.getTag() as Int
-        itemListener?.itemClick(v,position)
+        val position : Int = v?.getTag() as Int
+        itemListener.itemClick(v,position)
     }
 
     var list: ArrayList<GankMeiziBody>? = null
@@ -70,26 +70,26 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
     override fun onBindViewHolder(holder: GankItemViewHolder?, position: Int) {
 
-        var body : GankMeiziBody = list?.get(position)!!
+        val body : GankMeiziBody = list?.get(position)!!
 
 
         ImageLoader.load(context,body.url,R.drawable.placeholder_image, holder!!.item_img)
 
 
-        holder?.item_title?.setText(body.desc)
+        holder.item_title.setText(body.desc)
 
 
-        holder?.item_layout?.setTag(position)
+        holder.item_layout.setTag(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): GankItemViewHolder {
-        var v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
+        val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
-        var holder = GankItemViewHolder(v)
+        val holder = GankItemViewHolder(v)
 
         context = parent?.context!!
 
-        holder?.item_layout?.setOnClickListener(this)
+        holder.item_layout.setOnClickListener(this)
 
         return holder
     }
@@ -97,12 +97,6 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
     override fun getItemCount(): Int {
         return list?.size!!
     }
-
-
-    class GankAdViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
-
-    }
-
 
     class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
 

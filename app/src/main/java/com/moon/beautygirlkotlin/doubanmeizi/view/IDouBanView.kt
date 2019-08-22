@@ -10,9 +10,4 @@ import java.util.ArrayList
 
 
 interface IDouBanView: BaseMvpView<List<DoubanMeiziBody>> {
-
-
-
-
-
 }

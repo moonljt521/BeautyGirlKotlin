@@ -45,7 +45,7 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
             collect_btn.visibility = View.GONE
         }
 
-        ImageLoader.load(this,url!!,gank_big_img)
+        ImageLoader.load(this, url,gank_big_img)
 
         gank_big_img.enable()
 
@@ -92,9 +92,5 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
         }else if (v?.id == R.id.gank_big_img){
             finish()
         }
-
     }
-
-
-
 }
