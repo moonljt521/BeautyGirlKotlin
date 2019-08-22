@@ -33,7 +33,6 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
     lateinit var mAdapter: MyFavoriteAdapter
 
-
     private var callBack: MyItemTouchHelperCallBack? = null
 
     private var itemTouchHelper: ItemTouchHelper? = null
@@ -49,12 +48,10 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     companion object {
 
         fun getInstance(id: Int): MyFavoriteFragment {
-            var fragment = MyFavoriteFragment();
-            var bundle = Bundle()
+            val fragment = MyFavoriteFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
@@ -65,7 +62,6 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_my_favorite
     }
 
@@ -86,7 +82,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     @Subscribe
-    public fun refreshFavouriteList(u: EventUpdateFavourite){
+    fun refreshFavouriteList(u: EventUpdateFavourite){
         queryMyCollect4db()
     }
 
@@ -112,7 +108,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         mAdapter.itemListener = this
 
-        myCollect_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        myCollect_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         myCollect_swipe_refresh.setOnRefreshListener {
             page = 1
@@ -161,16 +157,11 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
         SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.image_error))
     }
 
-
-
-    private val EXTRA_INDEX = "extra_index"
-
-
     override fun itemClick(v: View, position: Int) {
 
         val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.url)
-        intent.putExtra("title",mAdapter?.list?.get(position)?.title)
+        intent.putExtra("url", mAdapter.list?.get(position)?.url)
+        intent.putExtra("title", mAdapter.list?.get(position)?.title)
         intent.putExtra("source",1)
 
         mActivity.startActivity(intent)
