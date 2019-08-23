@@ -37,17 +37,11 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
 
         url = intent?.getStringExtra("url")!!
 
-        if (intent?.getStringExtra("title") != null) {
-            title = (intent?.getStringExtra("title"))!!
-        }
+        title = (intent?.getStringExtra("title"))!!
 
         showCollectIcon = (intent?.getBooleanExtra("showCollectIcon", true))!!
 
-        if (showCollectIcon) {
-            collect_btn.visibility = View.VISIBLE
-        } else {
-            collect_btn.visibility = View.GONE
-        }
+        collect_btn.visibility = if (showCollectIcon) View.VISIBLE else View.GONE
 
         ImageLoader.load(this, url, gank_big_img)
 
@@ -57,11 +51,9 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
 
         collect_btn.setOnClickListener(this)
 
-        if (RealmUtil.isCollected(url)) {
-            toCollect.setImageResource(R.drawable.collected)
-        } else {
-            toCollect.setImageResource(R.drawable.uncollected)
-        }
+        val collectIcon : Int = if (RealmUtil.isCollected(url)) R.drawable.collected else R.drawable.uncollected
+
+        toCollect.setImageResource(collectIcon)
     }
 
     override fun onClick(v: View?) {
@@ -98,7 +90,6 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
     companion object {
 
         fun startViewBigImaActivity(context: Context ,url : String? , title : String? , showCollectIcon : Boolean) : Unit{
@@ -107,9 +98,7 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
             intent.putExtra("title", title)
             intent.putExtra("showCollectIcon",showCollectIcon)
             context.startActivity(intent)
-
         }
-
     }
 
 }

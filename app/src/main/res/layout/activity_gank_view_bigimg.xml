@@ -17,16 +17,16 @@
         android:id="@+id/collect_btn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="35dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="50dp"
         android:padding="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/toCollect"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             tools:src="@drawable/collected"/>
 
     </LinearLayout>
