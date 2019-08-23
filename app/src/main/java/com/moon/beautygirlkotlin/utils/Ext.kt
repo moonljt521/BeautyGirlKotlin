@@ -9,8 +9,7 @@ import kotlin.coroutines.CoroutineContext
  * des : 扩展函数
  */
 fun <T> executeRequest(context : CoroutineContext, request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Job {
-    val uiScope = CoroutineScope(Dispatchers.Main)
-    return uiScope.launch(context) {
+    return CoroutineScope(Dispatchers.Main).launch(context) {
         try {
             val res: T? = withContext(Dispatchers.IO) { request() }
             res?.let {
