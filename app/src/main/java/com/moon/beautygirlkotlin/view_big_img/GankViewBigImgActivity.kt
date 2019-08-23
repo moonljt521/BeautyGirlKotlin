@@ -1,5 +1,7 @@
 package com.moon.beautygirlkotlin.view_big_img
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -18,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
  * created on: 18/4/28 上午11:43
  * description: 大图片浏览页面
  */
-class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
+class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
 
 
     var realm: Realm = RealmUtil.getRealm()
@@ -26,7 +28,7 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
     private var url: String = "";
     private var title: String = "";
 
-    private var source: Int = 0
+    private var showCollectIcon: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +37,19 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
         url = intent?.getStringExtra("url")!!
 
-        if (intent?.getStringExtra("title") !=null){
-            title= (intent?.getStringExtra("title"))!!
+        if (intent?.getStringExtra("title") != null) {
+            title = (intent?.getStringExtra("title"))!!
         }
 
-        source= (intent?.getIntExtra("source",0))!!
+        showCollectIcon = (intent?.getBooleanExtra("showCollectIcon", true))!!
 
-        if (source == 1){
+        if (showCollectIcon) {
+            collect_btn.visibility = View.VISIBLE
+        } else {
             collect_btn.visibility = View.GONE
         }
 
-        ImageLoader.load(this, url,gank_big_img)
+        ImageLoader.load(this, url, gank_big_img)
 
         gank_big_img.enable()
 
@@ -53,21 +57,21 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
         collect_btn.setOnClickListener(this)
 
-        if (RealmUtil.isCollected(url)){
+        if (RealmUtil.isCollected(url)) {
             toCollect.setImageResource(R.drawable.collected)
-        }else{
+        } else {
             toCollect.setImageResource(R.drawable.uncollected)
         }
     }
 
     override fun onClick(v: View?) {
 
-        if (v?.id == R.id.collect_btn){
+        if (v?.id == R.id.collect_btn) {
 
             try {
 
-                if (RealmUtil.isCollected(url)){
-                    SnackbarUtil.showMessage( v,getString(R.string.collect_has))
+                if (RealmUtil.isCollected(url)) {
+                    SnackbarUtil.showMessage(v, getString(R.string.collect_has))
                     return
                 }
 
@@ -78,19 +82,34 @@ class GankViewBigImgActivity: AppCompatActivity() ,View.OnClickListener{
 
                 RealmUtil.addOneCollect(body)
 
-                SnackbarUtil.showMessage( v,getString(R.string.collect_success))
+                SnackbarUtil.showMessage(v, getString(R.string.collect_success))
 
                 toCollect.setImageResource(R.drawable.collected)
 
                 EventBus.getDefault().post(EventUpdateFavourite(0))
 
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
-                SnackbarUtil.showMessage( v,getString(R.string.collect_fail))
+                SnackbarUtil.showMessage(v, getString(R.string.collect_fail))
             }
 
-        }else if (v?.id == R.id.gank_big_img){
+        } else if (v?.id == R.id.gank_big_img) {
             finish()
         }
     }
+
+
+    companion object {
+
+        fun startViewBigImaActivity(context: Context ,url : String? , title : String? , showCollectIcon : Boolean) : Unit{
+            val intent = Intent(context, GankViewBigImgActivity::class.java)
+            intent.putExtra("url", url)
+            intent.putExtra("title", title)
+            intent.putExtra("showCollectIcon",showCollectIcon)
+            context.startActivity(intent)
+
+        }
+
+    }
+
 }

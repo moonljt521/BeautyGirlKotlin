@@ -174,10 +174,8 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
     }
 
     override fun itemClick(v: View, position: Int) {
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.imageurl)
-
-        mActivity.startActivity(intent)
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.title,true)
     }
 
 

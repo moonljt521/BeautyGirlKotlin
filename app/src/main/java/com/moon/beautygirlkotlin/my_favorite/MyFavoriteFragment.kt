@@ -158,13 +158,8 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     override fun itemClick(v: View, position: Int) {
-
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url", mAdapter.list?.get(position)?.url)
-        intent.putExtra("title", mAdapter.list?.get(position)?.title)
-        intent.putExtra("source",1)
-
-        mActivity.startActivity(intent)
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.title,false)
     }
 
     override fun showSuccess(list : List<MyFavoriteBody>?) {
