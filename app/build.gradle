@@ -178,8 +178,8 @@ dependencies {
 
 
 
-kotlin{             //开始协程实验性功能
-    experimental{
-        coroutines 'enable'
-    }
-}
+//kotlin{             //开始协程实验性功能
+//    experimental{
+//        coroutines 'enable'
+//    }
+//}
