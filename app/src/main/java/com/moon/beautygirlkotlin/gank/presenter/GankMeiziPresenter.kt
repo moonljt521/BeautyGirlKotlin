@@ -6,11 +6,12 @@ import com.moon.beautygirlkotlin.network.RetrofitHelper
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
 class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 
 //    fun getGankList(context: RxAppCompatActivity, pageNum: Int, page: Int) {
-    fun getGankList(pageNum: Int, page: Int) :Job{
+    fun getGankList(context : CoroutineContext ,pageNum: Int, page: Int) :Job{
 
 //        RetrofitHelper.getGankMeiziApi()
 //                .getGankMeizi(pageNum, page)
@@ -30,6 +31,7 @@ class GankMeiziPresenter : BaseMvpPresenter<IGankMeiziView>() {
 //                })
 
        return executeRequest<GankMeiziResult>(
+               context,
                 request = {
                     RetrofitHelper.getGankMeiziApi().getGankMeizi(pageNum, page)
                 },

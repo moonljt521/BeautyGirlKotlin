@@ -16,7 +16,6 @@ import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
-import kotlinx.coroutines.launch
 
 
 /**
@@ -131,9 +130,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        launch {
-            mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
-        }
+        mvpPresenter.getDouBanMeiZiData(coroutineContext,arguments.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {

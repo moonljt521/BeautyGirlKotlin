@@ -17,7 +17,6 @@ import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
-import kotlinx.coroutines.launch
 
 
 /**
@@ -94,9 +93,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      * 同时开始加重admob 广告
      */
     fun loadHttpData() {
-        launch {
-            mvpPresenter?.getGankList(pageNum, page)
-        }
+        mvpPresenter?.getGankList(coroutineContext,pageNum, page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {

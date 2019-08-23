@@ -5,11 +5,13 @@ import com.moon.beautygirlkotlin.utils.DataUtil
 import com.moon.beautygirlkotlin.utils.executeRequest
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.presenter.BaseMvpPresenter
+import kotlin.coroutines.CoroutineContext
 
 class TaoFemalePresenter : BaseMvpPresenter<ITaoFemaleView>() {
 
-    fun getTaoFemaleList(pageNum: Int) {
+    fun getTaoFemaleList(context: CoroutineContext, pageNum: Int) {
         executeRequest<List<MeiZiTuBody>>(
+                context,
                 request = {
                     var url: String? = null
                     if (pageNum == 1) {

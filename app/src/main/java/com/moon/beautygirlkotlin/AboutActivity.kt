@@ -24,7 +24,6 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun loadData() {
-
     }
 
     override fun getLayoutId(): Int {

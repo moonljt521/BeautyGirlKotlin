@@ -16,7 +16,6 @@ import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
-import kotlinx.coroutines.launch
 
 /**
  * [美图录] 模块 fragment
@@ -99,9 +98,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
      * 加载网络数据：开始[淘女郎数据]的请求
      */
     fun loadHttpData() {
-        launch {
-            mvpPresenter.getTaoFemaleList(page)
-        }
+        mvpPresenter.getTaoFemaleList(coroutineContext,page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {

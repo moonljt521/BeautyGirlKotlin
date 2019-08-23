@@ -9,6 +9,7 @@ import com.moon.mvpframework.presenter.BaseMvpPresenter
 import kotlinx.coroutines.Job
 import okhttp3.ResponseBody
 import retrofit2.Response
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -16,10 +17,10 @@ import retrofit2.Response
  */
 class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
-    fun getDouBanMeiZiData(cid: Int, page: Int, type: Int) :Job{
+    fun getDouBanMeiZiData(context : CoroutineContext ,cid: Int, page: Int, type: Int) :Job{
 
        return executeRequest<List<DoubanMeiziBody>>(
-
+                context,
                 request = {
                     val response : Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
                     DataUtil.getDouBanList(type,response)
