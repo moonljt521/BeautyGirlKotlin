@@ -141,8 +141,11 @@ dependencies {
 //    implementation 'org.jetbrains.anko:anko-design:0.8.3'
 //    implementation 'org.jetbrains.anko:anko-recyclerview-v7:0.8.3'
     // anko
-    implementation 'io.reactivex:rxandroid:1.1.0'
-    implementation 'io.reactivex:rxjava:1.1.0'
+
+    // 弃用 RxJava
+//    implementation 'io.reactivex:rxandroid:1.1.0'
+//    implementation 'io.reactivex:rxjava:1.1.0'
+
     //RxLifecycle 内存泄露
     implementation 'com.trello:rxlifecycle-components:0.6.1'
     // retrofit 2
