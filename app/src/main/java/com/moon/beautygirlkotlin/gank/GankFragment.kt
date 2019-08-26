@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.gank
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -93,7 +92,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      * 同时开始加重admob 广告
      */
     fun loadHttpData() {
-        mvpPresenter?.getGankList(coroutineContext,pageNum, page)
+        mvpPresenter.getGankList(pageNum,page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
@@ -147,9 +146,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         gank_adView.loadAd(adRequest)
     }
-
-    private val EXTRA_INDEX = "extra_index"
-
 
     override fun itemClick(v: View, position: Int) {
         GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,

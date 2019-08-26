@@ -130,7 +130,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(coroutineContext,arguments.getInt("id"),page,1)
+        mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {

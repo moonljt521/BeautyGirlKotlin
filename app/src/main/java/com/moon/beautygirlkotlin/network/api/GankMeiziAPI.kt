@@ -11,13 +11,6 @@ import retrofit2.http.Path
  */
 interface GankMeiziAPI {
 
-    /**
-     * gank妹子,福利
-     */
-//    @GET("data/福利/{number}/{page}")
-//    fun getGankMeizi(@Path("number") number: Int, @Path("page") page: Int): Observable<GankMeiziResult>
-
     @GET("data/福利/{number}/{page}")
     suspend fun getGankMeizi(@Path("number") number: Int, @Path("page") page: Int): GankMeiziResult
-
 }

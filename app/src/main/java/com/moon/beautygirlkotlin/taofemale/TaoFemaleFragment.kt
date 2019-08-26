@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.taofemale
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_gank_meizi.*
  */
 @CreatePresenter(TaoFemalePresenter::class)
 class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), ITaoFemaleView, ViewItemListener {
-
 
     var mLayoutManager: LinearLayoutManager? = null ;
 
@@ -50,7 +48,6 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_gank_meizi
     }
 
@@ -98,7 +95,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
      * 加载网络数据：开始[淘女郎数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getTaoFemaleList(coroutineContext,page)
+        mvpPresenter.getTaoFemaleList(page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {

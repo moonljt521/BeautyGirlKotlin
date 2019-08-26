@@ -9,7 +9,7 @@ import com.moon.mvpframework.view.BaseMvpView;
  * author: jiangtao.liang
  * date:   On 2019/8/22 18:05
  */
-public class BaseMvpPresenter<V extends BaseMvpView> {
+public class BaseMvpPresenter<V extends BaseMvpView> extends ExternalPresenter{
 
     /**
      * V层view
@@ -44,6 +44,7 @@ public class BaseMvpPresenter<V extends BaseMvpView> {
      * Presenter被销毁时调用
      */
     public void onDestroyPersenter() {
+        clear();
     }
 
     /**
