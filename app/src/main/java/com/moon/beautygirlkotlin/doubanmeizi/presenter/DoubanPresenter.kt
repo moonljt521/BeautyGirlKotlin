@@ -10,6 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 /**
  * 豆瓣妹子api 接口
@@ -50,7 +52,7 @@ class DoubanPresenter : BaseMvpPresenter<IDouBanView>() {
 
     suspend fun getData(cid: Int, page: Int , type: Int): List<DoubanMeiziBody> {
         return withContext(Dispatchers.IO){
-            val result = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
+            val result: Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid, page)
             DataUtil.getDouBanList(type,result)
         }
     }

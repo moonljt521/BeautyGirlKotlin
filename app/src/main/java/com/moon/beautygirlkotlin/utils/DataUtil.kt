@@ -28,6 +28,8 @@ object DataUtil {
 
         val list = ArrayList<DoubanMeiziBody>()
 
+        if (response?.body() == null) throw java.lang.Exception()
+        
         try {
             val string = response?.body()?.string()
             val parse = Jsoup.parse(string)
