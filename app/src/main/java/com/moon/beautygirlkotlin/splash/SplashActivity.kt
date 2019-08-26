@@ -9,6 +9,7 @@ import com.moon.beautygirlkotlin.MainActivity
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -54,5 +55,6 @@ class SplashActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        cancel()
     }
 }
