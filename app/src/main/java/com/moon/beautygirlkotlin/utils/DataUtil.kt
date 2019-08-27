@@ -29,7 +29,7 @@ object DataUtil {
         val list = ArrayList<DoubanMeiziBody>()
 
         if (response?.body() == null) throw java.lang.Exception()
-        
+
         try {
             val string = response?.body()?.string()
             val parse = Jsoup.parse(string)
@@ -74,24 +74,30 @@ object DataUtil {
 
     /**
      * since 3.0
-     *
-     * 解析【7160】 html
+     *  http://www.umei.cc/bizhitupian/meinvbizhi/
+     * 解析【优图美库】 html
      */
     fun parserMeiTuLuHtml(url: String): List<MeiZiTuBody> {
         val list = ArrayList<MeiZiTuBody>()
         try {
-            val doc = Jsoup.parse(URL(url).openStream(), "GB2312", url)
-            val element : Elements = doc.getElementsByClass("news_bom-left")
-            val datas = element.select("li[target=_blank]>img")
+            val doc = Jsoup.parse(URL(url).openStream(), "UTF-8", url)
+            val element = doc.select("div[class=TypeList]>ul>li>a[class=TypeBigPics]")
 
-//            val element = doc.select("div[class=item masonry_brick masonry-brick]>div[class=item_t]>div[class=img]>" +
-//                    "div[class=ABox]>a>img")
-            for (e in datas) {
-                val imageUrl : String = e.attr("src")
-                val title : String = e.attr("alt")
-                val bean = MeiZiTuBody(0, 354, 236,imageUrl,imageUrl,title,"",0,0)
-                list.add(bean)
+            for (e in element) {
+                val imageUrl : String = e.select("img")[0].attr("src")
+                val title : String = e.select("span")[0].html()
+
+                // 将缩略图改为大图
+                val imgList  = imageUrl.split("/")
+                val lastImg = imgList.last()
+                if (lastImg.startsWith("rn")){
+                    val newUrl = imageUrl.replace("rn","")
+                    list.add(MeiZiTuBody(0, 354, 236,newUrl,newUrl,title,"",0,0))
+                }else {
+                    list.add(MeiZiTuBody(0, 354, 236,imageUrl,imageUrl,title,"",0,0))
+                }
             }
+
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }

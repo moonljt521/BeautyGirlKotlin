@@ -12,6 +12,7 @@ import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
@@ -24,13 +25,13 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     var mLayoutManager: LinearLayoutManager? = null ;
 
-    lateinit var mAdapter: TaoFemaleAdapter
+    lateinit var mAdapter: MeiZiTuAdapter
 
     var mIsRefreshing: Boolean = false
 
     var mIsLoadMore = true
 
-    var page: Int = 2
+    var page: Int = 1
 
     var pageNum: Int = 15
 
@@ -68,7 +69,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     override fun initViews(view: View?) {
 
-        mAdapter = TaoFemaleAdapter()
+        mAdapter = MeiZiTuAdapter()
 
         mLayoutManager = LinearLayoutManager(mActivity)
 
@@ -83,7 +84,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
         gank_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
 
         swipe_refresh.setOnRefreshListener {
-            page = 2
+            page = 1
 
             mIsRefreshing = true
 

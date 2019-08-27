@@ -56,7 +56,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子 gank
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
         fragmentList.add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
-        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 【7160】图
+        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 【优图美库】
         fragmentList.add(MyFavoriteFragment.getInstance(0))  // 我的收藏
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)

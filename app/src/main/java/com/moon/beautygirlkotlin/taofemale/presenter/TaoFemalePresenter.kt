@@ -11,28 +11,9 @@ import kotlinx.coroutines.withContext
 
 class TaoFemalePresenter : BaseMvpPresenter<ITaoFemaleView>() {
 
-    fun getTaoFemaleList(pageNum: Int) {
-//        executeRequest<List<MeiZiTuBody>>(
-//                context,
-//                request = {
-//                    var url: String? = null
-//                    if (pageNum == 1) {
-//                        url = "https://www.7160.com/xiaohua/"
-//                    }else{
-//                        url = "https://www.7160.com/xiaohua/list_6_" + pageNum + ".html"
-//                    }
-//                    DataUtil.parserMeiTuLuHtml(url)
-//                },
-//
-//                onSuccess = {
-//                    mvpView?.showSuccess(it)
-//                },
-//
-//                onFail = {
-//                    mvpView.showError()
-//                }
-//        )
+    private val url : String = "http://www.umei.cc/bizhitupian/meinvbizhi/"
 
+    fun getTaoFemaleList(pageNum: Int) {
         presenterScope.launch {
             try {
                 val data = getData(pageNum)
@@ -46,13 +27,11 @@ class TaoFemalePresenter : BaseMvpPresenter<ITaoFemaleView>() {
 
     suspend fun getData(pageNum: Int) : List<MeiZiTuBody>{
         return withContext(Dispatchers.IO){
-            var url: String? = null
             if (pageNum == 1) {
-                url = "https://www.7160.com/xiaohua/"
+                DataUtil.parserMeiTuLuHtml(url)
             }else{
-                url = "https://www.7160.com/xiaohua/list_6_" + pageNum + ".html"
+                DataUtil.parserMeiTuLuHtml(url + pageNum + ".htm")
             }
-            DataUtil.parserMeiTuLuHtml(url)
         }
     }
 }
