@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">每日紙子</string>
+    <string name="app_name">每日一图</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

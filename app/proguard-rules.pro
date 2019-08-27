@@ -196,6 +196,7 @@
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.moon.beautygirlkotlin.base.** { *; }  ##这里需要改成解析到哪个  javabean
 -keep class * extends com.moon.beautygirlkotlin.base.BaseBean{*; }
+-keep class * extends com.moon.beautygirlkotlin.base.BaseResponse{*; }
 -keep class * extends io.realm.RealmObject{*; }
 
 ##---------------End: proguard configuration for Gson  ----------
@@ -231,6 +232,8 @@
 -keep class okio.**{*;}
 #okhttp
 
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
 
 # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
@@ -281,4 +284,13 @@
 # Only required if you use AsyncExecutor
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
+}
+
+# coroutine
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidExceptionPreHandler {}
+-keepnames class kotlinx.coroutines.android.AndroidDispatcherFactory {}
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
 }

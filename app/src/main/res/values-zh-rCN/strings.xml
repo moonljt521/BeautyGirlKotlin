@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">每日萌妹子</string>
+    <string name="app_name">每日一图</string>
 
     <string name="navigation_drawer_open">打开抽屉</string>
     <string name="navigation_drawer_close">关闭抽屉</string>
