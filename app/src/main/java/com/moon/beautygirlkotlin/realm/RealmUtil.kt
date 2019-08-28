@@ -45,7 +45,7 @@ object RealmUtil {
 
         val list = getRealm().where(MyFavoriteBody::class.java).findAll()
 
-        return list
+        return list!!
     }
 
     /**

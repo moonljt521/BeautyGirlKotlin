@@ -42,7 +42,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
     fun loadMoreData(list:List<GankMeiziBody>){
         this.list?.addAll(list)
-        notifyDataSetChanged()
+        notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<GankMeiziBody>){

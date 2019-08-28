@@ -37,7 +37,7 @@ class DouBanAdapter( ) : RecyclerView.Adapter<DouBanAdapter.OrderListHolder>(), 
 
     fun loadMoreData(list:List<DoubanMeiziBody>){
         this.list?.addAll(list)
-        notifyDataSetChanged()
+        notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<DoubanMeiziBody>){

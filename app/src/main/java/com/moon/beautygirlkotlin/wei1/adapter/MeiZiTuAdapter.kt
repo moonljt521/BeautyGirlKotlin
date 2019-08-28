@@ -38,7 +38,7 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
 
     fun loadMoreData(list:List<MeiZiTuBody>){
         this.list?.addAll(list)
-        notifyDataSetChanged()
+        notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<MeiZiTuBody>){
