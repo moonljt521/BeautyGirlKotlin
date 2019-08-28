@@ -12,4 +12,6 @@ data class GankMeiziBody(var _id : String
                          , var used :Boolean
                          , var who :String
                          , var itemType : Int) : BaseBean() {
+
+    var scale : Float = 0f
 }
