@@ -1,8 +1,7 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/myCollect_swipe_refresh"
@@ -20,6 +19,16 @@
             android:scrollbars="none"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <TextView
+        android:id="@+id/myCollect_empty_text"
+        android:textSize="16dp"
+        android:text="您还没有收藏哦！"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
 

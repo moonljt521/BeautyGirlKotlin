@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.utils
 
-import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.moon.mvpframework.presenter.ExternalPresenter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -73,14 +72,10 @@ fun <T> executeChannel(context : CoroutineContext,
  */
 private const val JOB_KEY = "android.presenter.CoroutineScope.JOB_KEY"
 
-
 val ExternalPresenter.presenterScope: CoroutineScope
     get() {
         val scope: CoroutineScope? = this.getTag(JOB_KEY)
-        if (scope != null) {
-            return scope
-        }
-        return setTagIfAbsent(
+        return scope ?: setTagIfAbsent(
                 JOB_KEY,
                 PresenterCloseableCoroutineScope(SupervisorJob() + Dispatchers.Main)
         )

@@ -48,8 +48,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
-
     companion object {
         fun getInstance(id: Int): GankFragment {
             val fragment = GankFragment();
