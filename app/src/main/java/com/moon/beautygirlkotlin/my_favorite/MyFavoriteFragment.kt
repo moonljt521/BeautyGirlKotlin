@@ -16,7 +16,7 @@ import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
 import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
@@ -161,7 +161,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,false)
     }
 

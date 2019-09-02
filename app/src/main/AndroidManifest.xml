@@ -37,7 +37,7 @@
 
         </activity>
 
-        <activity android:name=".view_big_img.GankViewBigImgActivity"
+        <activity android:name=".view_big_img.ViewBigImgActivity"
                   android:theme="@style/AppTheme.StatusBar">
         </activity>
 

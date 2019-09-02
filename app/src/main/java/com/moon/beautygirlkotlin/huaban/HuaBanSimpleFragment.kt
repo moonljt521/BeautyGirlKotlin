@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.huaban
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -13,7 +12,7 @@ import com.moon.beautygirlkotlin.huaban.presenter.HuaBanPresenter
 import com.moon.beautygirlkotlin.huaban.view.IHuaBanView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
@@ -164,7 +163,7 @@ class HuaBanSimpleFragment : BaseLazeFragment<IHuaBanView, HuaBanPresenter>(), I
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,false)
     }
 

@@ -1,7 +1,6 @@
 package com.moon.beautygirlkotlin.wei1
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
@@ -10,14 +9,13 @@ import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.presenter.MeiZiTuPresenter
 import com.moon.beautygirlkotlin.wei1.view.IMeiZiTuView
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
-import kotlinx.coroutines.launch
 
 /**
  * 妹子图 模块 子fragment
@@ -174,7 +172,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,true)
     }
 

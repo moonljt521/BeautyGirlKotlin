@@ -7,11 +7,10 @@ import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
 import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
@@ -163,7 +162,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,true)
 
     }

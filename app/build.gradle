@@ -58,6 +58,7 @@ android {
 
         multiDexEnabled true
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.KOTLIN_GIRL
@@ -114,6 +115,11 @@ android {
     dexOptions {
 //        incremental true
         javaMaxHeapSize "4g"
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 }
 
@@ -178,8 +184,6 @@ dependencies {
     // Google ad
     implementation 'com.google.android.gms:play-services-ads:15.0.0'
 }
-
-
 
 //kotlin{             //开始协程实验性功能
 //    experimental{
