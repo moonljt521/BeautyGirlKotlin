@@ -10,8 +10,11 @@
 
 ## 3.0 
 
-准备用 kotlin Coroutine 替换掉 rxJava
+kotlin Coroutine 替换掉 rxJava，同事升级Retrofit 到 2.6配合协程使用
 
+## 3.1 
+
+修复些bug
 
 
 ## Requirements
