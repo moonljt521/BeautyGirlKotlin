@@ -11,13 +11,13 @@ import android.widget.ImageView
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
-import com.moon.beautygirlkotlin.huaban.HuaBanBaseFragment
 import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
 import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
 import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.wei1.OnlyPicBaseFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -33,11 +33,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     var exitTime:Long = 0
 
-
     override fun initViews() {
         nav_view.setNavigationItemSelectedListener(this)
 
-        var headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
+        val headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
 
         mCircleImageView = headView.findViewById<View>(R.id.nav_head_avatar) as ImageView
 
@@ -53,14 +52,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toggle.syncState()
     }
 
-
     override fun loadData() {
-        fragmentList.add(GankFragment.getInstance(0)) // 萌妹子
+        fragmentList.add(GankFragment.getInstance(0)) // 萌妹子 gank
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-        fragmentList.add(HuaBanBaseFragment.getInstance(0))  // 花瓣妹子图
-        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 淘女郎妹子图
+        fragmentList.add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
+        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 【优图美库】
         fragmentList.add(MyFavoriteFragment.getInstance(0))  // 我的收藏
-
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
 
@@ -68,14 +65,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         supportFragmentManager.beginTransaction()
                 .replace(R.id.content, fragmentList.get(0))
                 .commit()
-
     }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
-
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -88,8 +82,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 navigationFragment(1,getString(R.string.douban_meizi),item)
             }
 
-            R.id.nav_huaban-> {
-                navigationFragment(2,getString(R.string.huaban_meizi),item)
+            R.id.weiyi_tuku-> {
+                navigationFragment(2,getString(R.string.weiyi_pic),item)
             }
 
             R.id.nav_tao-> {
@@ -121,7 +115,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      */
     fun navigationFragment(index : Int, title : String ,item: MenuItem ){
 
-        var trx = supportFragmentManager.beginTransaction()
+        val trx = supportFragmentManager.beginTransaction()
         trx.hide(fragmentList.get(currentTabIndex))
 
         if (!fragmentList.get(index).isAdded){
@@ -154,15 +148,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onBackPressed() {
 
         if (System.currentTimeMillis() - exitTime > 2000){
-
             SnackbarUtil.showMessage(drawer_layout, getString(R.string.back_message))
-
             exitTime = System.currentTimeMillis()
-
         }else{
-
-            AppManager.getAppManager().exitApp(applicationContext)
-
+            AppManager.instance.exitApp(applicationContext)
         }
     }
 

@@ -5,14 +5,14 @@ import android.support.design.widget.TabLayout.MODE_SCROLLABLE
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.huaban.model.HuaBanFragmentAdapter
-import com.moon.mvpframework.view.BaseIdFragment
 import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 
 /**
  * [花瓣] 模块 base  fragment
  */
-class HuaBanBaseFragment : BaseIdFragment<Nothing, Nothing>()
+class HuaBanBaseFragment : BaseFragment<Nothing, Nothing>()
 {
     lateinit var adapter: HuaBanFragmentAdapter
 

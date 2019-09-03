@@ -9,10 +9,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.ImageLoader
-import java.util.ArrayList
+import java.util.*
 
 /**
  * author: moon
@@ -24,8 +23,8 @@ class DouBanAdapter( ) : RecyclerView.Adapter<DouBanAdapter.OrderListHolder>(), 
     lateinit var context: Context
 
     override fun onClick(v: View?) {
-        var position : Int = v?.getTag() as Int
-        itemListener?.itemClick(v,position)
+        val position : Int = v?.getTag() as Int
+        itemListener.itemClick(v,position)
     }
 
     var list: ArrayList<DoubanMeiziBody>? = null
@@ -54,26 +53,26 @@ class DouBanAdapter( ) : RecyclerView.Adapter<DouBanAdapter.OrderListHolder>(), 
 
     override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
 
-        var body : DoubanMeiziBody = list?.get(position)!!
+        val body : DoubanMeiziBody = list?.get(position)!!
 
 
         ImageLoader.load(context, body.url, R.drawable.placeholder_image, holder!!.item_img)
 
 
-        holder?.item_title?.setText(body.title)
+        holder.item_title.setText(body.title)
 
 
-        holder?.item_layout?.setTag(position)
+        holder.item_layout.setTag(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrderListHolder {
-        var v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
+        val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
-        var holder = OrderListHolder(v)
+        val holder = OrderListHolder(v)
 
         context = parent?.context!!
 
-        holder?.item_layout?.setOnClickListener(this)
+        holder.item_layout.setOnClickListener(this)
 
         return holder
     }

@@ -1,7 +1,6 @@
 package com.moon.beautygirlkotlin.gank.model
 
-import com.moon.beautygirlkotlin.base.BaseBean
+import com.moon.beautygirlkotlin.base.BaseResponse
 
-data class GankMeiziResult(var error: Boolean
-                        , var results : List<GankMeiziBody>) : BaseBean() {
+data class GankMeiziResult(var results : List<GankMeiziBody>) : BaseResponse<List<GankMeiziBody>>() {
 }

@@ -21,7 +21,7 @@ object SpUtil {
 
             val edit = share.edit()
             edit.putBoolean("hastip",true)
-            edit.commit()
+            edit.apply()
         }
         return sp
     }

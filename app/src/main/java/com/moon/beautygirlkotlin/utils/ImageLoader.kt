@@ -1,11 +1,8 @@
 package com.moon.beautygirlkotlin.utils
 
 import android.content.Context
-import android.support.design.widget.Snackbar
-import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.glide.GlideCircleTransForm
 
 /**

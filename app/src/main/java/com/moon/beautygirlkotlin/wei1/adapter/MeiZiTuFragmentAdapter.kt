@@ -1,10 +1,10 @@
-package com.moon.beautygirlkotlin.meizitu.adapter
+package com.moon.beautygirlkotlin.wei1.adapter
 
 import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.moon.beautygirlkotlin.meizitu.MeiZiTuSimpleFragment
+import com.moon.beautygirlkotlin.wei1.MeiZiTuSimpleFragment
 import java.util.*
 
 /**
@@ -15,16 +15,11 @@ class MeiZiTuFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm
 
     var fragmentList : ArrayList<MeiZiTuSimpleFragment>
 
-    private val titles = arrayOf("热门", "推荐", "清纯", "台湾", "日本", "性感")
+    private val titles = arrayOf("明星相关专辑")
 
     init {
         fragmentList = ArrayList()
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("hot"))
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("best"))
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("mm"))
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("taiwan"))
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("japan"))
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("xinggan"))
+        fragmentList.add(MeiZiTuSimpleFragment.getInstance("list_18_"))
     }
 
     override fun getPageTitle(position: Int): CharSequence {

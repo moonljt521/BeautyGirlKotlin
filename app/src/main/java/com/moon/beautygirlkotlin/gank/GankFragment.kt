@@ -1,12 +1,12 @@
 package com.moon.beautygirlkotlin.gank
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
@@ -15,7 +15,6 @@ import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
 
@@ -23,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_gank_meizi.*
  * Gank 妹子模块 fragment
  */
 @CreatePresenter(GankMeiziPresenter::class)
-class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView, ViewItemListener {
+class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView,
+        ViewItemListener {
 
     override fun initData() {
         swipe_refresh.post {
@@ -34,8 +34,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         }
 
         loadHttpData()
-
-
     }
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -53,20 +51,16 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     var imageIndex: Int = 0
 
     companion object {
-
         fun getInstance(id: Int): GankFragment {
-            var fragment = GankFragment();
-            var bundle = Bundle()
+            val fragment = GankFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_gank_meizi
     }
 
@@ -82,7 +76,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         mAdapter.itemListener = this
 
-        gank_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        gank_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         swipe_refresh.setOnRefreshListener {
             page = 1
@@ -98,7 +92,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      * 同时开始加重admob 广告
      */
     fun loadHttpData() {
-        mvpPresenter?.getGankList(mActivity, pageNum, page)
+        mvpPresenter.getGankList(pageNum,page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
@@ -151,18 +145,10 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
                 .build()
 
         gank_adView.loadAd(adRequest)
-
     }
 
-    private val EXTRA_INDEX = "extra_index"
-
-
     override fun itemClick(v: View, position: Int) {
-
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url", mAdapter?.list?.get(position)?.url)
-        intent.putExtra("title", mAdapter?.list?.get(position)?.desc)
-
-        mActivity.startActivity(intent)
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.desc,true)
     }
 }

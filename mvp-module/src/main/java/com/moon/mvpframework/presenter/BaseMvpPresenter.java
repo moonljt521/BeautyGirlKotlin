@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import com.moon.mvpframework.view.BaseMvpView;
 
 /**
- * author: moon
- * created on:
- * description:  presenter 基类
+ * author: jiangtao.liang
+ * date:   On 2019/8/22 18:05
  */
-public class BaseMvpPresenter<V extends BaseMvpView> {
+public class BaseMvpPresenter<V extends BaseMvpView> extends ExternalPresenter{
 
     /**
-     * V层view∑∑
+     * V层view
      */
     private V mView;
 
@@ -45,6 +44,7 @@ public class BaseMvpPresenter<V extends BaseMvpView> {
      * Presenter被销毁时调用
      */
     public void onDestroyPersenter() {
+        clear();
     }
 
     /**

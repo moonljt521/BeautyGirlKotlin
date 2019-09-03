@@ -9,17 +9,20 @@ import android.net.ConnectivityManager
  * created on: 18/4/30 下午10:27
  * description:
  */
-object NetWorkUtil {
+class NetWorkUtil {
 
-    /**
-     * 判断网络是否可用
-     *
-     * @param context Context对象
-     */
-    fun isNetworkReachable(context: Context): Boolean {
-        val cm = context
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val current = cm.activeNetworkInfo ?: return false
-        return current.isAvailable
+    companion object {
+
+        /**
+         * 判断网络是否可用
+         *
+         * @param context Context对象
+         */
+        fun isNetworkReachable(context: Context): Boolean {
+            val cm = context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val current = cm.activeNetworkInfo ?: return false
+            return current.isAvailable
+        }
     }
 }

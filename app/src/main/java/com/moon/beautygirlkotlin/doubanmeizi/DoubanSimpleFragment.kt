@@ -6,16 +6,15 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseLazeFragment
 import com.moon.beautygirlkotlin.doubanmeizi.model.DouBanAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.doubanmeizi.presenter.DoubanPresenter
 import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseLazeFragment
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
 
@@ -23,9 +22,9 @@ import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
  * 豆瓣模块 子fragment
  */
 @CreatePresenter(DoubanPresenter::class)
-class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDouBanView, ViewItemListener {
+class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),IDouBanView, ViewItemListener {
 
-    val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+    var mLayoutManager: StaggeredGridLayoutManager? = null
 
     lateinit var mAdapter: DouBanAdapter
 
@@ -37,8 +36,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
-
+    var hasMoreData = true
 
     // 加载数据
     override fun loadData() {
@@ -57,12 +55,10 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
     companion object {
 
         fun getInstance(id: Int): DoubanSimpleFragment {
-            var fragment = DoubanSimpleFragment();
-            var bundle = Bundle()
+            val fragment = DoubanSimpleFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
@@ -75,24 +71,23 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
     /**
      * 初始化
      */
-    override fun init() {
-
-
-    }
+    override fun init() {}
 
     override fun initViews(view: View?) {
 
         mAdapter = DouBanAdapter()
 
+        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         douban_recyclerView.layoutManager = mLayoutManager
 
-        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         douban_recyclerView.adapter = mAdapter
 
         mAdapter.itemListener = this
 
-        douban_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        douban_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         douban_swipe_refresh.setOnRefreshListener {
             page = 1
@@ -110,12 +105,16 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
     }
 
     override fun showSuccess(list: List<DoubanMeiziBody>?) {
-        if (page == 1) {
+        if (list?.size == 0){
+            SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.nodata_message))
+            hasMoreData = false
+        }else {
+            if (page == 1) {
+                mAdapter.refreshData(list!!)
 
-            mAdapter.refreshData(list!!)
-
-        } else {
-            mAdapter.loadMoreData(list!!)
+            } else {
+                mAdapter.loadMoreData(list!!)
+            }
         }
 
         if (douban_swipe_refresh.isRefreshing) {
@@ -131,18 +130,23 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(mActivity as RxAppCompatActivity,arguments.getInt("id"),page,1)
+        mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
     }
 
-    internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
+    internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(
-                        IntArray(2))[1] >= mAdapter.getItemCount() - 6
+                val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
+
+                val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
+
                 if (!douban_swipe_refresh.isRefreshing && isBottom) {
+                    if (!hasMoreData){
+                        return
+                    }
                     if (!mIsLoadMore) {
 
                         douban_swipe_refresh.isRefreshing = true
@@ -159,10 +163,8 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView,DoubanPresenter>(),IDo
     }
 
     override fun itemClick(v: View, position: Int) {
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.url)
-
-        mActivity.startActivity(intent)
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.title,true)
     }
 
 

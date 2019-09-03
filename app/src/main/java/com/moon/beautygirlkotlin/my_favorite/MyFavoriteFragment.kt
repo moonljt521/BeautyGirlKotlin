@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
@@ -17,8 +17,8 @@ import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
 import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,10 +29,9 @@ import org.greenrobot.eventbus.Subscribe
 @CreatePresenter(MyFavoritePresenter::class)
 class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(), IMyFavoriteView, ViewItemListener {
 
-    val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
+    var mLayoutManager: LinearLayoutManager? = null ;
 
     lateinit var mAdapter: MyFavoriteAdapter
-
 
     private var callBack: MyItemTouchHelperCallBack? = null
 
@@ -49,12 +48,10 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     companion object {
 
         fun getInstance(id: Int): MyFavoriteFragment {
-            var fragment = MyFavoriteFragment();
-            var bundle = Bundle()
+            val fragment = MyFavoriteFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
@@ -65,7 +62,6 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_my_favorite
     }
 
@@ -86,7 +82,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     @Subscribe
-    public fun refreshFavouriteList(u: EventUpdateFavourite){
+    fun refreshFavouriteList(u: EventUpdateFavourite){
         queryMyCollect4db()
     }
 
@@ -97,8 +93,9 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
-        myCollect_recyclerView.layoutManager = mLayoutManager
+        mLayoutManager = LinearLayoutManager(mActivity)
 
+        myCollect_recyclerView.layoutManager = mLayoutManager
 
         // 暂时不支持翻页
 //        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
@@ -111,7 +108,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         mAdapter.itemListener = this
 
-        myCollect_recyclerView.setOnTouchListener { view, motionEvent -> mIsRefreshing }
+        myCollect_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         myCollect_swipe_refresh.setOnRefreshListener {
             page = 1
@@ -160,19 +157,9 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
         SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.image_error))
     }
 
-
-
-    private val EXTRA_INDEX = "extra_index"
-
-
     override fun itemClick(v: View, position: Int) {
-
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.url)
-        intent.putExtra("title",mAdapter?.list?.get(position)?.title)
-        intent.putExtra("source",1)
-
-        mActivity.startActivity(intent)
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.title,false)
     }
 
     override fun showSuccess(list : List<MyFavoriteBody>?) {

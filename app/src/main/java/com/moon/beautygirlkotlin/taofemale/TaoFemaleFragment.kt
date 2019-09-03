@@ -1,32 +1,31 @@
 package com.moon.beautygirlkotlin.taofemale
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.taofemale.adapter.TaoFemaleAdapter
-import com.moon.beautygirlkotlin.taofemale.model.Contentlist
 import com.moon.beautygirlkotlin.taofemale.presenter.TaoFemalePresenter
 import com.moon.beautygirlkotlin.taofemale.view.ITaoFemaleView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
+import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.mvpframework.factory.CreatePresenter
-import com.moon.mvpframework.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
 /**
- * [淘女郎] 模块 fragment
+ * [美图录] 模块 fragment
  */
 @CreatePresenter(TaoFemalePresenter::class)
 class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), ITaoFemaleView, ViewItemListener {
 
+    var mLayoutManager: LinearLayoutManager? = null ;
 
-    val mLayoutManager: LinearLayoutManager = LinearLayoutManager(mActivity)
-
-    lateinit var mAdapter: TaoFemaleAdapter
+    lateinit var mAdapter: MeiZiTuAdapter
 
     var mIsRefreshing: Boolean = false
 
@@ -36,23 +35,20 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
+    var hasMoreData = true
 
     companion object {
 
         fun getInstance(id: Int): TaoFemaleFragment {
-            var fragment = TaoFemaleFragment();
-            var bundle = Bundle()
+            val fragment = TaoFemaleFragment();
+            val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
 
     override fun getLayoutId(): Int {
-
         return R.layout.fragment_gank_meizi
     }
 
@@ -73,11 +69,13 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
     override fun initViews(view: View?) {
 
-        mAdapter = TaoFemaleAdapter()
+        mAdapter = MeiZiTuAdapter()
+
+        mLayoutManager = LinearLayoutManager(mActivity)
 
         gank_recyclerView.layoutManager = mLayoutManager
 
-        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         gank_recyclerView.adapter = mAdapter
 
@@ -98,7 +96,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
      * 加载网络数据：开始[淘女郎数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter?.getGankList(mActivity!!, page)
+        mvpPresenter.getTaoFemaleList(page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -107,9 +105,14 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
             override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
 
-                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 2
+                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 4
 
                 if (!swipe_refresh.isRefreshing && isBottom) {
+
+                    if (!hasMoreData){
+                        return
+                    }
+
                     if (!mIsLoadMore) {
 
                         swipe_refresh.isRefreshing = true
@@ -132,14 +135,21 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
         SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.error_message))
     }
 
-    override fun showSuccess(list: List<Contentlist>?) {
+    override fun showSuccess(list: List<MeiZiTuBody>?) {
 
-        if (page == 1) {
+        if (list?.size == 0){
+            SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.nodata_message))
+            hasMoreData = false
+        }else{
+            hasMoreData = true
 
-            mAdapter.refreshData(list!!)
+            if (page == 1) {
 
-        } else {
-            mAdapter.loadMoreData(list!!)
+                mAdapter.refreshData(list!!)
+
+            } else {
+                mAdapter.loadMoreData(list!!)
+            }
         }
 
         if (swipe_refresh.isRefreshing) {
@@ -153,10 +163,8 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
 
     override fun itemClick(v: View, position: Int) {
+        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+                mAdapter.list?.get(position)?.title,true)
 
-        val intent = Intent(mActivity, GankViewBigImgActivity::class.java)
-        intent.putExtra("url",mAdapter?.list?.get(position)?.avatarUrl)
-
-        mActivity.startActivity(intent)
     }
 }

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.DoubanSimpleFragment
-import java.util.ArrayList
+import java.util.*
 
 class DoubanFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm) {
 
