@@ -24,8 +24,6 @@ object DataUtil {
      */
     fun getDouBanList(type: Int, response: Response<ResponseBody>?): List<DoubanMeiziBody> {
 
-        Logger.i("3 = " + Thread.currentThread().name)
-
         val list = ArrayList<DoubanMeiziBody>()
 
         if (response?.body() == null) throw java.lang.Exception()
