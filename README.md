@@ -14,7 +14,7 @@ kotlin Coroutine 替换掉 rxJava，同时升级Retrofit 到 2.6配合协程使�
 
 ## 3.1 
 
-修复些bug
+support迁移到了androidx 
 
 
 ## Requirements
