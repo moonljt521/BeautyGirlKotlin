@@ -1,9 +1,9 @@
 package com.moon.beautygirlkotlin.my_favorite
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
@@ -101,7 +101,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         myCollect_recyclerView.adapter = mAdapter
 
-        itemTouchHelper = ItemTouchHelper(callBack)
+        itemTouchHelper = ItemTouchHelper(callBack!!)
 
         itemTouchHelper!!.attachToRecyclerView(myCollect_recyclerView)
 
@@ -133,7 +133,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 2
 

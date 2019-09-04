@@ -1,8 +1,8 @@
 package com.moon.beautygirlkotlin.gank.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +72,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 //    }
 
 
-    override fun onBindViewHolder(holder: GankItemViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: GankItemViewHolder, position: Int) {
         val body : GankMeiziBody = list?.get(position)!!
 
         ImageLoader.load(context,body.url,R.drawable.placeholder_image, holder!!.item_img)
@@ -104,7 +104,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): GankItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GankItemViewHolder {
         val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
         val holder = GankItemViewHolder(v)
@@ -120,7 +120,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
         return list?.size!!
     }
 
-    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
         var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 

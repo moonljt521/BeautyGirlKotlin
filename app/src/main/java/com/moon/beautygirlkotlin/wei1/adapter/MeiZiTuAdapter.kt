@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.wei1.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +52,7 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: OrderListHolder?, position: Int) {
+    override fun onBindViewHolder(holder: OrderListHolder, position: Int) {
 
         val body : MeiZiTuBody = list?.get(position)!!
 
@@ -66,7 +66,7 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
         holder.item_layout.setTag(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OrderListHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListHolder {
         val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
         val holder = OrderListHolder(v)
@@ -83,7 +83,7 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
     }
 
 
-    class OrderListHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class OrderListHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
         var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 
 import com.moon.mvpframework.factory.PresenterMvpFactory
 import com.moon.mvpframework.factory.PresenterMvpFactoryImpl
@@ -14,7 +15,6 @@ import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.moon.mvpframework.proxy.BaseMvpProxy
 import com.moon.mvpframework.proxy.PresenterProxyInterface
 import com.moon.mvpframework.view.BaseMvpView
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -29,7 +29,7 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
 
     protected var loadFinish: Boolean = false
 
-    protected lateinit var mActivity: RxAppCompatActivity
+    protected lateinit var mActivity: AppCompatActivity
 
     protected abstract fun getLayoutId(): Int
     /**
@@ -51,7 +51,7 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        mActivity = (context as RxAppCompatActivity?)!!
+        mActivity = (context as AppCompatActivity?)!!
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,11 +61,11 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(getLayoutId(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
     }
@@ -102,7 +102,7 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
     }
 
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState!!.putBundle(PRESENTER_SAVE_KEY, mProxy.onSaveInstanceState())
     }

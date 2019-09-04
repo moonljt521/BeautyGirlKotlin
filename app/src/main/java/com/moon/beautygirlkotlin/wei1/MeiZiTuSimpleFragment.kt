@@ -2,8 +2,8 @@ package com.moon.beautygirlkotlin.wei1
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
@@ -147,7 +147,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6

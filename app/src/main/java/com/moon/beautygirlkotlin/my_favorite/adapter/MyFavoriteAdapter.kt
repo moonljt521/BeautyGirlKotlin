@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.my_favorite.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +74,7 @@ class MyFavoriteAdapter( ) : RecyclerView.Adapter<MyFavoriteAdapter.MyCollectVie
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: MyCollectViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MyCollectViewHolder, position: Int) {
 
         var body : MyFavoriteBody = list?.get(position)!!
 
@@ -88,7 +88,7 @@ class MyFavoriteAdapter( ) : RecyclerView.Adapter<MyFavoriteAdapter.MyCollectVie
         holder?.item_layout?.setTag(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MyCollectViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCollectViewHolder {
         var v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
         var holder = MyCollectViewHolder(v)
@@ -105,12 +105,12 @@ class MyFavoriteAdapter( ) : RecyclerView.Adapter<MyFavoriteAdapter.MyCollectVie
     }
 
 
-    class GankAdViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class GankAdViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
     }
 
 
-    class MyCollectViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class MyCollectViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
         var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 

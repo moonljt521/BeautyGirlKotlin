@@ -1,8 +1,8 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
@@ -129,14 +129,14 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
+        mvpPresenter.getDouBanMeiZiData(arguments!!.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
 

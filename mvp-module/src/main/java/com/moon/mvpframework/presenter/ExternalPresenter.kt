@@ -1,6 +1,6 @@
 package com.moon.mvpframework.presenter
 
-import android.support.annotation.MainThread
+import androidx.annotation.MainThread
 
 import java.io.Closeable
 import java.io.IOException

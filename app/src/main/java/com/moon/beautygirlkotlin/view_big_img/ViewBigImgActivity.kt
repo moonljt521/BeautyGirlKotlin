@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.view_big_img
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import org.greenrobot.eventbus.EventBus
 import android.widget.TextView
 import android.view.LayoutInflater
-import android.support.design.widget.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.widget.Button
 
 

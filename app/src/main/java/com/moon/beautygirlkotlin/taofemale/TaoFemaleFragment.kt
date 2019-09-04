@@ -1,8 +1,8 @@
 package com.moon.beautygirlkotlin.taofemale
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
@@ -102,7 +102,7 @@ class TaoFemaleFragment : BaseFragment<ITaoFemaleView, TaoFemalePresenter>(), IT
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 4
 
