@@ -2,10 +2,7 @@ package com.moon.mvpframework.factory
 
 
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-
 import java.lang.annotation.Inherited
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 import kotlin.reflect.KClass
 
 /**
@@ -14,5 +11,5 @@ import kotlin.reflect.KClass
  * @description 标注创建Presenter的注解
  */
 @Inherited
-@Retention(RetentionPolicy.RUNTIME)
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 annotation class CreatePresenter(val value: KClass<out BaseMvpPresenter<*>>)
