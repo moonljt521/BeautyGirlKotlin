@@ -4,16 +4,17 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 
 import com.moon.mvpframework.factory.PresenterMvpFactoryImpl
 import com.moon.mvpframework.presenter.BaseMvpPresenter
 import com.moon.mvpframework.proxy.BaseMvpProxy
 import com.moon.mvpframework.proxy.PresenterProxyInterface
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
+
 
 
 /**
@@ -21,7 +22,7 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
  * created on:
  * description: common包下  activity 基类  无toolbar
  */
-abstract class BaseMvpActivity<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : RxAppCompatActivity(), PresenterProxyInterface<V, P> {
+abstract class BaseMvpActivity<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : AppCompatActivity(), PresenterProxyInterface<V, P> {
 
     private val onbackListener: RegisterOnBackListener? = null
 

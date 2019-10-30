@@ -1,8 +1,8 @@
 package com.moon.beautygirlkotlin.gank
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
@@ -13,7 +13,7 @@ import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
 import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
@@ -48,8 +48,6 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
     var pageNum: Int = 15
 
-    var imageIndex: Int = 0
-
     companion object {
         fun getInstance(id: Int): GankFragment {
             val fragment = GankFragment();
@@ -70,7 +68,28 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         gank_recyclerView.layoutManager = mLayoutManager
 
-        gank_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+//        gank_recyclerView.addOnScrollListener(OnLoadMoreListener())
+
+        gank_recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
+                if (!swipe_refresh.isRefreshing && isBottom) {
+                    if (!mIsLoadMore) {
+
+                        swipe_refresh.isRefreshing = true
+
+                        page++
+
+                        loadHttpData()
+                    } else {
+                        mIsLoadMore = false
+                    }
+                }
+            }
+
+        })
 
         gank_recyclerView.adapter = mAdapter
 
@@ -95,11 +114,11 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         mvpPresenter.getGankList(pageNum,page)
     }
 
-    internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
+    internal fun OnLoadMoreListener(): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
                 if (!swipe_refresh.isRefreshing && isBottom) {
@@ -148,7 +167,7 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.desc,true)
     }
 }

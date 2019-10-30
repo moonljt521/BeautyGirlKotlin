@@ -1,7 +1,7 @@
 package com.moon.mvpframework.presenter;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.moon.mvpframework.view.BaseMvpView;
 

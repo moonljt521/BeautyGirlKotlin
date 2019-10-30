@@ -1,23 +1,21 @@
 package com.moon.beautygirlkotlin.wei1
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.presenter.MeiZiTuPresenter
 import com.moon.beautygirlkotlin.wei1.view.IMeiZiTuView
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
-import kotlinx.coroutines.launch
 
 /**
  * 妹子图 模块 子fragment
@@ -149,7 +147,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6
@@ -174,7 +172,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,true)
     }
 

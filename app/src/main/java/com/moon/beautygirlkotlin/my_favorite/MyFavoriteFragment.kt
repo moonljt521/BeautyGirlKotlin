@@ -1,10 +1,9 @@
 package com.moon.beautygirlkotlin.my_favorite
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
@@ -17,7 +16,7 @@ import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
 import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
@@ -102,7 +101,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
         myCollect_recyclerView.adapter = mAdapter
 
-        itemTouchHelper = ItemTouchHelper(callBack)
+        itemTouchHelper = ItemTouchHelper(callBack!!)
 
         itemTouchHelper!!.attachToRecyclerView(myCollect_recyclerView)
 
@@ -117,20 +116,24 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
 
             queryMyCollect4db()
         }
+        mAdapter.registerAdapterDataObserver(rcyDataObserver)
     }
+
+    private val rcyDataObserver : RcyDataObserver = RcyDataObserver()
+
 
     /**
      *  查询db
      */
     fun queryMyCollect4db() {
-        mvpPresenter?.getMyCollectList(mActivity)
+        mvpPresenter.getMyCollectList(mActivity)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 2
 
@@ -158,7 +161,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,false)
     }
 
@@ -187,6 +190,36 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+        mAdapter.unregisterAdapterDataObserver(rcyDataObserver)
     }
 
+    inner class RcyDataObserver() : RecyclerView.AdapterDataObserver() {
+
+        override fun onChanged() {
+            super.onChanged()
+            checkEmpty()
+        }
+
+        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            super.onItemRangeRemoved(positionStart, itemCount)
+            checkEmpty()
+        }
+
+        private fun checkEmpty(){
+            if (mAdapter.list?.size == 0){
+                showEmptyView()
+            } else {
+                hideEmptyView()
+            }
+        }
+    }
+
+    fun showEmptyView(){
+        myCollect_empty_text.visibility = View.VISIBLE
+    }
+
+    fun hideEmptyView(){
+        myCollect_empty_text.visibility = View.GONE
+    }
 }
+

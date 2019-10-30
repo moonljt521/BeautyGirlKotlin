@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.view_big_img
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -14,14 +14,42 @@ import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import org.greenrobot.eventbus.EventBus
+import android.widget.TextView
+import android.view.LayoutInflater
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import android.widget.Button
+
 
 /**
  * author: moon
  * created on: 18/4/28 上午11:43
  * description: 大图片浏览页面
  */
-class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
+class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
+    override fun onLongClick(p0: View?): Boolean {
+
+        showDialog()
+
+        return true
+    }
+
+    fun showDialog() {
+        val dialog = BottomSheetDialog(this@ViewBigImgActivity)
+        val dialogView = LayoutInflater.from(this@ViewBigImgActivity)
+                .inflate(R.layout.dialog_bottom, null)
+        val tvTakePhoto = dialogView.findViewById(R.id.tv_save_img) as Button
+        val tvCancel = dialogView.findViewById(R.id.tv_cancel) as Button
+
+        tvTakePhoto.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        tvCancel.setOnClickListener { dialog.dismiss() }
+        dialog.setContentView(dialogView)
+        dialog.show()
+    }
 
     var realm: Realm = RealmUtil.getRealm()
 
@@ -49,9 +77,11 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
 
         gank_big_img.setOnClickListener(this)
 
+        gank_big_img.setOnLongClickListener(this)
+
         collect_btn.setOnClickListener(this)
 
-        val collectIcon : Int = if (RealmUtil.isCollected(url)) R.drawable.collected else R.drawable.uncollected
+        val collectIcon: Int = if (RealmUtil.isCollected(url)) R.drawable.collected else R.drawable.uncollected
 
         toCollect.setImageResource(collectIcon)
     }
@@ -92,11 +122,11 @@ class GankViewBigImgActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
 
-        fun startViewBigImaActivity(context: Context ,url : String? , title : String? , showCollectIcon : Boolean) : Unit{
-            val intent = Intent(context, GankViewBigImgActivity::class.java)
+        fun startViewBigImaActivity(context: Context, url: String?, title: String?, showCollectIcon: Boolean): Unit {
+            val intent = Intent(context, ViewBigImgActivity::class.java)
             intent.putExtra("url", url)
             intent.putExtra("title", title)
-            intent.putExtra("showCollectIcon",showCollectIcon)
+            intent.putExtra("showCollectIcon", showCollectIcon)
             context.startActivity(intent)
         }
     }

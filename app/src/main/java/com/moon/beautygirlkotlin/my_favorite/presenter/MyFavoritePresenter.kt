@@ -1,9 +1,9 @@
 package com.moon.beautygirlkotlin.my_favorite.presenter
 
+import androidx.appcompat.app.AppCompatActivity
 import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
 import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.mvpframework.presenter.BaseMvpPresenter
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity
 
 
 /**
@@ -11,7 +11,7 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity
  */
 class MyFavoritePresenter : BaseMvpPresenter<IMyFavoriteView>() {
 
-    fun getMyCollectList(context: RxAppCompatActivity) {
+    fun getMyCollectList(context: AppCompatActivity) {
 
         try {
             mvpView?.showSuccess(RealmUtil.getCollectAll())

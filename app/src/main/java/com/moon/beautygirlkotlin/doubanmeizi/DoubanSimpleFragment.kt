@@ -1,9 +1,8 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazeFragment
@@ -13,7 +12,7 @@ import com.moon.beautygirlkotlin.doubanmeizi.presenter.DoubanPresenter
 import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
 import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.view_big_img.GankViewBigImgActivity
+import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
@@ -130,14 +129,14 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(arguments.getInt("id"),page,1)
+        mvpPresenter.getDouBanMeiZiData(arguments!!.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
 
         return object : RecyclerView.OnScrollListener() {
 
-            override fun onScrolled(rv: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                 val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
 
@@ -163,7 +162,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
     }
 
     override fun itemClick(v: View, position: Int) {
-        GankViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
                 mAdapter.list?.get(position)?.title,true)
     }
 

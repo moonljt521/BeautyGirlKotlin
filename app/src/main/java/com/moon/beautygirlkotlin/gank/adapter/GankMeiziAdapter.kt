@@ -1,7 +1,8 @@
 package com.moon.beautygirlkotlin.gank.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import android.widget.TextView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.DensityUtil
 import com.moon.beautygirlkotlin.utils.ImageLoader
+import com.moon.beautygirlkotlin.utils.Logger
+import kotlinx.android.synthetic.main.item_meng_meizi.view.*
 import java.util.*
 
 /**
@@ -42,7 +46,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
     fun loadMoreData(list:List<GankMeiziBody>){
         this.list?.addAll(list)
-        notifyDataSetChanged()
+        notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<GankMeiziBody>){
@@ -68,21 +72,39 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 //    }
 
 
-    override fun onBindViewHolder(holder: GankItemViewHolder?, position: Int) {
-
+    override fun onBindViewHolder(holder: GankItemViewHolder, position: Int) {
         val body : GankMeiziBody = list?.get(position)!!
 
-
         ImageLoader.load(context,body.url,R.drawable.placeholder_image, holder!!.item_img)
-
 
         holder.item_title.setText(body.desc)
 
 
         holder.item_layout.setTag(position)
+
+
+        //  尝试性实验，解决刷新后瀑布流位置乱跳问题，效果不好，待研究
+//        if (body.scale > 0){
+//            setParams(holder.item_img,body)
+//        }
+//
+//        if (holder.item_img.height > 0 && body.scale <= 0){
+//            body.scale = (holder.item_img.width / holder.item_img.height).toFloat()
+//        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): GankItemViewHolder {
+    private fun setParams(imageView: ImageView , body: GankMeiziBody){
+        val layoutParams = imageView.layoutParams
+        val w = DensityUtil.getScreenWidth(imageView.context) -
+                DensityUtil.dip2px(imageView.context,4f)
+        val h = w/body.scale
+        layoutParams.width = w
+        layoutParams.height = h.toInt()
+        imageView.layoutParams = layoutParams
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GankItemViewHolder {
         val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
 
         val holder = GankItemViewHolder(v)
@@ -98,7 +120,7 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
         return list?.size!!
     }
 
-    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
+    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
         var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
 

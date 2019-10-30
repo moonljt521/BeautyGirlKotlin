@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.wei1
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout.MODE_SCROLLABLE
+import com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
 import android.util.TypedValue
 import android.view.View
 import com.moon.beautygirlkotlin.R

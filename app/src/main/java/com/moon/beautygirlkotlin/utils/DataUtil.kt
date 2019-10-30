@@ -2,8 +2,6 @@ package com.moon.beautygirlkotlin.utils
 
 import com.google.gson.Gson
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
-import com.moon.beautygirlkotlin.huaban.model.HuaBanBody
-import com.moon.beautygirlkotlin.huaban.model.HuaBanResp
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
@@ -23,8 +21,6 @@ object DataUtil {
      * 解析豆瓣 数据
      */
     fun getDouBanList(type: Int, response: Response<ResponseBody>?): List<DoubanMeiziBody> {
-
-        Logger.i("3 = " + Thread.currentThread().name)
 
         val list = ArrayList<DoubanMeiziBody>()
 
@@ -114,28 +110,6 @@ object DataUtil {
     }
 
 
-    /**
-     * 解析json返回的数据 拼接为集合
-     */
-    fun getHuaBanList(json: String): List<HuaBanBody> {
-
-        val result = Gson().fromJson<HuaBanResp>(json, HuaBanResp::class.java!!)
-        val iterator = result.showapi_res_body.entrySet().iterator()
-        var list: ArrayList<HuaBanBody> = ArrayList()
-
-        while (iterator.hasNext()) {
-            val element = iterator.next()
-            try {
-                val bean: HuaBanBody = Gson().fromJson<HuaBanBody>(element.value, HuaBanBody::class.java)
-                list.add(bean)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-        }
-
-        return list
-    }
 
 
 }
