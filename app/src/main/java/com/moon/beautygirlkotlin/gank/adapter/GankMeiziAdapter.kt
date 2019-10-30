@@ -1,21 +1,14 @@
 package com.moon.beautygirlkotlin.gank.adapter
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.moon.beautygirlkotlin.R
+import androidx.recyclerview.widget.RecyclerView
+import com.moon.beautygirlkotlin.databinding.ItemMengMeiziBinding
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.utils.DensityUtil
-import com.moon.beautygirlkotlin.utils.ImageLoader
-import com.moon.beautygirlkotlin.utils.Logger
-import kotlinx.android.synthetic.main.item_meng_meizi.view.*
+import com.moon.beautygirlkotlin.widget.ItemClick
 import java.util.*
 
 /**
@@ -27,18 +20,14 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
     lateinit var context: Context
 
-    private val AD_ITEM_TYPE = 0
-
-    private val COMMON_ITEM_TYPE = 1
-
     override fun onClick(v: View?) {
         val position : Int = v?.getTag() as Int
-        itemListener.itemClick(v,position)
+        list?.get(position)?.let { itemListener.onClick(v, it) }
     }
 
     var list: ArrayList<GankMeiziBody>? = null
 
-    lateinit var itemListener : ViewItemListener
+    lateinit var itemListener : ItemClick
 
     init {
         this.list = ArrayList()
@@ -60,74 +49,27 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
         notifyDataSetChanged()
     }
 
-
-//    override fun getItemViewType(position: Int): Int {
-//        val type = list?.get(position)?.itemType
-//        if (type == 0){
-//
-//            return AD_ITEM_TYPE
-//        }else
-//
-//            return COMMON_ITEM_TYPE
-//    }
-
-
     override fun onBindViewHolder(holder: GankItemViewHolder, position: Int) {
-        val body : GankMeiziBody = list?.get(position)!!
 
-        ImageLoader.load(context,body.url,R.drawable.placeholder_image, holder!!.item_img)
-
-        holder.item_title.setText(body.desc)
-
-
-        holder.item_layout.setTag(position)
-
-
-        //  尝试性实验，解决刷新后瀑布流位置乱跳问题，效果不好，待研究
-//        if (body.scale > 0){
-//            setParams(holder.item_img,body)
-//        }
-//
-//        if (holder.item_img.height > 0 && body.scale <= 0){
-//            body.scale = (holder.item_img.width / holder.item_img.height).toFloat()
-//        }
+        holder.binding.gankBody = list?.get(position)
     }
-
-    private fun setParams(imageView: ImageView , body: GankMeiziBody){
-        val layoutParams = imageView.layoutParams
-        val w = DensityUtil.getScreenWidth(imageView.context) -
-                DensityUtil.dip2px(imageView.context,4f)
-        val h = w/body.scale
-        layoutParams.width = w
-        layoutParams.height = h.toInt()
-        imageView.layoutParams = layoutParams
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GankItemViewHolder {
-        val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
+        context = parent.context!!
 
-        val holder = GankItemViewHolder(v)
+        val binding = ItemMengMeiziBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 
-        context = parent?.context!!
+//        binding.itemClick = itemListener
 
-        holder.item_layout.setOnClickListener(this)
-
-        return holder
+        return GankItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return list?.size!!
     }
 
-    class GankItemViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
+    class GankItemViewHolder(val binding: ItemMengMeiziBinding) : RecyclerView.ViewHolder(binding.root){
 
-        var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
-
-        var item_title: TextView = itemView!!.findViewById<View>(R.id.item_title) as TextView
-
-        var item_layout: LinearLayout = itemView!!.findViewById<View>(R.id.item_layout) as LinearLayout
     }
-
 
 }

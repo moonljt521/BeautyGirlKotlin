@@ -1,38 +1,42 @@
 package com.moon.beautygirlkotlin.gank
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.base.BaseFragment
+import com.moon.beautygirlkotlin.base.BaseJPFragment
+import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
 import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
-import com.moon.beautygirlkotlin.gank.presenter.GankMeiziPresenter
-import com.moon.beautygirlkotlin.gank.view.IGankMeiziView
+import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
 import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.mvpframework.factory.CreatePresenter
+import com.moon.beautygirlkotlin.widget.ItemClick
 import kotlinx.android.synthetic.main.fragment_gank_meizi.*
 
 
 /**
  * Gank 妹子模块 fragment
  */
-@CreatePresenter(GankMeiziPresenter::class)
-class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMeiziView,
-        ViewItemListener {
+class GankFragment : BaseJPFragment(), ItemClick {
+
+    private val viewModel by lazy { ViewModelProviders.of(this , InjectorUtil.getGankModelFactory()).get(GankViewModel::class.java) }
 
     override fun initData() {
         swipe_refresh.post {
-
             swipe_refresh.isRefreshing = true
-
             mIsRefreshing = true
         }
-
         loadHttpData()
     }
 
@@ -58,17 +62,20 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_gank_meizi
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_jp_gank_meizi, container, false)
+        val binding = DataBindingUtil.bind<FragmentJpGankMeiziBinding>(view)
+        binding?.viewModel = viewModel
+        return view
     }
 
     override fun initViews(view: View?) {
 
         mAdapter = GankMeiziAdapter()
 
-        gank_recyclerView.layoutManager = mLayoutManager
+        mAdapter.refreshData(viewModel.list)
 
-//        gank_recyclerView.addOnScrollListener(OnLoadMoreListener())
+        gank_recyclerView.layoutManager = mLayoutManager
 
         gank_recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -111,40 +118,31 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
      * 同时开始加重admob 广告
      */
     fun loadHttpData() {
-        mvpPresenter.getGankList(pageNum,page)
-    }
 
-    internal fun OnLoadMoreListener(): RecyclerView.OnScrollListener {
-
-        return object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
-                if (!swipe_refresh.isRefreshing && isBottom) {
-                    if (!mIsLoadMore) {
-
-                        swipe_refresh.isRefreshing = true
-
-                        page++
-
-                        loadHttpData()
-                    } else {
-                        mIsLoadMore = false
-                    }
-                }
+        viewModel._item.observe(this, Observer {
+            if (swipe_refresh.isRefreshing) {
+                swipe_refresh.isRefreshing = false
             }
+            showSuccess(it)
+        })
+
+        if (viewModel.list.isEmpty()){
+            viewModel.getGankList(pageNum,page)
         }
+
+        val adRequest = AdRequest.Builder().build()
+
+        gank_adView.loadAd(adRequest)
     }
 
-    override fun showError() {
+    fun showError() {
 
         swipe_refresh.post({ swipe_refresh.setRefreshing(false) })
 
         SnackbarUtil.showMessage(gank_recyclerView, getString(R.string.error_message))
     }
 
-    override fun showSuccess(list: List<GankMeiziBody>?) {
+    fun showSuccess(list: List<GankMeiziBody>?) {
 
         if (page == 1) {
 
@@ -160,14 +158,11 @@ class GankFragment : BaseFragment<IGankMeiziView, GankMeiziPresenter>(), IGankMe
 
         mIsRefreshing = false
 
-        val adRequest = AdRequest.Builder()
-                .build()
 
-        gank_adView.loadAd(adRequest)
     }
 
-    override fun itemClick(v: View, position: Int) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
-                mAdapter.list?.get(position)?.desc,true)
+    override fun onClick(v: View, gankMeiziBody: GankMeiziBody) {
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, gankMeiziBody?.url,
+                gankMeiziBody?.desc, true)
     }
 }
