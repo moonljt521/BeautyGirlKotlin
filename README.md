@@ -16,6 +16,10 @@ kotlin Coroutine 替换掉 rxJava，同时升级Retrofit 到 2.6配合协程使�
 
 support迁移到了androidx 
 
+## 4.0 （开发中）
+
+引入jetpack
+
 
 ## Requirements
 * Android 4.3 or higher 
