@@ -1,27 +1,40 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.base.BaseLazeFragment
+import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
+import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
 import com.moon.beautygirlkotlin.doubanmeizi.model.DouBanAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
-import com.moon.beautygirlkotlin.doubanmeizi.presenter.DoubanPresenter
-import com.moon.beautygirlkotlin.doubanmeizi.view.IDouBanView
-import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.doubanmeizi.viewmodel.DoubanViewModel
+import com.moon.beautygirlkotlin.listener.ItemClick
+import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
 
 /**
  * 豆瓣模块 子fragment
  */
-@CreatePresenter(DoubanPresenter::class)
-class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),IDouBanView, ViewItemListener {
+class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
+
+    override fun onClick(view: View, body: DoubanMeiziBody) {
+        ViewBigImgActivity.startViewBigImaActivity(mActivity,body.url,
+                body.title,true)
+    }
+
+    val viewModel by lazy {
+        ViewModelProviders.of(this, InjectorUtil.getDoubanModelFactory()).get(DoubanViewModel::class.java)
+    }
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
@@ -32,8 +45,6 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
     var mIsLoadMore = true
 
     var page: Int = 1
-
-    var pageNum: Int = 15
 
     var hasMoreData = true
 
@@ -50,9 +61,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
         loadHttpData()
     }
 
-
     companion object {
-
         fun getInstance(id: Int): DoubanSimpleFragment {
             val fragment = DoubanSimpleFragment();
             val bundle = Bundle()
@@ -62,15 +71,12 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_simple_douban_meizi
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_simple_douban_meizi, container, false)
+        val binding = DataBindingUtil.bind<FragmentSimpleDoubanMeiziBinding>(view)
+        binding?.viewModel = viewModel
+        return view
     }
-
-
-    /**
-     * 初始化
-     */
-    override fun init() {}
 
     override fun initViews(view: View?) {
 
@@ -84,8 +90,6 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
         common_recyclerView.adapter = mAdapter
 
-        mAdapter.itemListener = this
-
         common_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         common_swipe_refresh.setOnRefreshListener {
@@ -95,17 +99,20 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
             loadHttpData()
         }
+
+        viewModel.data.observe(this, Observer {
+            showSuccess(it)
+        })
     }
 
-    override fun showError() {
+    fun showError() {
         common_swipe_refresh.post({ common_swipe_refresh.setRefreshing(false) })
 
         SnackbarUtil.showMessage(common_recyclerView, getString(R.string.error_message))
     }
 
-    override fun showSuccess(list: List<DoubanMeiziBody>?) {
+    fun showSuccess(list: List<DoubanMeiziBody>?) {
         if (list?.size == 0){
-            SnackbarUtil.showMessage(common_recyclerView, getString(R.string.nodata_message))
             hasMoreData = false
         }else {
             if (page == 1) {
@@ -129,7 +136,7 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getDouBanMeiZiData(arguments!!.getInt("id"),page,1)
+        viewModel.getList(arguments!!.getInt("id"),page,1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
@@ -160,11 +167,5 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
             }
         }
     }
-
-    override fun itemClick(v: View, position: Int) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
-                mAdapter.list?.get(position)?.title,true)
-    }
-
 
 }

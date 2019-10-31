@@ -1,11 +1,8 @@
 package com.moon.beautygirlkotlin.base
 
 import android.content.Context
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.moon.mvpframework.factory.PresenterMvpFactoryImpl
-import com.moon.mvpframework.proxy.BaseMvpProxy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel

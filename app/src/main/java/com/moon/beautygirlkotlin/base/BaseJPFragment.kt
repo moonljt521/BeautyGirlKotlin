@@ -1,7 +1,12 @@
 package com.moon.beautygirlkotlin.base
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
 
 /**
  * author: moon

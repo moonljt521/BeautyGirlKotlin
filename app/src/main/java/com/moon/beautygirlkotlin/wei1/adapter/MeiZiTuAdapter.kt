@@ -52,7 +52,6 @@ class MeiZiTuAdapter( ) : RecyclerView.Adapter<MeiZiTuAdapter.OrderListHolder>()
                     list.get(position).let { it1 -> itemListener.onClick(holder.binding.itemLayout, it1) }
                 }
         )
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListHolder {

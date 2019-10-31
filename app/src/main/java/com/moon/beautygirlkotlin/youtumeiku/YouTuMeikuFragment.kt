@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseJPFragment
-import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
+import com.moon.beautygirlkotlin.databinding.FragmentSimpleOnlyoneBinding
 import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -62,8 +62,8 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_simple_douban_meizi, container, false)
-        val binding = DataBindingUtil.bind<FragmentSimpleDoubanMeiziBinding>(view)
+        val view = inflater.inflate(R.layout.fragment_simple_onlyone, container, false)
+        val binding = DataBindingUtil.bind<FragmentSimpleOnlyoneBinding>(view)
         binding?.viewModel = viewModel
         return view
     }

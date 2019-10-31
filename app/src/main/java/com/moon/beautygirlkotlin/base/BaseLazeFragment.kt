@@ -44,13 +44,6 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
 
     protected fun onInvisible() {}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            mProxy.onRestoreInstanceState(savedInstanceState)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(getLayoutId(), container, false)
     }
@@ -89,70 +82,6 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
             fragmentIsVisible = false
             onInvisible()
         }
-    }
-
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState!!.putBundle(PRESENTER_SAVE_KEY, mProxy.onSaveInstanceState())
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        try {
-            mProxy.onResume(this as V)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-
-    /**
-     * 可以实现自己PresenterMvpFactory工厂
-     *
-     * @param presenterFactory PresenterFactory类型
-     */
-    override fun setPresenterFactory(presenterFactory: PresenterMvpFactory<V, P>) {
-        mProxy.presenterFactory = presenterFactory
-    }
-
-
-    /**
-     * 获取创建Presenter的工厂
-     *
-     * @return PresenterMvpFactory类型
-     */
-    override fun getPresenterFactory(): PresenterMvpFactory<V, P> {
-        return mProxy.presenterFactory
-    }
-
-    /**
-     * 获取Presenter
-     * @return P
-     */
-    override fun getMvpPresenter(): P {
-        return mProxy.mvpPresenter
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mProxy.onDestroy()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    companion object {
-        /**
-         * 调用onSaveInstanceState时存入Bundle的key
-         */
-        private val PRESENTER_SAVE_KEY = "presenter_save_key"
     }
 
 }

@@ -25,8 +25,7 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * [我的收藏] 模块 fragment
  */
-@CreatePresenter(MyFavoritePresenter::class)
-class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(), IMyFavoriteView, ViewItemListener {
+class MyFavoriteFragment : BaseFragment(),ViewItemListener {
 
     var mLayoutManager: LinearLayoutManager? = null ;
 
@@ -41,8 +40,6 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     var mIsLoadMore = true
 
     var page: Int = 1
-
-    var pageNum: Int = 15
 
     companion object {
 
@@ -63,6 +60,8 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
     override fun getLayoutId(): Int {
         return R.layout.fragment_my_favorite
     }
+
+
 
     /**
      * 初始化
@@ -126,7 +125,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
      *  查询db
      */
     fun queryMyCollect4db() {
-        mvpPresenter.getMyCollectList(mActivity)
+//        mvpPresenter.getMyCollectList(mActivity)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -153,7 +152,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
         }
     }
 
-    override fun showError() {
+    fun showError() {
 
         myCollect_swipe_refresh.post({ myCollect_swipe_refresh.setRefreshing(false) })
 
@@ -165,7 +164,7 @@ class MyFavoriteFragment : BaseFragment<IMyFavoriteView, MyFavoritePresenter>(),
                 mAdapter.list?.get(position)?.title,false)
     }
 
-    override fun showSuccess(list : List<MyFavoriteBody>?) {
+    fun showSuccess(list : List<MyFavoriteBody>?) {
 
         if (page == 1) {
 

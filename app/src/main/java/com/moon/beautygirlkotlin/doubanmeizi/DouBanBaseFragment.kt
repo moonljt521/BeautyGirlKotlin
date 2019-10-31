@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 /**
  * 豆瓣模块 base  fragment
  */
-class DouBanBaseFragment : BaseFragment<Nothing, Nothing>() {
+class DouBanBaseFragment : BaseFragment() {
 
     lateinit var adapter: DoubanFragmentAdapter
 

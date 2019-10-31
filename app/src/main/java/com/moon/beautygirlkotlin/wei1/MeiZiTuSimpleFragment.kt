@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
+import com.moon.beautygirlkotlin.databinding.FragmentSimpleWeiyiBinding
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
@@ -26,9 +27,6 @@ import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
  * 妹子图 模块 子fragment
  */
 class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
-
-    override fun initData() {
-    }
 
     val viewModel: OnlyOneViewModel by lazy {
         ViewModelProviders.of(this, InjectorUtil.getOnlyOneModelFactory()).get(OnlyOneViewModel::class.java)
@@ -70,8 +68,8 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_simple_douban_meizi, container, false)
-        val binding = DataBindingUtil.bind<FragmentSimpleDoubanMeiziBinding>(view)
+        val view = inflater.inflate(R.layout.fragment_simple_weiyi, container, false)
+        val binding = DataBindingUtil.bind<FragmentSimpleWeiyiBinding>(view)
         binding?.viewModel = viewModel
         return view
     }

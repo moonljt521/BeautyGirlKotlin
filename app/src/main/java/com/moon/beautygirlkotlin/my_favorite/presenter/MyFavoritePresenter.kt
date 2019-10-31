@@ -21,26 +21,5 @@ class MyFavoritePresenter : BaseMvpPresenter<IMyFavoriteView>() {
 
             mvpView?.showError()
         }
-
-//        Observable.create(Observable.OnSubscribe<List<MyCollectBody>>
-//        {
-//            sub ->
-//
-//            sub?.onNext(RealmUtil.getCollectAll())
-//
-//        }).compose(context.bindUntilEvent(ActivityEvent.DESTROY))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        {
-//                            list -> mvpView?.showSuccess(list)
-//                        },
-//                        {
-//                            e -> mvpView.showError()
-//                            e.printStackTrace()
-//                        }
-//                )
-
     }
 }

@@ -17,8 +17,6 @@ abstract class BaseLazyJPFragment : AbstractFragment(){
 
     protected var loadFinish: Boolean = false
 
-    protected abstract fun initData()
-
     protected abstract fun initViews(view: View?)
 
     protected abstract fun loadData()

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_base_meizitu.*
 /**
  * 【唯一】图库   fragment
  */
-class OnlyPicBaseFragment : BaseFragment<Nothing, Nothing>()
+class OnlyPicBaseFragment : BaseFragment()
 {
 
     lateinit var adapter: MeiZiTuFragmentAdapter

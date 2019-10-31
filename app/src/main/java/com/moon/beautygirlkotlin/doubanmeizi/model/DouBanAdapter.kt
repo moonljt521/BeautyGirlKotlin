@@ -1,97 +1,66 @@
 package com.moon.beautygirlkotlin.doubanmeizi.model
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.utils.ImageLoader
-import java.util.*
+import androidx.recyclerview.widget.RecyclerView
+import com.moon.beautygirlkotlin.databinding.ItemDoubanBinding
+import com.moon.beautygirlkotlin.listener.ItemClick
 
 /**
  * author: moon
  * created on: 18/4/4 下午4:37
  * description: 豆瓣妹子 adapter
  */
-class DouBanAdapter( ) : RecyclerView.Adapter<DouBanAdapter.OrderListHolder>(), View.OnClickListener {
+class DouBanAdapter( ) : RecyclerView.Adapter<DouBanAdapter.OrderListHolder>(), ItemClick<DoubanMeiziBody> {
+
+    override fun onClick(v: View, body: DoubanMeiziBody) {
+        itemListener.onClick(v,body)
+    }
 
     lateinit var context: Context
 
-    override fun onClick(v: View?) {
-        val position : Int = v?.getTag() as Int
-        itemListener.itemClick(v,position)
-    }
+    var list: ArrayList<DoubanMeiziBody> = ArrayList()
 
-    var list: ArrayList<DoubanMeiziBody>? = null
-
-    lateinit var itemListener : ViewItemListener
-
-    init {
-        this.list = ArrayList()
-    }
+    lateinit var itemListener : ItemClick<DoubanMeiziBody>
 
     fun loadMoreData(list:List<DoubanMeiziBody>){
-        this.list?.addAll(list)
+        this.list.addAll(list)
         notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<DoubanMeiziBody>){
 
-        if (this.list?.size!! > 0){
-            this.list?.clear()
+        if (this.list.size > 0){
+            this.list.clear()
             notifyDataSetChanged()
         }
 
-        this.list?.addAll(list)
+        this.list.addAll(list)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: OrderListHolder, position: Int) {
 
-        val body : DoubanMeiziBody = list?.get(position)!!
+        holder.binding.body = list[position]
 
-
-        ImageLoader.load(context, body.url, R.drawable.placeholder_image, holder!!.item_img)
-
-
-        holder.item_title.setText(body.title)
-
-
-        holder.item_layout.setTag(position)
+        holder.binding.itemLayout.setOnClickListener(
+                {
+                    list.get(position).let { it1 -> itemListener.onClick(holder.binding.itemLayout, it1) }
+                }
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListHolder {
-        val v : View = LayoutInflater.from(parent?.context)?.inflate(R.layout.item_meng_meizi,parent,false)!!
+        val binding = ItemDoubanBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 
-        val holder = OrderListHolder(v)
-
-        context = parent?.context!!
-
-        holder.item_layout.setOnClickListener(this)
-
-        return holder
+        return OrderListHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return list?.size!!
+        return list.size
     }
 
-
-    class OrderListHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
-
-        var item_img : ImageView = itemView!!.findViewById<ImageView>(R.id.item_img) as ImageView
-
-        var item_title: TextView = itemView!!.findViewById<View>(R.id.item_title) as TextView
-
-        var item_layout: LinearLayout = itemView!!.findViewById<View>(R.id.item_layout) as LinearLayout
-
-
-    }
-
-
+    class OrderListHolder(val binding: ItemDoubanBinding) : RecyclerView.ViewHolder(binding.root)
 }
