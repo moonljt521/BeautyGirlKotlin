@@ -18,7 +18,7 @@ support迁移到了androidx
 
 ## 4.0 （开发中）
 
-引入jetpack
+引入jetpack, 取代mvp开发模式，删除mvp框架
 
 
 ## Requirements
