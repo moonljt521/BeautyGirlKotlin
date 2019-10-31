@@ -40,9 +40,9 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
     // 加载数据
     override fun loadData() {
 
-        douban_swipe_refresh.post {
+        common_swipe_refresh.post {
 
-            douban_swipe_refresh.isRefreshing = true
+            common_swipe_refresh.isRefreshing = true
 
             mIsRefreshing = true
         }
@@ -78,17 +78,17 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        douban_recyclerView.layoutManager = mLayoutManager
+        common_recyclerView.layoutManager = mLayoutManager
 
-        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
+        common_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
-        douban_recyclerView.adapter = mAdapter
+        common_recyclerView.adapter = mAdapter
 
         mAdapter.itemListener = this
 
-        douban_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
+        common_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
-        douban_swipe_refresh.setOnRefreshListener {
+        common_swipe_refresh.setOnRefreshListener {
             page = 1
 
             mIsRefreshing = true
@@ -98,14 +98,14 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
     }
 
     override fun showError() {
-        douban_swipe_refresh.post({ douban_swipe_refresh.setRefreshing(false) })
+        common_swipe_refresh.post({ common_swipe_refresh.setRefreshing(false) })
 
-        SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.error_message))
+        SnackbarUtil.showMessage(common_recyclerView, getString(R.string.error_message))
     }
 
     override fun showSuccess(list: List<DoubanMeiziBody>?) {
         if (list?.size == 0){
-            SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.nodata_message))
+            SnackbarUtil.showMessage(common_recyclerView, getString(R.string.nodata_message))
             hasMoreData = false
         }else {
             if (page == 1) {
@@ -116,8 +116,8 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
             }
         }
 
-        if (douban_swipe_refresh.isRefreshing) {
-            douban_swipe_refresh.isRefreshing = false
+        if (common_swipe_refresh.isRefreshing) {
+            common_swipe_refresh.isRefreshing = false
         }
 
         loadFinish = true
@@ -142,13 +142,13 @@ class DoubanSimpleFragment : BaseLazeFragment<IDouBanView, DoubanPresenter>(),ID
 
                 val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
 
-                if (!douban_swipe_refresh.isRefreshing && isBottom) {
+                if (!common_swipe_refresh.isRefreshing && isBottom) {
                     if (!hasMoreData){
                         return
                     }
                     if (!mIsLoadMore) {
 
-                        douban_swipe_refresh.isRefreshing = true
+                        common_swipe_refresh.isRefreshing = true
 
                         page++
 

@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.taofemale.model
+package com.moon.beautygirlkotlin.youtumeiku.model
 
 /**
  * author: jiangtao.liang

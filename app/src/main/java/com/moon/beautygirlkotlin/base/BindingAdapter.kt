@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.gank.adapter
+package com.moon.beautygirlkotlin.base
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

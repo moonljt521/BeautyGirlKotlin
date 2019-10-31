@@ -2,13 +2,10 @@ package com.moon.beautygirlkotlin.base
 
 
 import android.app.Fragment
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-
 import com.moon.mvpframework.factory.PresenterMvpFactory
 import com.moon.mvpframework.factory.PresenterMvpFactoryImpl
 import com.moon.mvpframework.presenter.BaseMvpPresenter
@@ -29,8 +26,6 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
 
     protected var loadFinish: Boolean = false
 
-    protected lateinit var mActivity: AppCompatActivity
-
     protected abstract fun getLayoutId(): Int
     /**
      * 创建被代理对象,传入默认Presenter的工厂
@@ -48,11 +43,6 @@ abstract class BaseLazeFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : A
     protected abstract fun loadData()
 
     protected fun onInvisible() {}
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        mActivity = (context as AppCompatActivity?)!!
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

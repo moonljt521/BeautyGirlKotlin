@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.ads.AdRequest
@@ -16,19 +15,17 @@ import com.moon.beautygirlkotlin.base.BaseJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
 import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
-import com.moon.beautygirlkotlin.gank.model.GankMeiziResult
-import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.beautygirlkotlin.widget.ItemClick
-import kotlinx.android.synthetic.main.fragment_gank_meizi.*
+import com.moon.beautygirlkotlin.listener.ItemClick
+import kotlinx.android.synthetic.main.fragment_jp_gank_meizi.*
 
 
 /**
  * Gank 妹子模块 fragment
  */
-class GankFragment : BaseJPFragment(), ItemClick {
+class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     private val viewModel by lazy { ViewModelProviders.of(this , InjectorUtil.getGankModelFactory()).get(GankViewModel::class.java) }
 
@@ -111,13 +108,6 @@ class GankFragment : BaseJPFragment(), ItemClick {
 
             loadHttpData()
         }
-    }
-
-    /**
-     * 加载网络数据：开始[萌妹子数据]的请求
-     * 同时开始加重admob 广告
-     */
-    fun loadHttpData() {
 
         viewModel._item.observe(this, Observer {
             if (swipe_refresh.isRefreshing) {
@@ -126,13 +116,20 @@ class GankFragment : BaseJPFragment(), ItemClick {
             showSuccess(it)
         })
 
-        if (viewModel.list.isEmpty()){
-            viewModel.getGankList(pageNum,page)
-        }
-
         val adRequest = AdRequest.Builder().build()
 
         gank_adView.loadAd(adRequest)
+    }
+
+    /**
+     * 加载网络数据：开始[萌妹子数据]的请求
+     * 同时开始加重admob 广告
+     */
+    fun loadHttpData() {
+
+        viewModel.getGankList(pageNum,page)
+
+
     }
 
     fun showError() {
@@ -144,25 +141,25 @@ class GankFragment : BaseJPFragment(), ItemClick {
 
     fun showSuccess(list: List<GankMeiziBody>?) {
 
-        if (page == 1) {
+        gank_recyclerView.post {
+            if (page == 1) {
 
-            mAdapter.refreshData(list!!)
+                mAdapter.refreshData(list!!)
 
-        } else {
-            mAdapter.loadMoreData(list!!)
+            } else {
+                mAdapter.loadMoreData(list!!)
+            }
+
+            if (swipe_refresh.isRefreshing) {
+                swipe_refresh.isRefreshing = false
+            }
+
+            mIsRefreshing = false
         }
-
-        if (swipe_refresh.isRefreshing) {
-            swipe_refresh.isRefreshing = false
-        }
-
-        mIsRefreshing = false
-
-
     }
 
-    override fun onClick(v: View, gankMeiziBody: GankMeiziBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, gankMeiziBody?.url,
-                gankMeiziBody?.desc, true)
+    override fun onClick(v: View, body: GankMeiziBody) {
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, body?.url,
+                body?.desc, true)
     }
 }

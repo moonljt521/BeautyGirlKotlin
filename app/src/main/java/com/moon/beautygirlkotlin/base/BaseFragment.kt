@@ -1,11 +1,9 @@
 package com.moon.beautygirlkotlin.base
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 
 import com.moon.mvpframework.factory.PresenterMvpFactory
 import com.moon.mvpframework.factory.PresenterMvpFactoryImpl
@@ -23,8 +21,6 @@ import com.moon.mvpframework.view.BaseMvpView
 abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : AbstractFragment(),
         PresenterProxyInterface<V, P> {
 
-    protected lateinit var mActivity: AppCompatActivity
-
     protected abstract fun getLayoutId(): Int
     /**
      * 创建被代理对象,传入默认Presenter的工厂
@@ -34,11 +30,6 @@ abstract class BaseFragment<V : BaseMvpView<*>, P : BaseMvpPresenter<V>> : Abstr
     protected abstract fun initData()
 
     protected abstract fun initViews(view: View?)
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        mActivity = (context as AppCompatActivity?)!!
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

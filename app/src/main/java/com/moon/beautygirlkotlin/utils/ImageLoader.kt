@@ -21,10 +21,12 @@ class ImageLoader {
         }
 
         fun load(context : Context, url: String ,placeholder: Int, view: ImageView){
-
-            Glide.with(context).load(url).placeholder(placeholder).into(view)
+            if (!url.equals(view.tag)){
+                view.setTag(null)
+                Glide.with(context).load(url).placeholder(placeholder).into(view)
+                view.setTag(url)
+            }
         }
-
 
         fun loadCircle(context : Context, url: String , view: ImageView){
 

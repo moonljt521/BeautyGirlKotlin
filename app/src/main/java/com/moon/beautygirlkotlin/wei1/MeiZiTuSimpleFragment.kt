@@ -2,26 +2,37 @@ package com.moon.beautygirlkotlin.wei1
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import android.view.View
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.base.BaseLazeFragment
-import com.moon.beautygirlkotlin.listener.ViewItemListener
+import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
+import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
+import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
-import com.moon.beautygirlkotlin.wei1.presenter.MeiZiTuPresenter
-import com.moon.beautygirlkotlin.wei1.view.IMeiZiTuView
-import com.moon.mvpframework.factory.CreatePresenter
+import com.moon.beautygirlkotlin.wei1.viewmodel.OnlyOneViewModel
+import com.moon.beautygirlkotlin.listener.ItemClick
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 
 /**
  * 妹子图 模块 子fragment
  */
-@CreatePresenter(MeiZiTuPresenter::class)
-class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>(), IMeiZiTuView, ViewItemListener {
+class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
+
+    override fun initData() {
+    }
+
+    val viewModel: OnlyOneViewModel by lazy {
+        ViewModelProviders.of(this, InjectorUtil.getOnlyOneModelFactory()).get(OnlyOneViewModel::class.java)
+    }
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
@@ -31,24 +42,19 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
     var mIsLoadMore = true
 
-    var hasMoreData = true
+    private var page: Int = 1
 
-    var page: Int = 1
-
-    var pageNum: Int = 15
-
-    var type : String? = null;
+    private var type: String? = null;
 
     // 加载数据
     override fun loadData() {
 
-        douban_swipe_refresh.post {
+        common_swipe_refresh.post {
 
-            douban_swipe_refresh.isRefreshing = true
+            common_swipe_refresh.isRefreshing = true
 
             mIsRefreshing = true
         }
-
         loadHttpData()
     }
 
@@ -63,21 +69,16 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_simple_douban_meizi
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_simple_douban_meizi, container, false)
+        val binding = DataBindingUtil.bind<FragmentSimpleDoubanMeiziBinding>(view)
+        binding?.viewModel = viewModel
+        return view
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         type = arguments?.getString("type")
-    }
-
-
-    /**
-     * 初始化
-     */
-    override fun init() {
-
     }
 
     override fun initViews(view: View?) {
@@ -86,49 +87,50 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        douban_recyclerView.layoutManager = mLayoutManager
+        common_recyclerView.layoutManager = mLayoutManager
 
-        douban_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
+        common_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
-        douban_recyclerView.adapter = mAdapter
+        common_recyclerView.adapter = mAdapter
 
         mAdapter.itemListener = this
 
-        douban_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
+        common_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
-        douban_swipe_refresh.setOnRefreshListener {
+        common_swipe_refresh.setOnRefreshListener {
             page = 1
 
             mIsRefreshing = true
 
             loadHttpData()
         }
-    }
 
-    override fun showError() {
-        douban_swipe_refresh.post({ douban_swipe_refresh.setRefreshing(false) })
-
-        SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.error_message))
-    }
-
-    override fun showSuccess(list: List<MeiZiTuBody>?) {
-        if (list?.size == 0){
-            SnackbarUtil.showMessage(douban_recyclerView, getString(R.string.nodata_message))
-            hasMoreData = false
-        }else{
-            hasMoreData = true
-
-            if (page == 1) {
-
-                mAdapter.refreshData(list!!)
-
-            } else {
-                mAdapter.loadMoreData(list!!)
+        viewModel._item.observe(this, Observer {
+            if (common_swipe_refresh.isRefreshing) {
+                common_swipe_refresh?.isRefreshing = false
             }
+            showSuccess(it)
+        })
+    }
+
+    fun showError() {
+        common_swipe_refresh.post({ common_swipe_refresh.setRefreshing(false) })
+
+        SnackbarUtil.showMessage(common_recyclerView, getString(R.string.error_message))
+    }
+
+    fun showSuccess(list: List<MeiZiTuBody>?) {
+
+        if (page == 1) {
+
+            mAdapter.refreshData(list!!)
+
+        } else {
+            mAdapter.loadMoreData(list!!)
         }
 
-        if (douban_swipe_refresh.isRefreshing) {
-            douban_swipe_refresh.isRefreshing = false
+        if (common_swipe_refresh.isRefreshing) {
+            common_swipe_refresh.isRefreshing = false
         }
 
         loadFinish = true
@@ -140,7 +142,7 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        mvpPresenter.getMeizitu(type!!,page)
+        viewModel.getList(type!!, page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager): RecyclerView.OnScrollListener {
@@ -151,14 +153,11 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
 
                 val isBottom = mLayoutManager!!.findLastCompletelyVisibleItemPositions(
                         IntArray(2))[1] >= mAdapter.getItemCount() - 6
-                if (!douban_swipe_refresh.isRefreshing && isBottom) {
-                    if (!hasMoreData){
-                        return
-                    }
+                if (!common_swipe_refresh.isRefreshing && isBottom) {
 
                     if (!mIsLoadMore) {
 
-                        douban_swipe_refresh.isRefreshing = true
+                        common_swipe_refresh.isRefreshing = true
 
                         page++
 
@@ -171,10 +170,8 @@ class MeiZiTuSimpleFragment : BaseLazeFragment<IMeiZiTuView, MeiZiTuPresenter>()
         }
     }
 
-    override fun itemClick(v: View, position: Int) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
-                mAdapter.list?.get(position)?.title,true)
+    override fun onClick(v: View, body: MeiZiTuBody) {
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
+                body.title, true)
     }
-
-
 }

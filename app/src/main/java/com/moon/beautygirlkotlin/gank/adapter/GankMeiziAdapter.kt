@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.databinding.ItemMengMeiziBinding
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
-import com.moon.beautygirlkotlin.listener.ViewItemListener
-import com.moon.beautygirlkotlin.widget.ItemClick
-import java.util.*
+import com.moon.beautygirlkotlin.listener.ItemClick
+import kotlin.collections.ArrayList
 
 /**
  * author: moon
@@ -20,38 +19,40 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
     lateinit var context: Context
 
+    private val list: ArrayList<GankMeiziBody> = ArrayList()
+
+    lateinit var itemListener : ItemClick<GankMeiziBody>
+
     override fun onClick(v: View?) {
         val position : Int = v?.getTag() as Int
-        list?.get(position)?.let { itemListener.onClick(v, it) }
-    }
-
-    var list: ArrayList<GankMeiziBody>? = null
-
-    lateinit var itemListener : ItemClick
-
-    init {
-        this.list = ArrayList()
+        list.get(position).let { itemListener.onClick(v, it) }
     }
 
     fun loadMoreData(list:List<GankMeiziBody>){
-        this.list?.addAll(list)
+        this.list.addAll(list)
         notifyItemInserted(list.size)
     }
 
     fun refreshData(list:List<GankMeiziBody>){
 
-        if (this.list?.size!! > 0){
-            this.list?.clear()
+        if (this.list.size > 0){
+            this.list.clear()
             notifyDataSetChanged()
         }
-
-        this.list?.addAll(list)
+        this.list.addAll(list)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: GankItemViewHolder, position: Int) {
 
-        holder.binding.gankBody = list?.get(position)
+        holder.binding.gankBody = list.get(position)
+
+//        holder.binding.executePendingBindings()
+
+        holder.binding.itemLayout.setOnClickListener( {
+
+            list.get(position).let { it1 -> itemListener.onClick(holder.binding.itemLayout, it1) }
+        })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GankItemViewHolder {
@@ -59,13 +60,11 @@ class GankMeiziAdapter ( ) : RecyclerView.Adapter<GankMeiziAdapter.GankItemViewH
 
         val binding = ItemMengMeiziBinding.inflate(LayoutInflater.from(parent.context),parent,false)
 
-//        binding.itemClick = itemListener
-
         return GankItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return list?.size!!
+        return list.size
     }
 
     class GankItemViewHolder(val binding: ItemMengMeiziBinding) : RecyclerView.ViewHolder(binding.root){

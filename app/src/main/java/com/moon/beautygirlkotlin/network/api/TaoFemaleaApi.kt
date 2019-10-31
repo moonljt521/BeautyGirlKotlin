@@ -1,6 +1,6 @@
 package com.moon.beautygirlkotlin.network.api
 
-import com.moon.beautygirlkotlin.taofemale.model.TaoFemale
+import com.moon.beautygirlkotlin.youtumeiku.model.TaoFemale
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rx.Observable

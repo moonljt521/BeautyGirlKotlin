@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.gank
+package com.moon.beautygirlkotlin.gank.repository
 
 import com.moon.beautygirlkotlin.network.RetrofitHelper
 import kotlinx.coroutines.Dispatchers

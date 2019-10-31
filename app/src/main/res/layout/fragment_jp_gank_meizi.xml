@@ -12,8 +12,7 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/gank_recyclerView"
@@ -25,7 +24,6 @@
                 android:scrollbars="none"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"

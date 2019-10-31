@@ -12,7 +12,7 @@ import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
-import com.moon.beautygirlkotlin.taofemale.TaoFemaleFragment
+import com.moon.beautygirlkotlin.youtumeiku.YouTuMeikuFragment
 import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fragmentList.add(GankFragment.getInstance(0)) // 萌妹子 gank
         fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
         fragmentList.add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
-        fragmentList.add(TaoFemaleFragment.getInstance(0))  // 【优图美库】
+        fragmentList.add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
         fragmentList.add(MyFavoriteFragment.getInstance(0))  // 我的收藏
 
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)

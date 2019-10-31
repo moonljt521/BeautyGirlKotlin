@@ -1,9 +1,7 @@
 package com.moon.beautygirlkotlin.base
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * author: moon
@@ -12,17 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
  */
 abstract class BaseJPFragment : AbstractFragment(){
 
-    protected lateinit var mActivity: AppCompatActivity
-
-
     protected abstract fun initData()
 
     protected abstract fun initViews(view: View?)
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        mActivity = (context as AppCompatActivity?)!!
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,38 +25,7 @@ abstract class BaseJPFragment : AbstractFragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-
         initData()
     }
-
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onDestroyView() {
-
-        super.onDestroyView()
-    }
-
-
 
 }

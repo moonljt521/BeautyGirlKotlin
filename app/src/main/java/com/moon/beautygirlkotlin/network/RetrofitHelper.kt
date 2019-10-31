@@ -34,7 +34,7 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     private val BASE_GANK_URL = "http://gank.io/api/"
 
     // 豆瓣
-    private val BASE_DOUBAN_URL = "http://www.dbmeinv.com/"
+    private val BASE_DOUBAN_URL = "http://www.buxiuse.com/"
 
     // 花瓣
     private val BASE_HUABAN_URL = "http://route.showapi.com/"
