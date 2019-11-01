@@ -29,11 +29,7 @@ class DouBanAdapter(datalist : MutableList<DoubanMeiziBody> ) : BaseBindAdapter<
 
     override fun onBindViewHolder(holder: CommonViewHolder<ItemDoubanBinding>, position: Int) {
         super.onBindViewHolder(holder, position)
-        holder.bindView.itemLayout.setOnClickListener(
-                {
-                    list.get(position).let { it1 -> itemListener.onClick(holder.bindView.itemLayout, it1) }
-                }
-        )
+        holder.bindView.itemClick = itemListener
     }
 
 }

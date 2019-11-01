@@ -97,7 +97,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
         gank_recyclerView.adapter = mAdapter
 
-//        mAdapter.itemListener = this
+        mAdapter.itemClick = this
 
         gank_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
@@ -158,7 +158,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
     }
 
     override fun onClick(v: View, body: GankMeiziBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, body?.url,
-                body?.desc, true)
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
+                body.desc, true)
     }
 }

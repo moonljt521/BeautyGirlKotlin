@@ -90,6 +90,8 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
             loadHttpData()
         }
 
+        mAdapter.itemListener = this
+
         viewModel.youtuData.observe(this, Observer {
 
             showSuccess(it)

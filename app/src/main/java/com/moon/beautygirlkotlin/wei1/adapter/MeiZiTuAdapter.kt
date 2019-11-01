@@ -12,16 +12,17 @@ import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
  * created on: 18/4/4 下午4:37
  * description: 妹子图 adapter
  */
-class MeiZiTuAdapter(dataList: MutableList<MeiZiTuBody>) : BaseBindAdapter<ItemOnlyOneBinding, MeiZiTuBody>(dataList), ItemClick<MeiZiTuBody>{
+class MeiZiTuAdapter(dataList: MutableList<MeiZiTuBody>) : BaseBindAdapter<ItemOnlyOneBinding, MeiZiTuBody>(dataList), ItemClick<MeiZiTuBody> {
 
     override fun onClick(view: View, body: MeiZiTuBody) {
-        itemListener.onClick(view,body)
+        itemListener.onClick(view, body)
     }
 
     override fun getLayoutId(): Int = R.layout.item_only_one
 
     override fun bindView(viewHolder: CommonViewHolder<ItemOnlyOneBinding>, position: Int) {
-       viewHolder.bindView.body = getDataList()[position]
+        viewHolder.bindView.body = getDataList()[position]
+        viewHolder.bindView.itemClick = itemListener
     }
 
     lateinit var itemListener: ItemClick<MeiZiTuBody>

@@ -100,6 +100,8 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
             loadHttpData()
         }
 
+        mAdapter.itemListener = this
+
         viewModel.data.observe(this, Observer {
             showSuccess(it)
         })
