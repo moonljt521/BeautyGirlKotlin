@@ -13,7 +13,7 @@ import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
-import com.moon.beautygirlkotlin.gank.adapter.GankMeiziAdapter
+import com.moon.beautygirlkotlin.gank.adapter.GankAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -39,7 +39,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-    lateinit var mAdapter: GankMeiziAdapter
+    lateinit var mAdapter: GankAdapter
 
     var mIsRefreshing: Boolean = false
 
@@ -68,7 +68,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = GankMeiziAdapter()
+        mAdapter = GankAdapter(mActivity,viewModel.list)
 
         mAdapter.refreshData(viewModel.list)
 
@@ -97,7 +97,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
         gank_recyclerView.adapter = mAdapter
 
-        mAdapter.itemListener = this
+//        mAdapter.itemListener = this
 
         gank_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
@@ -128,8 +128,6 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
     fun loadHttpData() {
 
         viewModel.getGankList(pageNum,page)
-
-
     }
 
     fun showError() {
@@ -141,13 +139,14 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     fun showSuccess(list: List<GankMeiziBody>?) {
 
+
         gank_recyclerView.post {
             if (page == 1) {
 
-                mAdapter.refreshData(list!!)
+                mAdapter.refreshData(ArrayList(list))
 
             } else {
-                mAdapter.loadMoreData(list!!)
+                mAdapter.loadMoreData(ArrayList(list))
             }
 
             if (swipe_refresh.isRefreshing) {

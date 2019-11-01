@@ -70,7 +70,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MeiZiTuAdapter()
+        mAdapter = MeiZiTuAdapter(mActivity ,viewModel.list)
 
         mLayoutManager = LinearLayoutManager(mActivity)
 
@@ -149,7 +149,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
             if (page == 1) {
 
-                mAdapter.refreshData(t!!)
+                mAdapter.refreshData(ArrayList(t))
 
             } else {
                 mAdapter.loadMoreData(t!!)

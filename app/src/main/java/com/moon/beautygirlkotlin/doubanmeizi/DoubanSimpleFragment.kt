@@ -80,7 +80,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = DouBanAdapter()
+        mAdapter = DouBanAdapter(mActivity ,viewModel.list)
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -116,7 +116,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
             hasMoreData = false
         }else {
             if (page == 1) {
-                mAdapter.refreshData(list!!)
+                mAdapter.refreshData(ArrayList(list))
 
             } else {
                 mAdapter.loadMoreData(list!!)

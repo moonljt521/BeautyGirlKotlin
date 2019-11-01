@@ -1,12 +1,7 @@
 package com.moon.beautygirlkotlin.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
 
 /**
  * author: moon
@@ -19,10 +14,6 @@ abstract class BaseJPFragment : AbstractFragment(){
 
     protected abstract fun initViews(view: View?)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
@@ -32,5 +23,4 @@ abstract class BaseJPFragment : AbstractFragment(){
         super.onActivityCreated(savedInstanceState)
         initData()
     }
-
 }

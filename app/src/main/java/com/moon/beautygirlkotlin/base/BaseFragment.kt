@@ -33,31 +33,4 @@ abstract class BaseFragment : AbstractFragment(){
         initData()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    override fun onDestroyView() {
-
-        super.onDestroyView()
-    }
-
 }

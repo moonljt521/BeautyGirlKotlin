@@ -81,7 +81,7 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MeiZiTuAdapter()
+        mAdapter = MeiZiTuAdapter(mActivity,viewModel.list)
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -121,7 +121,7 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
         if (page == 1) {
 
-            mAdapter.refreshData(list!!)
+            mAdapter.refreshData(ArrayList(list))
 
         } else {
             mAdapter.loadMoreData(list!!)

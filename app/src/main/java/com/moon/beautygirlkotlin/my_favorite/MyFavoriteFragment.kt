@@ -1,23 +1,21 @@
 package com.moon.beautygirlkotlin.my_favorite
 
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.ItemTouchHelper
-import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
-import com.moon.beautygirlkotlin.listener.ViewItemListener
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
-import com.moon.beautygirlkotlin.my_favorite.presenter.MyFavoritePresenter
-import com.moon.beautygirlkotlin.my_favorite.view.IMyFavoriteView
+import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
-import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.mvpframework.factory.CreatePresenter
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -25,7 +23,9 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * [我的收藏] 模块 fragment
  */
-class MyFavoriteFragment : BaseFragment(),ViewItemListener {
+class MyFavoriteFragment : BaseFragment(){
+
+    val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
 
     var mLayoutManager: LinearLayoutManager? = null ;
 
@@ -62,7 +62,6 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
     }
 
 
-
     /**
      * 初始化
      */
@@ -75,7 +74,6 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
             mIsRefreshing = true
 
             queryMyCollect4db()
-
         }
     }
 
@@ -87,7 +85,7 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MyFavoriteAdapter()
+        mAdapter = MyFavoriteAdapter(mActivity,viewModel.list)
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
@@ -104,8 +102,6 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
 
         itemTouchHelper!!.attachToRecyclerView(myCollect_recyclerView)
 
-        mAdapter.itemListener = this
-
         myCollect_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         myCollect_swipe_refresh.setOnRefreshListener {
@@ -116,6 +112,11 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
             queryMyCollect4db()
         }
         mAdapter.registerAdapterDataObserver(rcyDataObserver)
+
+        viewModel.data.observe(this, Observer {
+            showSuccess(it)
+        })
+
     }
 
     private val rcyDataObserver : RcyDataObserver = RcyDataObserver()
@@ -125,7 +126,7 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
      *  查询db
      */
     fun queryMyCollect4db() {
-//        mvpPresenter.getMyCollectList(mActivity)
+        viewModel.getList()
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -152,23 +153,12 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
         }
     }
 
-    fun showError() {
-
-        myCollect_swipe_refresh.post({ myCollect_swipe_refresh.setRefreshing(false) })
-
-        SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.image_error))
-    }
-
-    override fun itemClick(v: View, position: Int) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,mAdapter.list?.get(position)?.url,
-                mAdapter.list?.get(position)?.title,false)
-    }
 
     fun showSuccess(list : List<MyFavoriteBody>?) {
 
         if (page == 1) {
 
-            mAdapter.refreshData(list!!)
+            mAdapter.refreshData(ArrayList(list))
 
         } else {
             mAdapter.loadMoreData(list!!)
@@ -205,7 +195,7 @@ class MyFavoriteFragment : BaseFragment(),ViewItemListener {
         }
 
         private fun checkEmpty(){
-            if (mAdapter.list?.size == 0){
+            if (viewModel.list.size == 0){
                 showEmptyView()
             } else {
                 hideEmptyView()
