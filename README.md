@@ -16,6 +16,13 @@ kotlin Coroutine 替换掉 rxJava，同时升级Retrofit 到 2.6配合协程使�
 
 support迁移到了androidx 
 
+## 4.0 
+
+修复douban接口报错问题
+
+
+引入jetpack（优先使用livedata，viewmodel，databinding）, 取代mvp开发模式，删除mvp框架
+
 
 ## Requirements
 * Android 4.3 or higher 
