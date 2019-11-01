@@ -123,13 +123,13 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
             } else {
                 mAdapter.loadMoreData(list!!)
             }
+
+            loadFinish = true
         }
 
         if (common_swipe_refresh.isRefreshing) {
             common_swipe_refresh.isRefreshing = false
         }
-
-        loadFinish = true
 
         mIsRefreshing = false
     }
