@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.wei1.adapter
 
-import android.content.Context
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
@@ -13,7 +12,7 @@ import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
  * created on: 18/4/4 下午4:37
  * description: 妹子图 adapter
  */
-class MeiZiTuAdapter(context: Context, dataList: MutableList<MeiZiTuBody>) : BaseBindAdapter<ItemOnlyOneBinding, MeiZiTuBody>(context, dataList), ItemClick<MeiZiTuBody>{
+class MeiZiTuAdapter(dataList: MutableList<MeiZiTuBody>) : BaseBindAdapter<ItemOnlyOneBinding, MeiZiTuBody>(dataList), ItemClick<MeiZiTuBody>{
 
     override fun onClick(view: View, body: MeiZiTuBody) {
         itemListener.onClick(view,body)

@@ -1,7 +1,5 @@
 package com.moon.beautygirlkotlin.my_favorite.adapter
 
-import android.content.Context
-import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.databinding.ItemFavouriteBinding
@@ -14,7 +12,7 @@ import com.moon.beautygirlkotlin.realm.RealmUtil
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyFavoriteAdapter(context: Context, dataList: MutableList<MyFavoriteBody>) : BaseBindAdapter<ItemFavouriteBinding, MyFavoriteBody>(context, dataList)
+class MyFavoriteAdapter(dataList: MutableList<MyFavoriteBody>) : BaseBindAdapter<ItemFavouriteBinding, MyFavoriteBody>(dataList)
         , ItemMoveListener {
     override fun bindView(viewHolder: CommonViewHolder<ItemFavouriteBinding>, position: Int) {
         viewHolder.bindView.gankBody = getDataList()[position]
@@ -30,7 +28,7 @@ class MyFavoriteAdapter(context: Context, dataList: MutableList<MyFavoriteBody>)
 
         RealmUtil.delOneFavourite(getDataList().get(position))
 
-        getDataList().removeAt(position)
+        removeAtIndex(position)
 
         notifyItemRemoved(position)
 

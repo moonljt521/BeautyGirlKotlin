@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.doubanmeizi.model
 
-import android.content.Context
 import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
@@ -12,7 +11,7 @@ import com.moon.beautygirlkotlin.listener.ItemClick
  * created on: 18/4/4 下午4:37
  * description: 豆瓣妹子 adapter
  */
-class DouBanAdapter(context: Context , datalist : MutableList<DoubanMeiziBody> ) : BaseBindAdapter<ItemDoubanBinding,DoubanMeiziBody>(context,datalist), ItemClick<DoubanMeiziBody> {
+class DouBanAdapter(datalist : MutableList<DoubanMeiziBody> ) : BaseBindAdapter<ItemDoubanBinding,DoubanMeiziBody>(datalist), ItemClick<DoubanMeiziBody> {
 
     override fun getLayoutId(): Int = R.layout.item_douban
 
@@ -23,8 +22,6 @@ class DouBanAdapter(context: Context , datalist : MutableList<DoubanMeiziBody> )
     override fun onClick(v: View, body: DoubanMeiziBody) {
         itemListener.onClick(v,body)
     }
-
-    lateinit var context: Context
 
     var list: ArrayList<DoubanMeiziBody> = ArrayList()
 

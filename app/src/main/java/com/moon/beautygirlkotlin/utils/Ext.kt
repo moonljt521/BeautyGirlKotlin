@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.utils
 
-import com.moon.mvpframework.presenter.ExternalPresenter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
@@ -72,14 +71,14 @@ fun <T> executeChannel(context : CoroutineContext,
  */
 private const val JOB_KEY = "android.presenter.CoroutineScope.JOB_KEY"
 
-val ExternalPresenter.presenterScope: CoroutineScope
-    get() {
-        val scope: CoroutineScope? = this.getTag(JOB_KEY)
-        return scope ?: setTagIfAbsent(
-                JOB_KEY,
-                PresenterCloseableCoroutineScope(SupervisorJob() + Dispatchers.Main)
-        )
-    }
+//val ExternalPresenter.presenterScope: CoroutineScope
+//    get() {
+//        val scope: CoroutineScope? = this.getTag(JOB_KEY)
+//        return scope ?: setTagIfAbsent(
+//                JOB_KEY,
+//                PresenterCloseableCoroutineScope(SupervisorJob() + Dispatchers.Main)
+//        )
+//    }
 
 internal class PresenterCloseableCoroutineScope(context: CoroutineContext) : Closeable, CoroutineScope {
     override val coroutineContext: CoroutineContext = context

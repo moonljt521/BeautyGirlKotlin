@@ -85,7 +85,7 @@ class MyFavoriteFragment : BaseFragment(){
 
     override fun initViews(view: View?) {
 
-        mAdapter = MyFavoriteAdapter(mActivity,viewModel.list)
+        mAdapter = MyFavoriteAdapter(viewModel.list)
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 

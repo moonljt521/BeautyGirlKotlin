@@ -178,7 +178,7 @@ dependencies {
     //EVENTBUS
     implementation 'org.greenrobot:eventbus:3.0.0'
 
-    implementation project(':mvp-module')
+//    implementation project(':mvp-module')
 
     //jsoup
     implementation 'org.jsoup:jsoup:1.8.3'

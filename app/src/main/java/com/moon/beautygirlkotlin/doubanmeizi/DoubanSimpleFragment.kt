@@ -80,7 +80,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = DouBanAdapter(mActivity ,viewModel.list)
+        mAdapter = DouBanAdapter(viewModel.list)
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 

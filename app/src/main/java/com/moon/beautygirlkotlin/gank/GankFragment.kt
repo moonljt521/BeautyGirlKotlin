@@ -68,7 +68,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = GankAdapter(mActivity,viewModel.list)
+        mAdapter = GankAdapter(viewModel.list)
 
         mAdapter.refreshData(viewModel.list)
 

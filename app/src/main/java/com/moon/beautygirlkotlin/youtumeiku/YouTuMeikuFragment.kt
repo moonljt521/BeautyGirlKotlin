@@ -70,7 +70,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MeiZiTuAdapter(mActivity ,viewModel.list)
+        mAdapter = MeiZiTuAdapter(viewModel.list)
 
         mLayoutManager = LinearLayoutManager(mActivity)
 

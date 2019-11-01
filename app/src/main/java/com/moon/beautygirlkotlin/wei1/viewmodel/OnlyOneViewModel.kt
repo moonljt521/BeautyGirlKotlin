@@ -3,11 +3,9 @@ package com.moon.beautygirlkotlin.wei1.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.utils.DataUtil
-import com.moon.beautygirlkotlin.utils.presenterScope
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.repository.OnlyOneRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
