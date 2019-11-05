@@ -83,6 +83,8 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
         mAdapter = BaseBindAdapter(R.layout.item_only_one,viewModel.list)
 
+        mAdapter.ontItemClick = this
+
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         common_recyclerView.layoutManager = mLayoutManager

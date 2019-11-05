@@ -73,6 +73,8 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
         mAdapter = BaseBindAdapter(R.layout.item_only_one, viewModel.list)
 
+        mAdapter.ontItemClick = this
+
         mLayoutManager = LinearLayoutManager(mActivity)
 
         common_recyclerView.layoutManager = mLayoutManager
