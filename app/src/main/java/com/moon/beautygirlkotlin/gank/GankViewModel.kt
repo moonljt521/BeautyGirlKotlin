@@ -22,7 +22,6 @@ class GankViewModel(private val repository : GankRepository) : BaseViewModel() {
             _item.value = repository.getGankList(pageNum,page).results
 
             if (!_item.value!!.isEmpty()){
-                list.clear()
                 list.addAll(_item.value!!)
             }
             return@launch

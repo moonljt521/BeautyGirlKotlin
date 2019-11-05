@@ -114,18 +114,27 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
     }
 
     fun showSuccess(list: List<DoubanMeiziBody>?) {
+
+        common_swipe_refresh.isRefreshing = true
+
         if (list?.size == 0){
-            hasMoreData = false
+
         }else {
             if (page == 1) {
                 mAdapter.refreshData(ArrayList(list))
 
             } else {
+
+                if (list?.size!! > 0){
+                    hasMoreData = true
+                }
+
                 mAdapter.loadMoreData(list!!)
             }
 
             loadFinish = true
         }
+
 
         if (common_swipe_refresh.isRefreshing) {
             common_swipe_refresh.isRefreshing = false
@@ -152,9 +161,9 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
                 val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
 
                 if (!common_swipe_refresh.isRefreshing && isBottom) {
-                    if (!hasMoreData){
-                        return
-                    }
+
+                    if (!hasMoreData) return
+
                     if (!mIsLoadMore) {
 
                         common_swipe_refresh.isRefreshing = true

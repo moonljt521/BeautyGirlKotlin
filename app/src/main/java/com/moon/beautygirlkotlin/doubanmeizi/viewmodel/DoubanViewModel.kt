@@ -20,8 +20,9 @@ class DoubanViewModel(private val repository: DoubanRepository) : BaseViewModel(
         launch({
             data.value = repository.getDouBanMeiZiData(cid, page, type)
 
-            list.clear()
-            list.addAll(data.value!!)
+            if (!data.value?.isEmpty()!!){
+                list.addAll(data.value!!)
+            }
 
         }, {
 
