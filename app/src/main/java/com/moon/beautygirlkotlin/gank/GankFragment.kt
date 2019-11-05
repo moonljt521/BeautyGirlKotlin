@@ -79,6 +79,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
+
                 if (!swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
 
@@ -110,9 +111,6 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
         }
 
         viewModel._item.observe(this, Observer {
-            if (swipe_refresh.isRefreshing) {
-                swipe_refresh.isRefreshing = false
-            }
             showSuccess(it)
         })
 
@@ -139,22 +137,17 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     fun showSuccess(list: List<GankMeiziBody>?) {
 
+        if (page == 1) {
 
-        gank_recyclerView.post {
-            if (page == 1) {
+            mAdapter.refreshData(ArrayList(list!!))
 
-                mAdapter.refreshData(ArrayList(list))
-
-            } else {
-                mAdapter.loadMoreData(ArrayList(list))
-            }
-
-            if (swipe_refresh.isRefreshing) {
-                swipe_refresh.isRefreshing = false
-            }
-
-            mIsRefreshing = false
+        } else {
+            mAdapter.loadMoreData(list!!)
         }
+
+        swipe_refresh.isRefreshing = false
+
+        mIsRefreshing = false
     }
 
     override fun onClick(v: View, body: GankMeiziBody) {

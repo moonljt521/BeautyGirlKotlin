@@ -26,8 +26,6 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
     fun getList(type: String, pageNum: Int) {
         launch({
             _item.value = repository.getOnlyOneList(type, pageNum)
-
-            list.clear()
             list.addAll(_item.value!!)
         },
                 {
@@ -48,7 +46,6 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
         launch({
             try {
                 youtuData.value = getData(pageNum)
-                youtuList.clear()
                 youtuList.addAll(youtuData.value!!)
             } catch (e: Exception) {
                 e.printStackTrace()
