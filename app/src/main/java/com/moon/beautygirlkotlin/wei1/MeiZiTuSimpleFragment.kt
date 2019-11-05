@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
-import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
 import com.moon.beautygirlkotlin.databinding.FragmentSimpleWeiyiBinding
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.viewmodel.OnlyOneViewModel
 import com.moon.beautygirlkotlin.listener.ItemClick
@@ -34,7 +34,7 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
-    lateinit var mAdapter: MeiZiTuAdapter
+    lateinit var mAdapter: BaseBindAdapter<ViewDataBinding,MeiZiTuBody>
 
     var mIsRefreshing: Boolean = false
 
@@ -81,7 +81,7 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MeiZiTuAdapter(viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_only_one,viewModel.list)
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -90,8 +90,6 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
         common_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         common_recyclerView.adapter = mAdapter
-
-        mAdapter.itemListener = this
 
         common_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 

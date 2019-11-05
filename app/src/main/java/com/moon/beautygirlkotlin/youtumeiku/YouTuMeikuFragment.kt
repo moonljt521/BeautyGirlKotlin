@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentSimpleOnlyoneBinding
 import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuAdapter
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.wei1.viewmodel.OnlyOneViewModel
 import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
@@ -28,9 +29,9 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     private val viewModel by lazy { ViewModelProviders.of(this, InjectorUtil.getOnlyOneModelFactory()).get(OnlyOneViewModel::class.java) }
 
-    var mLayoutManager: LinearLayoutManager? = null ;
+    var mLayoutManager: LinearLayoutManager? = null;
 
-    lateinit var mAdapter: MeiZiTuAdapter
+    lateinit var mAdapter: BaseBindAdapter<ViewDataBinding,MeiZiTuBody>
 
     var mIsRefreshing: Boolean = false
 
@@ -70,7 +71,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = MeiZiTuAdapter(viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_only_one, viewModel.list)
 
         mLayoutManager = LinearLayoutManager(mActivity)
 
@@ -89,8 +90,6 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
             loadHttpData()
         }
-
-        mAdapter.itemListener = this
 
         viewModel.youtuData.observe(this, Observer {
 
@@ -115,7 +114,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
                 if (!common_swipe_refresh.isRefreshing && isBottom) {
 
-                    if (!hasMoreData){
+                    if (!hasMoreData) {
                         return
                     }
 
@@ -143,10 +142,10 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     fun showSuccess(t: List<MeiZiTuBody>?) {
 
-        if (t?.size == 0){
+        if (t?.size == 0) {
 
             hasMoreData = false
-        }else{
+        } else {
             hasMoreData = true
 
             if (page == 1) {
@@ -165,7 +164,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
     }
 
     override fun onClick(view: View, body: MeiZiTuBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,body.url,
-                body.title,true)
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
+                body.title, true)
     }
 }

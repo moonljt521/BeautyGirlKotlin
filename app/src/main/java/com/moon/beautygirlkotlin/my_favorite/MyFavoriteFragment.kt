@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
+import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -23,7 +24,9 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * [我的收藏] 模块 fragment
  */
-class MyFavoriteFragment : BaseFragment(){
+class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
+    override fun onClick(view: View, body: MyFavoriteBody) {
+    }
 
     val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
 
@@ -61,7 +64,6 @@ class MyFavoriteFragment : BaseFragment(){
         return R.layout.fragment_my_favorite
     }
 
-
     /**
      * 初始化
      */
@@ -82,10 +84,11 @@ class MyFavoriteFragment : BaseFragment(){
         queryMyCollect4db()
     }
 
-
     override fun initViews(view: View?) {
 
-        mAdapter = MyFavoriteAdapter(viewModel.list)
+        mAdapter = MyFavoriteAdapter(R.layout.item_favourite,viewModel.list)
+
+        mAdapter.ontItemClick = this
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 

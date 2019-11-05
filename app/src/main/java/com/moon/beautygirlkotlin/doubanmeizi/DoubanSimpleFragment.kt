@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
-import com.moon.beautygirlkotlin.doubanmeizi.model.DouBanAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.doubanmeizi.viewmodel.DoubanViewModel
 import com.moon.beautygirlkotlin.listener.ItemClick
@@ -38,7 +39,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
-    lateinit var mAdapter: DouBanAdapter
+    lateinit var mAdapter: BaseBindAdapter<ViewDataBinding,DoubanMeiziBody>
 
     var mIsRefreshing: Boolean = false
 
@@ -80,7 +81,9 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = DouBanAdapter(viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_douban ,viewModel.list)
+
+        mAdapter?.ontItemClick = this
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -99,8 +102,6 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
             loadHttpData()
         }
-
-        mAdapter.itemListener = this
 
         viewModel.data.observe(this, Observer {
             showSuccess(it)
