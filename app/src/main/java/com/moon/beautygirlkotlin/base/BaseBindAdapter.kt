@@ -1,7 +1,6 @@
 package com.moon.beautygirlkotlin.base
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -15,13 +14,9 @@ import kotlin.collections.ArrayList
  * author: jiangtao.liang
  * date:   On 2019-11-01 12:29
  */
-open class BaseBindAdapter<DB : ViewDataBinding , T>(layoutId : Int ,dataList : MutableList<T>) : RecyclerView.Adapter<BaseBindAdapter.CommonViewHolder<DB>>() , ItemClick<T> {
+open class BaseBindAdapter<DB : ViewDataBinding , T>(layoutId : Int ,dataList : MutableList<T>) : RecyclerView.Adapter<BaseBindAdapter.CommonViewHolder<DB>>() {
 
     var ontItemClick : ItemClick<T> ? = null
-
-    override fun onClick(view: View, body: T) {
-        ontItemClick?.onClick(view,body)
-    }
 
     private var dataList : MutableList<T> = ArrayList()
 
