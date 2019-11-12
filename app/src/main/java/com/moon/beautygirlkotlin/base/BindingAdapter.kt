@@ -12,7 +12,7 @@ import com.moon.beautygirlkotlin.utils.ImageLoader
 
 @BindingAdapter("bind:imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
-    ImageLoader.load(imageView.context, url, R.drawable.placeholder_image, imageView)
+    ImageLoader.load(imageView.context, url, R.drawable.default_icon, imageView)
 }
 
 

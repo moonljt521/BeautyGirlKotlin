@@ -28,22 +28,9 @@ class ImageLoader {
             }
         }
 
-        fun loadCircle(context : Context, url: String , view: ImageView){
-
-            Glide.with(context).load(url).transform(GlideCircleTransForm(context)).into(view)
-        }
-
-
         fun loadCircle(context : Context, url: Int , view: ImageView){
 
             Glide.with(context).load(url).transform(GlideCircleTransForm(context)).into(view)
-        }
-
-
-        fun load(context : Context, id: Int , view: ImageView){
-
-            Glide.with(context).load(id).into(view)
-
         }
 
 
