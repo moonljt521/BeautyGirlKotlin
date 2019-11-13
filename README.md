@@ -27,6 +27,7 @@ support迁移到了androidx
 修复列表翻页问题, 完善jetpack, 升级GLide， 增加UI细节
 
 
+<br>
 
 ## Requirements
 * Android 4.3 or higher 
