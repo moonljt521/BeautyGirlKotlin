@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
-import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
+import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
@@ -24,13 +23,14 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * [我的收藏] 模块 fragment
  */
-class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
-    override fun onClick(view: View, body: MyFavoriteBody) {
+class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
+    override fun onClick(body: FavoriteBean) {
+        viewModel.delItem(body)
     }
 
     val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
 
-    var mLayoutManager: LinearLayoutManager? = null ;
+    var mLayoutManager: LinearLayoutManager? = null;
 
     lateinit var mAdapter: MyFavoriteAdapter
 
@@ -80,15 +80,15 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
     }
 
     @Subscribe
-    fun refreshFavouriteList(u: EventUpdateFavourite){
+    fun refreshFavouriteList(u: EventUpdateFavourite) {
         queryMyCollect4db()
     }
 
     override fun initViews(view: View?) {
 
-        mAdapter = MyFavoriteAdapter(R.layout.item_favourite,viewModel.list)
+        mAdapter = MyFavoriteAdapter(R.layout.item_favourite, viewModel.list)
 
-        mAdapter.ontItemClick = this
+        mAdapter.listener = this
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
@@ -122,7 +122,7 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
 
     }
 
-    private val rcyDataObserver : RcyDataObserver = RcyDataObserver()
+    private val rcyDataObserver: RcyDataObserver = RcyDataObserver()
 
 
     /**
@@ -157,7 +157,7 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
     }
 
 
-    fun showSuccess(list : List<MyFavoriteBody>?) {
+    fun showSuccess(list: List<FavoriteBean>?) {
 
         if (page == 1) {
 
@@ -173,7 +173,7 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
 
         mIsRefreshing = false
 
-        if (!SpUtil.tipSwipeDelFavourite()){
+        if (!SpUtil.tipSwipeDelFavourite()) {
             SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.swipe_del_favourite))
         }
     }
@@ -197,8 +197,8 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
             checkEmpty()
         }
 
-        private fun checkEmpty(){
-            if (viewModel.list.size == 0){
+        private fun checkEmpty() {
+            if (viewModel.list.size == 0) {
                 showEmptyView()
             } else {
                 hideEmptyView()
@@ -206,11 +206,11 @@ class MyFavoriteFragment : BaseFragment() , ItemClick<MyFavoriteBody> {
         }
     }
 
-    fun showEmptyView(){
+    fun showEmptyView() {
         myCollect_empty_text.visibility = View.VISIBLE
     }
 
-    fun hideEmptyView(){
+    fun hideEmptyView() {
         myCollect_empty_text.visibility = View.GONE
     }
 }

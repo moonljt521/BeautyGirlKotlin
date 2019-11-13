@@ -192,6 +192,11 @@ dependencies {
     def lifecycle_version = "2.0.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    def room_version = "2.2.0-alpha01"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
 
 //kotlin{             //开始协程实验性功能

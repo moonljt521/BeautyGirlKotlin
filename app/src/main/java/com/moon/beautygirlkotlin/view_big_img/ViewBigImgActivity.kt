@@ -6,22 +6,26 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Room
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import com.moon.beautygirlkotlin.realm.RealmUtil
+import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
+import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
+import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
-import android.widget.TextView
-import android.view.LayoutInflater
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import android.widget.Button
-import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
+import java.util.*
 
 
 /**
@@ -29,7 +33,7 @@ import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
  * created on: 18/4/28 上午11:43
  * description: 大图片浏览页面
  */
-class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
+class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener, CoroutineScope by MainScope() {
 
     override fun onLongClick(p0: View?): Boolean {
 
@@ -37,6 +41,16 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
         return true
     }
+
+    var db: BeautyGirlDatabase;
+
+    init {
+        db = Room.databaseBuilder(
+                BeautyGirlKotlinApp.application,
+                BeautyGirlDatabase::class.java, "beauty_girl.db")
+                .build()
+    }
+
 
     fun showDialog() {
         val dialog = BottomSheetDialog(this@ViewBigImgActivity)
@@ -62,14 +76,14 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
     private var showCollectIcon: Boolean = true
 
-    private var titleSpan : RoundedBackgroundSpan ? = null
+    private var titleSpan: RoundedBackgroundSpan? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_gank_view_bigimg)
 
-        titleSpan = RoundedBackgroundSpan(this,R.color.red)
+        titleSpan = RoundedBackgroundSpan(this, R.color.red)
 
         url = intent?.getStringExtra("url")!!
 
@@ -89,7 +103,16 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
         collect_btn.setOnClickListener(this)
 
-        val collectIcon: Int = if (RealmUtil.isCollected(url)) R.drawable.collected else R.drawable.uncollected
+        var collectIcon: Int = R.drawable.uncollected
+
+        launch {
+            val qb = withContext(Dispatchers.IO) {
+                db.favouriteDao().getFavouriteByUrl(url)
+            }
+            qb.let {
+                collectIcon = R.drawable.collected
+            }
+        }
 
         toCollect.setImageResource(collectIcon)
 
@@ -109,23 +132,33 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
             try {
 
-                if (RealmUtil.isCollected(url)) {
-                    SnackbarUtil.showMessage(v, getString(R.string.collect_has))
-                    return
+                launch {
+                    val qb = withContext(Dispatchers.IO) {
+                        db.favouriteDao().getFavouriteByUrl(url)
+                    }
+                    if (qb != null) {
+                        SnackbarUtil.showMessage(v, getString(R.string.collect_has))
+                        return@launch
+                    } else {
+
+                        val body = FavoriteBean()
+                        body.title = title
+                        body.url = url
+                        body.id = UUID.randomUUID().toString()
+
+                        launch {
+                            withContext(Dispatchers.IO) {
+                                db.favouriteDao().insertFavourite(body)
+                            }
+                        }
+
+                        SnackbarUtil.showMessage(v, getString(R.string.collect_success))
+
+                        toCollect.setImageResource(R.drawable.collected)
+
+                        EventBus.getDefault().post(EventUpdateFavourite(0))
+                    }
                 }
-
-                val body = MyFavoriteBody()
-                body.title = title
-                body.url = url
-                body.id = url
-
-                RealmUtil.addOneCollect(body)
-
-                SnackbarUtil.showMessage(v, getString(R.string.collect_success))
-
-                toCollect.setImageResource(R.drawable.collected)
-
-                EventBus.getDefault().post(EventUpdateFavourite(0))
 
             } catch (e: Exception) {
                 e.printStackTrace()
