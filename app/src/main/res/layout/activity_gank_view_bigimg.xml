@@ -12,6 +12,19 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <TextView
+        android:id="@+id/tvViewBigImageTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:lineSpacingMultiplier="1.3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="大图文字说明"/>
 
     <LinearLayout
         android:id="@+id/collect_btn"

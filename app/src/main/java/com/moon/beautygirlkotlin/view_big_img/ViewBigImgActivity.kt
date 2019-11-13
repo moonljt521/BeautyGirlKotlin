@@ -3,6 +3,9 @@ package com.moon.beautygirlkotlin.view_big_img
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.moon.beautygirlkotlin.R
@@ -18,6 +21,7 @@ import android.widget.TextView
 import android.view.LayoutInflater
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.widget.Button
+import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
 
 
 /**
@@ -58,10 +62,14 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
     private var showCollectIcon: Boolean = true
 
+    private var titleSpan : RoundedBackgroundSpan ? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_gank_view_bigimg)
+
+        titleSpan = RoundedBackgroundSpan(this,R.color.red)
 
         url = intent?.getStringExtra("url")!!
 
@@ -84,6 +92,15 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
         val collectIcon: Int = if (RealmUtil.isCollected(url)) R.drawable.collected else R.drawable.uncollected
 
         toCollect.setImageResource(collectIcon)
+
+        titleSpan?.setSpanText("精选")
+        val stringBuilder = SpannableStringBuilder()
+        stringBuilder.append("   ")
+        stringBuilder.append(title)
+        val spannableString = SpannableString(stringBuilder.toString())
+        spannableString.setSpan(titleSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        tvViewBigImageTitle.text = spannableString
+
     }
 
     override fun onClick(v: View?) {
