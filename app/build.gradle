@@ -4,10 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-// realm ？
 apply plugin: 'kotlin-kapt'
-
-apply plugin: 'realm-android'
 
 //apply plugin: 'com.google.gms.google-services'
 

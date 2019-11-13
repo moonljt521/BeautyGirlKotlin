@@ -15,17 +15,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
-import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 /**
@@ -69,8 +66,6 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
         dialog.show()
     }
 
-    var realm: Realm = RealmUtil.getRealm()
-
     private var url: String = "";
     private var title: String = "";
 
@@ -103,18 +98,15 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
         collect_btn.setOnClickListener(this)
 
-        var collectIcon: Int = R.drawable.uncollected
-
         launch {
             val qb = withContext(Dispatchers.IO) {
                 db.favouriteDao().getFavouriteByUrl(url)
             }
-            qb.let {
-                collectIcon = R.drawable.collected
+            qb?.let {
+                toCollect.setImageResource(R.drawable.collected)
+                collect_btn.isEnabled = false
             }
         }
-
-        toCollect.setImageResource(collectIcon)
 
         titleSpan?.setSpanText("精选")
         val stringBuilder = SpannableStringBuilder()
@@ -133,30 +125,34 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
             try {
 
                 launch {
-                    val qb = withContext(Dispatchers.IO) {
+                    val result = withContext(Dispatchers.IO) {
                         db.favouriteDao().getFavouriteByUrl(url)
                     }
-                    if (qb != null) {
+
+                    result?.let {
+                        SnackbarUtil.showMessage(v, getString(R.string.collect_has))
+                    }
+
+                    if (result != null) {
                         SnackbarUtil.showMessage(v, getString(R.string.collect_has))
                         return@launch
                     } else {
 
-                        val body = FavoriteBean()
-                        body.title = title
-                        body.url = url
-                        body.id = UUID.randomUUID().toString()
-
-                        launch {
-                            withContext(Dispatchers.IO) {
-                                db.favouriteDao().insertFavourite(body)
-                            }
+                        val result = withContext(Dispatchers.IO) {
+                            val body = FavoriteBean()
+                            body.title = title
+                            body.url = url
+                            body.createTime = System.currentTimeMillis()
+                            db.favouriteDao().insertFavourite(body)
                         }
 
-                        SnackbarUtil.showMessage(v, getString(R.string.collect_success))
+                        result.let {
+                            SnackbarUtil.showMessage(v, getString(R.string.collect_success))
 
-                        toCollect.setImageResource(R.drawable.collected)
+                            toCollect.setImageResource(R.drawable.collected)
 
-                        EventBus.getDefault().post(EventUpdateFavourite(0))
+                            EventBus.getDefault().post(EventUpdateFavourite(0))
+                        }
                     }
                 }
 

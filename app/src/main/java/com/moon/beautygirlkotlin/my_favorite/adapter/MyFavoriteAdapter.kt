@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.my_favorite.adapter
 
-import android.view.View
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.databinding.ItemFavouriteBinding
 import com.moon.beautygirlkotlin.my_favorite.FavouriteItemClick

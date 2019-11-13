@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorite")
 data class FavoriteBean(
-    @PrimaryKey var id: String = "",
-    var title: String = "",
-    var url: String = ""
+        @PrimaryKey(autoGenerate = true) var id: Int = 0,
+        var title: String = "",
+        var url: String = "",
+        var createTime: Long = 0
 )

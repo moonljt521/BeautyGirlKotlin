@@ -40,7 +40,7 @@
             android:id="@+id/toCollect"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            tools:src="@drawable/collected"/>
+            tools:src="@drawable/uncollected"/>
 
     </LinearLayout>
 

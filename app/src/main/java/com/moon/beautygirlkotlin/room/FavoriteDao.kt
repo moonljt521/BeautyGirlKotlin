@@ -7,7 +7,7 @@ interface FavoriteDao {
 
     /*当数据库中已经有此项的时候，直接替换*/
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavourite(bean: FavoriteBean)
+    suspend fun insertFavourite(bean: FavoriteBean):Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(list: List<FavoriteBean>)
@@ -22,7 +22,7 @@ interface FavoriteDao {
     suspend fun upDate(bean: FavoriteBean)
 
     @Query("DELETE FROM favorite WHERE id = :id")
-    suspend fun delete(id: String)
+    suspend fun delete(id: Int)
 
     @Query("DELETE FROM favorite")
     suspend fun removeAll()

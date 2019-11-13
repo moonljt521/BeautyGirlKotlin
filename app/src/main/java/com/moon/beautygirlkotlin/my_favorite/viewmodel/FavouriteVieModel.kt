@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.base.BaseViewModel
-import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
-import com.moon.beautygirlkotlin.realm.RealmUtil
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
 
