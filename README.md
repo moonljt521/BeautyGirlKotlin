@@ -24,7 +24,7 @@ support迁移到了androidx
 引入jetpack（优先使用livedata，viewmodel，databinding）, 取代mvp开发模式，删除mvp框架
 
 ## 4.3
-修复列表翻页问题, 完善jetpack, 升级GLide， 增加UI细节
+修复列表翻页问题, 完善jetpack, 升级GLide， 数据库 room 替换 realm ， 增加UI细节
 
 
 <br>
