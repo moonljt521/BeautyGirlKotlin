@@ -6,12 +6,15 @@ import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
+import com.moon.beautygirlkotlin.utils.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * author: jiangtao.liang
  * date:   On 2019-11-01 14:11
  */
-class FavouriteVieModel : BaseViewModel(){
+class FavouriteVieModel : BaseViewModel() {
 
     var db: BeautyGirlDatabase;
 
@@ -24,26 +27,50 @@ class FavouriteVieModel : BaseViewModel(){
 
     var list = ArrayList<FavoriteBean>()
 
-    val data = MutableLiveData<List<FavoriteBean>>().apply{
-        value = emptyList()
+    var size: Int = 0
+
+    val data : MutableLiveData<List<FavoriteBean>> by lazy {
+        MutableLiveData<List<FavoriteBean>>()
     }
 
-    fun getList() {
+    val total = MutableLiveData<Int>().apply {
+        value = size
+    }
+
+    fun getList(page: Int) {
 
         launch({
-            data.value = db.favouriteDao().getAll()
 
-            list.clear()
-            list.addAll(data.value!!)
-        },{
+            val result = withContext(Dispatchers.IO) {
+                db.favouriteDao().queryByPage(page * 5)
+            }
+            if (page == 0) {
+                list.clear()
+            }
 
+            list.addAll(result!!)
+
+            data.value = result
+        }, {
+            it.printStackTrace()
         })
     }
 
-    fun delItem(body:FavoriteBean){
+    fun delItem(body: FavoriteBean) {
         launch({
-            db.favouriteDao().delete(body.id)
-        },{})
+
+            val size = withContext(Dispatchers.IO){
+                db.favouriteDao().delete(body.id)
+                db.favouriteDao().getAll()?.size!!
+            }
+            total.value = size
+        }, {})
+    }
+
+    fun getTotalSize() {
+        launch({
+            total.value = db.favouriteDao().getAll()?.size!!
+        }, {})
     }
 
 }

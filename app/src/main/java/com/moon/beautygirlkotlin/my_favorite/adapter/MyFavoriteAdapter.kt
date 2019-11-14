@@ -30,5 +30,4 @@ class MyFavoriteAdapter(layoutId: Int, dataList: MutableList<FavoriteBean>) : Ba
 
         return true
     }
-
 }

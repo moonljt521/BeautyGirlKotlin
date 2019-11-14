@@ -71,7 +71,7 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = BaseBindAdapter(R.layout.item_only_one, viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_only_one, viewModel.youtuList)
 
         mAdapter.ontItemClick = this
 
@@ -143,21 +143,13 @@ class YouTuMeikuFragment : BaseJPFragment(), ItemClick<MeiZiTuBody> {
     }
 
     fun showSuccess(t: List<MeiZiTuBody>?) {
+        common_swipe_refresh.isRefreshing = true
 
         if (t?.size == 0) {
-
             hasMoreData = false
-        } else {
-            hasMoreData = true
-
-            if (page == 1) {
-
-                mAdapter.refreshData(ArrayList(t))
-
-            } else {
-                mAdapter.loadMoreData(t!!)
-            }
         }
+
+        mAdapter.notifyDataSetChanged()
 
         if (common_swipe_refresh.isRefreshing) {
             common_swipe_refresh.isRefreshing = false

@@ -98,6 +98,8 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
         collect_btn.setOnClickListener(this)
 
+        toCollect.setImageResource(R.drawable.uncollected)
+
         launch {
             val qb = withContext(Dispatchers.IO) {
                 db.favouriteDao().getFavouriteByUrl(url)
@@ -127,10 +129,6 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
                 launch {
                     val result = withContext(Dispatchers.IO) {
                         db.favouriteDao().getFavouriteByUrl(url)
-                    }
-
-                    result?.let {
-                        SnackbarUtil.showMessage(v, getString(R.string.collect_has))
                     }
 
                     if (result != null) {

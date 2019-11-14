@@ -138,13 +138,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     fun showSuccess(list: List<GankMeiziBody>?) {
 
-        if (page == 1) {
-
-            mAdapter?.refreshData(ArrayList(list!!))
-
-        } else {
-            mAdapter?.loadMoreData(list!!)
-        }
+        mAdapter?.notifyDataSetChanged()
 
         swipe_refresh.isRefreshing = false
 

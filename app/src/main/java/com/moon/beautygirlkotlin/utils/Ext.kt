@@ -15,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * 常规异步模式
  */
-fun <T> executeRequest(context : CoroutineContext, request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Job {
+fun <T> executeRequest(context: CoroutineContext, request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Job {
     return CoroutineScope(Dispatchers.Main).launch(context) {
         try {
             val res: T? = withContext(Dispatchers.IO) { request() }
@@ -32,7 +32,7 @@ fun <T> executeRequest(context : CoroutineContext, request: suspend () -> T?, on
 /**
  * async 模式
  */
-fun <T> executeAsync(context : CoroutineContext, request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Deferred<Unit?> {
+fun <T> executeAsync(context: CoroutineContext, request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): Deferred<Unit?> {
     return CoroutineScope(Dispatchers.Main).async(context) {
         try {
             val res: T? = withContext(Dispatchers.IO) { request() }
@@ -50,10 +50,10 @@ fun <T> executeAsync(context : CoroutineContext, request: suspend () -> T?, onSu
  * 生产者 - 消费者模式
  */
 @ExperimentalCoroutinesApi
-fun <T> executeChannel(context : CoroutineContext,
-                                  capacity : Int,
-                                  request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): ReceiveChannel<T> {
-    return CoroutineScope(Dispatchers.Main).produce(context,capacity) {
+fun <T> executeChannel(context: CoroutineContext,
+                       capacity: Int,
+                       request: suspend () -> T?, onSuccess: (T) -> Unit = {}, onFail: (Throwable) -> Unit = {}): ReceiveChannel<T> {
+    return CoroutineScope(Dispatchers.Main).produce(context, capacity) {
         try {
             withContext(Dispatchers.IO) { request() }
         } catch (e: Exception) {
@@ -62,8 +62,6 @@ fun <T> executeChannel(context : CoroutineContext,
         }
     }
 }
-
-
 
 
 /**

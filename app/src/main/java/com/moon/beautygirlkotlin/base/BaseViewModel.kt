@@ -2,6 +2,8 @@ package com.moon.beautygirlkotlin.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
@@ -14,6 +16,15 @@ open class BaseViewModel : ViewModel(){
         try {
             block()
         } catch (e: Throwable) {
+            error(e)
+        }
+    }
+
+
+    fun async(block: suspend () -> Unit , error: suspend (Throwable) -> Unit) = viewModelScope.async {
+        try {
+            block()
+        }catch (e : Throwable){
             error(e)
         }
     }

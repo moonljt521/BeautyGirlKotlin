@@ -119,19 +119,15 @@ class MeiZiTuSimpleFragment : BaseLazyJPFragment(), ItemClick<MeiZiTuBody> {
 
     fun showSuccess(list: List<MeiZiTuBody>?) {
 
-        if (page == 1) {
-
-            mAdapter.refreshData(ArrayList(list))
-
-        } else {
-            mAdapter.loadMoreData(list!!)
+        if (list?.size!! > 0){
+            loadFinish = true
         }
+
+        mAdapter.notifyDataSetChanged()
 
         if (common_swipe_refresh.isRefreshing) {
             common_swipe_refresh.isRefreshing = false
         }
-
-        loadFinish = true
 
         mIsRefreshing = false
     }

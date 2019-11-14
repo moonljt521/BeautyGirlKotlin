@@ -19,14 +19,21 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
 
     val list = ArrayList<MeiZiTuBody>()
 
-    val _item = MutableLiveData<List<MeiZiTuBody>>().apply {
-        value = emptyList()
+    val _item: MutableLiveData<List<MeiZiTuBody>> by lazy {
+        MutableLiveData<List<MeiZiTuBody>>()
     }
 
     fun getList(type: String, pageNum: Int) {
         launch({
-            _item.value = repository.getOnlyOneList(type, pageNum)
-            list.addAll(_item.value!!)
+            if (pageNum == 1) {
+                list.clear()
+            }
+
+            val result = repository.getOnlyOneList(type, pageNum)
+
+            list.addAll(result)
+
+            _item.value = result
         },
                 {
 
@@ -38,15 +45,19 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
 
     val youtuList = ArrayList<MeiZiTuBody>()
 
-    val youtuData = MutableLiveData<List<MeiZiTuBody>>().apply {
-        value = emptyList()
+    val youtuData : MutableLiveData<List<MeiZiTuBody>> by lazy {
+        MutableLiveData<List<MeiZiTuBody>>()
     }
 
     fun getTaoFemaleList(pageNum: Int) {
         launch({
             try {
-                youtuData.value = getData(pageNum)
-                youtuList.addAll(youtuData.value!!)
+                if (pageNum == 1) {
+                    youtuList.clear()
+                }
+                val result = getData(pageNum)
+                youtuList.addAll(result)
+                youtuData.value = result
             } catch (e: Exception) {
                 e.printStackTrace()
 
