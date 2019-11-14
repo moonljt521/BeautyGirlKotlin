@@ -2,17 +2,18 @@ package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseLazyJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentSimpleDoubanMeiziBinding
-import com.moon.beautygirlkotlin.doubanmeizi.model.DouBanAdapter
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.doubanmeizi.viewmodel.DoubanViewModel
 import com.moon.beautygirlkotlin.listener.ItemClick
@@ -25,11 +26,11 @@ import kotlinx.android.synthetic.main.fragment_simple_douban_meizi.*
 /**
  * 豆瓣模块 子fragment
  */
-class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
+class DoubanSimpleFragment : BaseLazyJPFragment(), ItemClick<DoubanMeiziBody> {
 
     override fun onClick(view: View, body: DoubanMeiziBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity,body.url,
-                body.title,true)
+        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
+                body.title, true)
     }
 
     val viewModel by lazy {
@@ -38,7 +39,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
-    lateinit var mAdapter: DouBanAdapter
+    lateinit var mAdapter: BaseBindAdapter<ViewDataBinding, DoubanMeiziBody>
 
     var mIsRefreshing: Boolean = false
 
@@ -80,7 +81,9 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = DouBanAdapter(viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_douban, viewModel.list)
+
+        mAdapter.ontItemClick = this
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -100,8 +103,6 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
             loadHttpData()
         }
 
-        mAdapter.itemListener = this
-
         viewModel.data.observe(this, Observer {
             showSuccess(it)
         })
@@ -117,24 +118,13 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
         common_swipe_refresh.isRefreshing = true
 
-        if (list?.size == 0){
-
-        }else {
-            if (page == 1) {
-                mAdapter.refreshData(ArrayList(list))
-
-            } else {
-
-                if (list?.size!! > 0){
-                    hasMoreData = true
-                }
-
-                mAdapter.loadMoreData(list!!)
-            }
-
+        if (list?.size == 0) {
+            hasMoreData = false
+        }else{
             loadFinish = true
         }
 
+        mAdapter.notifyDataSetChanged()
 
         if (common_swipe_refresh.isRefreshing) {
             common_swipe_refresh.isRefreshing = false
@@ -147,7 +137,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
      * 加载网络数据：开始[萌妹子数据]的请求
      */
     fun loadHttpData() {
-        viewModel.getList(arguments!!.getInt("id"),page,1)
+        viewModel.getList(arguments!!.getInt("id"), page, 1)
     }
 
     internal fun OnLoadMoreListener(layoutManager: StaggeredGridLayoutManager?): RecyclerView.OnScrollListener {
@@ -158,7 +148,7 @@ class DoubanSimpleFragment : BaseLazyJPFragment() , ItemClick<DoubanMeiziBody> {
 
                 val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
 
-                val isBottom = arr!![1] >= mAdapter.getItemCount() - 6
+                val isBottom = arr!![1] >= mAdapter.getItemCount() - 4
 
                 if (!common_swipe_refresh.isRefreshing && isBottom) {
 

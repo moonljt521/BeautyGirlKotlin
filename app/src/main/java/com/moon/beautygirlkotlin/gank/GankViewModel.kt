@@ -9,7 +9,7 @@ import com.moon.beautygirlkotlin.gank.repository.GankRepository
  * author: jiangtao.liang
  * date:   On 2019-10-30 12:49
  */
-class GankViewModel(private val repository : GankRepository) : BaseViewModel() {
+class GankViewModel(private val repository: GankRepository) : BaseViewModel() {
 
     val list = ArrayList<GankMeiziBody>()
 
@@ -17,17 +17,21 @@ class GankViewModel(private val repository : GankRepository) : BaseViewModel() {
         value = emptyList()
     }
 
-    fun getGankList(pageNum: Int, page: Int){
-        launch ({
-            _item.value = repository.getGankList(pageNum,page).results
+    fun getGankList(pageNum: Int, page: Int) {
+        launch({
+            val result = repository.getGankList(pageNum, page).results
 
-            if (!_item.value!!.isEmpty()){
-                list.addAll(_item.value!!)
+            if (page == 1) {
+                list.clear()
             }
+            list.addAll(result)
+
+            _item.value = result
+
             return@launch
         },
-        {
+                {
 
-        })
+                })
     }
 }

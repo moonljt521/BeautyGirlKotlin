@@ -12,22 +12,29 @@ import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
-import com.moon.beautygirlkotlin.my_favorite.model.MyFavoriteBody
 import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
+import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
 import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.text.MessageFormat
 
 /**
  * [我的收藏] 模块 fragment
  */
-class MyFavoriteFragment : BaseFragment(){
+class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
+
+    override fun onClick(body: FavoriteBean) {
+        viewModel.delItem(body)
+    }
+
+    private val rcyDataObserver: RcyDataObserver = RcyDataObserver()
 
     val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
 
-    var mLayoutManager: LinearLayoutManager? = null ;
+    var mLayoutManager: LinearLayoutManager? = null;
 
     lateinit var mAdapter: MyFavoriteAdapter
 
@@ -39,7 +46,9 @@ class MyFavoriteFragment : BaseFragment(){
 
     var mIsLoadMore = true
 
-    var page: Int = 1
+    var page: Int = 0
+
+    var hasMoreData = true
 
     companion object {
 
@@ -61,7 +70,6 @@ class MyFavoriteFragment : BaseFragment(){
         return R.layout.fragment_my_favorite
     }
 
-
     /**
      * 初始化
      */
@@ -73,19 +81,20 @@ class MyFavoriteFragment : BaseFragment(){
 
             mIsRefreshing = true
 
-            queryMyCollect4db()
+            queryFavouriteList()
         }
     }
 
     @Subscribe
-    fun refreshFavouriteList(u: EventUpdateFavourite){
-        queryMyCollect4db()
+    fun refreshFavouriteList(u: EventUpdateFavourite) {
+        queryFavouriteList()
     }
-
 
     override fun initViews(view: View?) {
 
-        mAdapter = MyFavoriteAdapter(viewModel.list)
+        mAdapter = MyFavoriteAdapter(R.layout.item_favourite, viewModel.list)
+
+        mAdapter.listener = this
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
@@ -94,7 +103,7 @@ class MyFavoriteFragment : BaseFragment(){
         myCollect_recyclerView.layoutManager = mLayoutManager
 
         // 暂时不支持翻页
-//        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager))
+        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
 
         myCollect_recyclerView.adapter = mAdapter
 
@@ -105,28 +114,36 @@ class MyFavoriteFragment : BaseFragment(){
         myCollect_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
         myCollect_swipe_refresh.setOnRefreshListener {
-            page = 1
+            page = 0
+
+            hasMoreData = true
 
             mIsRefreshing = true
 
-            queryMyCollect4db()
+            queryFavouriteList()
         }
-        mAdapter.registerAdapterDataObserver(rcyDataObserver)
+//        mAdapter.registerAdapterDataObserver(rcyDataObserver)
 
         viewModel.data.observe(this, Observer {
             showSuccess(it)
         })
 
+        viewModel.total.observe(this, Observer {
+            if (it > 0) {
+                tvFavouriteTotal.text = MessageFormat.format(resources.getString(R.string.total_favourite_size), it)
+                tvFavouriteTotal.visibility = View.VISIBLE
+            } else {
+                tvFavouriteTotal.visibility = View.GONE
+            }
+        })
+        viewModel.getTotalSize()
     }
-
-    private val rcyDataObserver : RcyDataObserver = RcyDataObserver()
-
 
     /**
      *  查询db
      */
-    fun queryMyCollect4db() {
-        viewModel.getList()
+    private fun queryFavouriteList() {
+        viewModel.getList(page)
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -135,16 +152,18 @@ class MyFavoriteFragment : BaseFragment(){
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 2
+                val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 1
 
                 if (!myCollect_swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
+
+                        if (!hasMoreData) return
 
                         myCollect_swipe_refresh.isRefreshing = true
 
                         page++
 
-                        queryMyCollect4db()
+                        queryFavouriteList()
                     } else {
                         mIsLoadMore = false
                     }
@@ -153,33 +172,49 @@ class MyFavoriteFragment : BaseFragment(){
         }
     }
 
+    fun showSuccess(list: List<FavoriteBean>?) {
 
-    fun showSuccess(list : List<MyFavoriteBody>?) {
+        list?.let {
 
-        if (page == 1) {
+            checkEmpty()
 
-            mAdapter.refreshData(ArrayList(list))
+            if (it.isEmpty()) {
+                hasMoreData = false
+                if (myCollect_swipe_refresh.isRefreshing) {
+                    myCollect_swipe_refresh.isRefreshing = false
+                }
+                return
+            }
 
-        } else {
-            mAdapter.loadMoreData(list!!)
-        }
+            mAdapter.notifyDataSetChanged()
 
-        if (myCollect_swipe_refresh.isRefreshing) {
-            myCollect_swipe_refresh.isRefreshing = false
-        }
+            if (myCollect_swipe_refresh.isRefreshing) {
+                myCollect_swipe_refresh.isRefreshing = false
+            }
 
-        mIsRefreshing = false
+            mIsRefreshing = false
 
-        if (!SpUtil.tipSwipeDelFavourite()){
-            SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.swipe_del_favourite))
+            if (!SpUtil.tipSwipeDelFavourite()) {
+                SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.swipe_del_favourite))
+            }
+        } ?: let {
+            hasMoreData = false
+            mIsRefreshing = false
         }
     }
 
+    private fun checkEmpty() {
+        if (viewModel.list.size == 0) {
+            showEmptyView()
+        } else {
+            hideEmptyView()
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-        mAdapter.unregisterAdapterDataObserver(rcyDataObserver)
+//        mAdapter.unregisterAdapterDataObserver(rcyDataObserver)
     }
 
     inner class RcyDataObserver() : RecyclerView.AdapterDataObserver() {
@@ -194,8 +229,8 @@ class MyFavoriteFragment : BaseFragment(){
             checkEmpty()
         }
 
-        private fun checkEmpty(){
-            if (viewModel.list.size == 0){
+        private fun checkEmpty() {
+            if (viewModel.list.size == 0) {
                 showEmptyView()
             } else {
                 hideEmptyView()
@@ -203,11 +238,11 @@ class MyFavoriteFragment : BaseFragment(){
         }
     }
 
-    fun showEmptyView(){
+    fun showEmptyView() {
         myCollect_empty_text.visibility = View.VISIBLE
     }
 
-    fun hideEmptyView(){
+    fun hideEmptyView() {
         myCollect_empty_text.visibility = View.GONE
     }
 }

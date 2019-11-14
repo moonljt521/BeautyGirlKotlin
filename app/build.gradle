@@ -4,10 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-// realm ？
 apply plugin: 'kotlin-kapt'
-
-apply plugin: 'realm-android'
 
 //apply plugin: 'com.google.gms.google-services'
 
@@ -170,7 +167,7 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.3.1'
     //photoView
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     //大图查看
@@ -192,6 +189,11 @@ dependencies {
     def lifecycle_version = "2.0.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    def room_version = "2.2.0-alpha01"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }
 
 //kotlin{             //开始协程实验性功能

@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.moon.beautygirlkotlin.BR
+import com.moon.beautygirlkotlin.listener.ItemClick
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -12,12 +14,17 @@ import kotlin.collections.ArrayList
  * author: jiangtao.liang
  * date:   On 2019-11-01 12:29
  */
-abstract class BaseBindAdapter<DB : ViewDataBinding , T>(dataList : MutableList<T>) : RecyclerView.Adapter<BaseBindAdapter.CommonViewHolder<DB>>(){
+open class BaseBindAdapter<DB : ViewDataBinding , T>(layoutId : Int ,dataList : MutableList<T>) : RecyclerView.Adapter<BaseBindAdapter.CommonViewHolder<DB>>() {
+
+    var ontItemClick : ItemClick<T> ? = null
 
     private var dataList : MutableList<T> = ArrayList()
 
+    private var layoutId:Int = 0
+
     init {
         this.dataList = dataList
+        this.layoutId = layoutId
     }
 
     fun getDataList() : MutableList<T>{
@@ -42,15 +49,19 @@ abstract class BaseBindAdapter<DB : ViewDataBinding , T>(dataList : MutableList<
         notifyDataSetChanged()
     }
 
-    abstract fun getLayoutId() : Int
-
-    abstract fun bindView(viewHolder: CommonViewHolder<DB> , position: Int)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder<DB> {
-        return CommonViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),getLayoutId(),parent,false))
+    open fun bindView(viewHolder: CommonViewHolder<DB>, position: Int){
+        viewHolder.bindView.setVariable(BR.body,getDataList()[position])
+        viewHolder.bindView.executePendingBindings()
+        viewHolder.itemView.setOnClickListener {
+            ontItemClick?.onClick(it,getDataList()[position])
+        }
     }
 
-    override fun onBindViewHolder(holder: CommonViewHolder<DB>, position: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder<DB> {
+        return CommonViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context),layoutId,parent,false))
+    }
+
+    open override fun onBindViewHolder(holder: CommonViewHolder<DB>, position: Int) {
        bindView(holder , position)
     }
 

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/transparent"
     android:background="@color/black">
 
     <com.bm.library.PhotoView
@@ -12,6 +13,19 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <TextView
+        android:id="@+id/tvViewBigImageTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:lineSpacingMultiplier="1.3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="大图文字说明"/>
 
     <LinearLayout
         android:id="@+id/collect_btn"
@@ -27,7 +41,7 @@
             android:id="@+id/toCollect"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            tools:src="@drawable/collected"/>
+            tools:src="@drawable/uncollected"/>
 
     </LinearLayout>
 

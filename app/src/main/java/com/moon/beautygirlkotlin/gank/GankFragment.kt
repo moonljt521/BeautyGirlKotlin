@@ -2,23 +2,24 @@ package com.moon.beautygirlkotlin.gank
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseJPFragment
 import com.moon.beautygirlkotlin.databinding.FragmentJpGankMeiziBinding
-import com.moon.beautygirlkotlin.gank.adapter.GankAdapter
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
+import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
-import com.moon.beautygirlkotlin.listener.ItemClick
 import kotlinx.android.synthetic.main.fragment_jp_gank_meizi.*
 
 
@@ -39,7 +40,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     val mLayoutManager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-    lateinit var mAdapter: GankAdapter
+    var mAdapter: BaseBindAdapter<ViewDataBinding, GankMeiziBody>? = null
 
     var mIsRefreshing: Boolean = false
 
@@ -68,9 +69,11 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = GankAdapter(viewModel.list)
+        mAdapter = BaseBindAdapter(R.layout.item_meng_meizi,viewModel.list)
 
-        mAdapter.refreshData(viewModel.list)
+        mAdapter?.ontItemClick = this
+
+        mAdapter!!.refreshData(viewModel.list)
 
         gank_recyclerView.layoutManager = mLayoutManager
 
@@ -78,7 +81,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter.getItemCount() - 6
+                val isBottom = mLayoutManager.findLastCompletelyVisibleItemPositions(IntArray(2))[1] >= mAdapter!!.getItemCount() - 6
 
                 if (!swipe_refresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
@@ -97,8 +100,6 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
         })
 
         gank_recyclerView.adapter = mAdapter
-
-        mAdapter.itemClick = this
 
         gank_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
@@ -137,13 +138,7 @@ class GankFragment : BaseJPFragment(), ItemClick<GankMeiziBody> {
 
     fun showSuccess(list: List<GankMeiziBody>?) {
 
-        if (page == 1) {
-
-            mAdapter.refreshData(ArrayList(list!!))
-
-        } else {
-            mAdapter.loadMoreData(list!!)
-        }
+        mAdapter?.notifyDataSetChanged()
 
         swipe_refresh.isRefreshing = false
 

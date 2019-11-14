@@ -13,15 +13,21 @@ class DoubanViewModel(private val repository: DoubanRepository) : BaseViewModel(
 
     var list = ArrayList<DoubanMeiziBody>()
 
-    var data = MutableLiveData<List<DoubanMeiziBody>>().apply {
-        value = emptyList()
+    val data : MutableLiveData<List<DoubanMeiziBody>> by lazy {
+        MutableLiveData<List<DoubanMeiziBody>>()
     }
+
     fun getList(cid: Int, page: Int, type: Int) {
         launch({
-            data.value = repository.getDouBanMeiZiData(cid, page, type)
+            val result = repository.getDouBanMeiZiData(cid, page, type)
 
-            if (!data.value?.isEmpty()!!){
-                list.addAll(data.value!!)
+            result.let {
+                if (page == 1) {
+                    list.clear()
+                }
+
+                list.addAll(result)
+                data.value = result
             }
 
         }, {

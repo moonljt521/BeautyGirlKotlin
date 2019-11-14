@@ -42,5 +42,6 @@
     <string name="collect_has">您已经收藏过了</string>
     <string name="collect_fail">收藏失败</string>
     <string name="swipe_del_favourite">左右滑动可以删除收藏</string>
+    <string name="total_favourite_size">您共收藏了{0}张图片</string>
 
 </resources>

@@ -3,8 +3,23 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:id="@+id/tvFavouriteTotal"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        tools:text="您共收藏了5张图片"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/myCollect_swipe_refresh"
+        android:layout_below="@+id/tvFavouriteTotal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -15,7 +30,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingTop="3dp"
             android:scrollbars="none"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
