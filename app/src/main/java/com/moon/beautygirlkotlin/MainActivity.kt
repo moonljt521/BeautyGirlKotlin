@@ -3,19 +3,22 @@ package com.moon.beautygirlkotlin
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
-import com.google.android.material.navigation.NavigationView
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
-import com.moon.beautygirlkotlin.utils.*
-import com.moon.beautygirlkotlin.youtumeiku.YouTuMeikuFragment
+import com.moon.beautygirlkotlin.utils.AppManager
+import com.moon.beautygirlkotlin.utils.ImageLoader
+import com.moon.beautygirlkotlin.utils.ShareUtil
+import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.wei1.OnlyPicBaseFragment
+import com.moon.beautygirlkotlin.youtumeiku.YouTuMeikuFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**

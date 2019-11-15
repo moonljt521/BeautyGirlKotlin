@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.utils
 
-import com.google.android.material.snackbar.Snackbar
 import android.view.View
+import com.google.android.material.snackbar.Snackbar
 
 class SnackbarUtil {
 

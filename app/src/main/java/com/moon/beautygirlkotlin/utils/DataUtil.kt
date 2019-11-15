@@ -1,11 +1,9 @@
 package com.moon.beautygirlkotlin.utils
 
-import com.google.gson.Gson
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import okhttp3.ResponseBody
 import org.jsoup.Jsoup
-import org.jsoup.select.Elements
 import retrofit2.Response
 import java.net.URL
 import java.util.*

@@ -1,9 +1,9 @@
 package com.moon.beautygirlkotlin.wei1
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
 import android.util.TypedValue
 import android.view.View
+import com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuFragmentAdapter

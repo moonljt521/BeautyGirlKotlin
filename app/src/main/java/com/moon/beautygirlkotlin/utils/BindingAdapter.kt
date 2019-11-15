@@ -3,11 +3,9 @@ package com.moon.beautygirlkotlin.utils
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.moon.beautygirlkotlin.R
-import com.moon.beautygirlkotlin.utils.ImageLoader
 
 /**
  * author: jiangtao.liang

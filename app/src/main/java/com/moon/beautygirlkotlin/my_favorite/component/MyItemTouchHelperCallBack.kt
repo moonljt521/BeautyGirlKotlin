@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.my_favorite.component
 
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by moon on 2017/9/8.

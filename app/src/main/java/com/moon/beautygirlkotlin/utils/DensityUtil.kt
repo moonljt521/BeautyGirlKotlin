@@ -4,19 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Point
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import android.view.Display
 import android.view.KeyCharacterMap
 import android.view.KeyEvent
 import android.view.ViewConfiguration
 import android.view.WindowManager
-
-import java.lang.reflect.Method
 
 /**
  * Created by star on 2017/2/24.
