@@ -31,7 +31,6 @@ class DoubanSimpleFragment : BaseRequestListFragment<DoubanMeiziBody>() {
 
     override fun loadData() {
         viewModel.getList(arguments!!.getInt("id"), page, 1)
-        viewModel.data.observe(viewLifecycleOwner, this)
     }
 
     companion object {

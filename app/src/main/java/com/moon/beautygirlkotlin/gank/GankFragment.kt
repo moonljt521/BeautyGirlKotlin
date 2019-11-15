@@ -33,7 +33,6 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
 
     override fun loadData() {
         viewModel.getGankList(pageSize, page)
-        viewModel._item.observe(viewLifecycleOwner, this)
     }
 
     override fun getItemLayoutId(): Int = R.layout.item_meng_meizi

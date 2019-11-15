@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.gank.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.repository.GankRepository
@@ -11,10 +10,6 @@ import com.moon.beautygirlkotlin.gank.repository.GankRepository
  */
 class GankViewModel(private val repository: GankRepository) : BaseViewModel<GankMeiziBody>() {
 
-    val _item : MutableLiveData<List<GankMeiziBody>> by lazy {
-        MutableLiveData<List<GankMeiziBody>>()
-    }
-
     fun getGankList(pageNum: Int, page: Int) {
         launch({
             val result = repository.getGankList(pageNum, page).results
@@ -24,7 +19,7 @@ class GankViewModel(private val repository: GankRepository) : BaseViewModel<Gank
             }
             list.addAll(result)
 
-            _item.value = result
+            data.value = result
 
             return@launch
         },

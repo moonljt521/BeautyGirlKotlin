@@ -89,6 +89,8 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
         common_swipe_refresh.isRefreshing = true
 
+        getViewModel().data.observe(viewLifecycleOwner,this)
+
         loadData()
     }
 

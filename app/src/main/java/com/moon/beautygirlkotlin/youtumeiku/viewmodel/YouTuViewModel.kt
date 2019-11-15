@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.youtumeiku.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody
 import com.moon.beautygirlkotlin.youtumeiku.repository.YouTuRepository
@@ -12,10 +11,6 @@ import com.moon.beautygirlkotlin.youtumeiku.repository.YouTuRepository
  */
 class YouTuViewModel(private val repository: YouTuRepository) : BaseViewModel<MeiZiTuBody>() {
 
-    val youtuData: MutableLiveData<List<MeiZiTuBody>> by lazy {
-        MutableLiveData<List<MeiZiTuBody>>()
-    }
-
     fun getYouTuList(pageNum: Int) {
         launch({
             try {
@@ -25,7 +20,7 @@ class YouTuViewModel(private val repository: YouTuRepository) : BaseViewModel<Me
 
                 val result = repository.getYoutuRepository(pageNum)
                 list.addAll(result)
-                youtuData.value = result
+                data.value = result
             } catch (e: Exception) {
                 e.printStackTrace()
 
