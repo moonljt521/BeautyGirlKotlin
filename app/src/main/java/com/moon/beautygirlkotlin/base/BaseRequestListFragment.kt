@@ -66,11 +66,10 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
         list?.takeIf {
             !it.isEmpty()
         }?.apply {
-            common_swipe_refresh.isRefreshing = true
-
-            loadFinish = true
 
             mAdapter.notifyDataSetChanged()
+
+            loadFinish = true
 
             if (common_swipe_refresh.isRefreshing) {
                 common_swipe_refresh.isRefreshing = false
