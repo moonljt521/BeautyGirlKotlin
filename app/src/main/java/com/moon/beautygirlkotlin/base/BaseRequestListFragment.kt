@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_base_request.*
  * created on: 2019/11/15 下午8:09
  * description:
  */
-open abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observer<List<T>> {
+abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observer<List<T>> {
 
     val logName = "BeautyGirlLog"
 
