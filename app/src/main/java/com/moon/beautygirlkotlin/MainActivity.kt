@@ -12,11 +12,8 @@ import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
 import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
+import com.moon.beautygirlkotlin.utils.*
 import com.moon.beautygirlkotlin.youtumeiku.YouTuMeikuFragment
-import com.moon.beautygirlkotlin.utils.AppManager
-import com.moon.beautygirlkotlin.utils.ImageLoader
-import com.moon.beautygirlkotlin.utils.ShareUtil
-import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.wei1.OnlyPicBaseFragment
 import kotlinx.android.synthetic.main.activity_main.*
 

@@ -14,6 +14,7 @@ import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
@@ -30,40 +31,16 @@ import org.greenrobot.eventbus.EventBus
  * created on: 18/4/28 上午11:43
  * description: 大图片浏览页面
  */
-class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener, CoroutineScope by MainScope() {
+class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClickListener {
 
-    override fun onLongClick(p0: View?): Boolean {
 
-        showDialog()
-
-        return true
-    }
-
-    var db: BeautyGirlDatabase;
+    private var db: BeautyGirlDatabase;
 
     init {
         db = Room.databaseBuilder(
                 BeautyGirlKotlinApp.application,
                 BeautyGirlDatabase::class.java, "beauty_girl.db")
                 .build()
-    }
-
-
-    fun showDialog() {
-        val dialog = BottomSheetDialog(this@ViewBigImgActivity)
-        val dialogView = LayoutInflater.from(this@ViewBigImgActivity)
-                .inflate(R.layout.dialog_bottom, null)
-        val tvTakePhoto = dialogView.findViewById(R.id.tv_save_img) as Button
-        val tvCancel = dialogView.findViewById(R.id.tv_cancel) as Button
-
-        tvTakePhoto.setOnClickListener {
-
-            dialog.dismiss()
-        }
-
-        tvCancel.setOnClickListener { dialog.dismiss() }
-        dialog.setContentView(dialogView)
-        dialog.show()
     }
 
     private var url: String = "";
@@ -73,11 +50,7 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
 
     private var titleSpan: RoundedBackgroundSpan? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_gank_view_bigimg)
-
+    override fun initViews() {
         titleSpan = RoundedBackgroundSpan(this, R.color.red)
 
         url = intent?.getStringExtra("url")!!
@@ -99,7 +72,9 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
         collect_btn.setOnClickListener(this)
 
         toCollect.setImageResource(R.drawable.uncollected)
+    }
 
+    override fun loadData() {
         launch {
             val qb = withContext(Dispatchers.IO) {
                 db.favouriteDao().getFavouriteByUrl(url)
@@ -117,34 +92,50 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
         val spannableString = SpannableString(stringBuilder.toString())
         spannableString.setSpan(titleSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         tvViewBigImageTitle.text = spannableString
+    }
 
+    override fun getLayoutId(): Int = R.layout.activity_gank_view_bigimg
+
+    override fun onLongClick(p0: View?): Boolean {
+
+        showDialog()
+
+        return true
+    }
+
+    fun showDialog() {
+        val dialog = BottomSheetDialog(this@ViewBigImgActivity)
+        val dialogView = LayoutInflater.from(this@ViewBigImgActivity)
+                .inflate(R.layout.dialog_bottom, null)
+        val tvTakePhoto = dialogView.findViewById(R.id.tv_save_img) as Button
+        val tvCancel = dialogView.findViewById(R.id.tv_cancel) as Button
+
+        tvTakePhoto.setOnClickListener {
+
+            dialog.dismiss()
+        }
+
+        tvCancel.setOnClickListener { dialog.dismiss() }
+        dialog.setContentView(dialogView)
+        dialog.show()
     }
 
     override fun onClick(v: View?) {
 
-        if (v?.id == R.id.collect_btn) {
-
-            try {
-
+        when (v?.id) {
+            R.id.collect_btn -> {
                 launch {
                     val result = withContext(Dispatchers.IO) {
                         db.favouriteDao().getFavouriteByUrl(url)
                     }
 
-                    if (result != null) {
+                    result?.let {
                         SnackbarUtil.showMessage(v, getString(R.string.collect_has))
-                        return@launch
-                    } else {
-
-                        val result = withContext(Dispatchers.IO) {
-                            val body = FavoriteBean()
-                            body.title = title
-                            body.url = url
-                            body.createTime = System.currentTimeMillis()
-                            db.favouriteDao().insertFavourite(body)
-                        }
-
-                        result.let {
+                    } ?: let {
+                        withContext(Dispatchers.IO) {
+                            db.favouriteDao().insertFavourite(
+                                    FavoriteBean(title = title,url = url,createTime = System.currentTimeMillis()))
+                        }.let {
                             SnackbarUtil.showMessage(v, getString(R.string.collect_success))
 
                             toCollect.setImageResource(R.drawable.collected)
@@ -153,14 +144,11 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
                         }
                     }
                 }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                SnackbarUtil.showMessage(v, getString(R.string.collect_fail))
             }
 
-        } else if (v?.id == R.id.gank_big_img) {
-            finish()
+            R.id.gank_big_img -> {
+                finish()
+            }
         }
     }
 
@@ -174,5 +162,4 @@ class ViewBigImgActivity : AppCompatActivity(), View.OnClickListener, View.OnLon
             context.startActivity(intent)
         }
     }
-
 }

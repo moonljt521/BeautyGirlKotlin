@@ -116,21 +116,21 @@ class DoubanSimpleFragment : BaseLazyJPFragment(), ItemClick<DoubanMeiziBody> {
 
     fun showSuccess(list: List<DoubanMeiziBody>?) {
 
-        common_swipe_refresh.isRefreshing = true
-
-        if (list?.size == 0) {
-            hasMoreData = false
-        }else{
+        list?.takeIf {
+            !it.isEmpty()
+        }?.apply {
+            common_swipe_refresh.isRefreshing = true
             loadFinish = true
+            mAdapter.notifyDataSetChanged()
+
+            if (common_swipe_refresh.isRefreshing) {
+                common_swipe_refresh.isRefreshing = false
+            }
+            mIsRefreshing = false
+        } ?: let {
+            hasMoreData = false
         }
 
-        mAdapter.notifyDataSetChanged()
-
-        if (common_swipe_refresh.isRefreshing) {
-            common_swipe_refresh.isRefreshing = false
-        }
-
-        mIsRefreshing = false
     }
 
     /**

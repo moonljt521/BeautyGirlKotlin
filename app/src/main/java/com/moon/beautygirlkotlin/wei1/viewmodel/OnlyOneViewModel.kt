@@ -39,7 +39,6 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
 
                 }
         )
-
     }
 
 
