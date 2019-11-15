@@ -13,7 +13,7 @@ class OkhttpLogInterceptor: HttpLoggingInterceptor.Logger {
 
     override fun log(message: String?) {
 
-        Logger.i(message!!)
+        Logger.i(Logger.TAG, message!!)
 
     }
 }

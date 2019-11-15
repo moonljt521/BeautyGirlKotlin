@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.moon.beautygirlkotlin.wei1.viewmodel.OnlyOneViewModel" />
+            type="com.moon.beautygirlkotlin.base.BaseViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

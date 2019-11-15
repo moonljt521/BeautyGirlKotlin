@@ -9,9 +9,7 @@ import com.moon.beautygirlkotlin.doubanmeizi.rep.DoubanRepository
  * author: jiangtao.liang
  * date:   On 2019-10-31 20:03
  */
-class DoubanViewModel(private val repository: DoubanRepository) : BaseViewModel() {
-
-    var list = ArrayList<DoubanMeiziBody>()
+class DoubanViewModel(private val repository: DoubanRepository) : BaseViewModel<DoubanMeiziBody>() {
 
     val data : MutableLiveData<List<DoubanMeiziBody>> by lazy {
         MutableLiveData<List<DoubanMeiziBody>>()

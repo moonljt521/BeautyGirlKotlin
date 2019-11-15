@@ -6,7 +6,6 @@ import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
-import com.moon.beautygirlkotlin.utils.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -14,7 +13,7 @@ import kotlinx.coroutines.withContext
  * author: jiangtao.liang
  * date:   On 2019-11-01 14:11
  */
-class FavouriteVieModel : BaseViewModel() {
+class FavouriteVieModel : BaseViewModel<FavoriteBean>() {
 
     var db: BeautyGirlDatabase;
 
@@ -24,8 +23,6 @@ class FavouriteVieModel : BaseViewModel() {
                 BeautyGirlDatabase::class.java, "beauty_girl.db")
                 .build()
     }
-
-    var list = ArrayList<FavoriteBean>()
 
     var size: Int = 0
 

@@ -17,7 +17,7 @@ import okio.Buffer;
  * created on: 18/5/17 下午12:58
  * description:
  */
-public class NetWorkInterceptor implements Interceptor{
+public class NetWorkInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
@@ -29,9 +29,9 @@ public class NetWorkInterceptor implements Interceptor{
 
 
             if (methodName.equalsIgnoreCase("GET")) {
-                Logger.INSTANCE.i( "- url -" + methodName + "--" + request.url());
-                for (String head : headers){
-                    Logger.INSTANCE.i( "- head -" + head);
+                Logger.INSTANCE.i(Logger.INSTANCE.getTAG(), "- url -" + methodName + "--" + request.url());
+                for (String head : headers) {
+                    Logger.INSTANCE.i(Logger.INSTANCE.getTAG(), "- head -" + head);
 
                 }
 
@@ -46,7 +46,7 @@ public class NetWorkInterceptor implements Interceptor{
                     } else {
                         content = getParam(mRequestBody);
                     }
-                    Logger.INSTANCE.i( msg + content);
+                    Logger.INSTANCE.i(Logger.INSTANCE.getTAG(), msg + content);
                 }
             }
         }

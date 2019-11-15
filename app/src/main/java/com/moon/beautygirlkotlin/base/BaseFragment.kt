@@ -1,9 +1,15 @@
 package com.moon.beautygirlkotlin.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 /**
  * author: moon
@@ -11,7 +17,19 @@ import android.view.ViewGroup
  * description:  fragment mvp 基类
  */
 
-abstract class BaseFragment : AbstractFragment(){
+abstract class BaseFragment : Fragment() , CoroutineScope by MainScope() {
+
+    protected lateinit var mActivity: AppCompatActivity
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mActivity = (context as AppCompatActivity?)!!
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancel()
+    }
 
     protected abstract fun getLayoutId(): Int
 

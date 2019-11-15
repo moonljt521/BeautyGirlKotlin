@@ -13,11 +13,9 @@ import kotlinx.coroutines.withContext
  * date:   On 2019-10-31 12:35
  * des : 唯一图库 viewModel
  */
-class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewModel() {
+class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewModel<MeiZiTuBody>() {
 
     private val url: String = "http://www.umei.cc/bizhitupian/meinvbizhi/"
-
-    val list = ArrayList<MeiZiTuBody>()
 
     val _item: MutableLiveData<List<MeiZiTuBody>> by lazy {
         MutableLiveData<List<MeiZiTuBody>>()
@@ -44,7 +42,7 @@ class OnlyOneViewModel(private val repository: OnlyOneRepository) : BaseViewMode
 
     val youtuList = ArrayList<MeiZiTuBody>()
 
-    val youtuData : MutableLiveData<List<MeiZiTuBody>> by lazy {
+    val youtuData: MutableLiveData<List<MeiZiTuBody>> by lazy {
         MutableLiveData<List<MeiZiTuBody>>()
     }
 

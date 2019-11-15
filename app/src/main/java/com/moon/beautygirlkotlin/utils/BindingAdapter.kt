@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.base
+package com.moon.beautygirlkotlin.utils
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
