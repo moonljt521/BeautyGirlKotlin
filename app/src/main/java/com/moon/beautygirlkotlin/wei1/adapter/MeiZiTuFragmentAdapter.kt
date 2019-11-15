@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.moon.beautygirlkotlin.wei1.MeiZiTuSimpleFragment
+import com.moon.beautygirlkotlin.wei1.OnlyOneSimpleFragment
 import java.util.*
 
 /**
@@ -13,13 +13,13 @@ import java.util.*
  */
 class MeiZiTuFragmentAdapter(fm : FragmentManager): FragmentStatePagerAdapter(fm) {
 
-    var fragmentList : ArrayList<MeiZiTuSimpleFragment>
+    var fragmentList : ArrayList<OnlyOneSimpleFragment>
 
     private val titles = arrayOf("明星相关专辑")
 
     init {
         fragmentList = ArrayList()
-        fragmentList.add(MeiZiTuSimpleFragment.getInstance("list_18_"))
+        fragmentList.add(OnlyOneSimpleFragment.getInstance("list_18_"))
     }
 
     override fun getPageTitle(position: Int): CharSequence {

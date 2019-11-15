@@ -1,8 +1,8 @@
-package com.moon.beautygirlkotlin.gank
+package com.moon.beautygirlkotlin.gank.repository
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.moon.beautygirlkotlin.gank.repository.GankRepository
+import com.moon.beautygirlkotlin.gank.viewmodel.GankViewModel
 
 class GankModelFactory(private val repository: GankRepository) : ViewModelProvider.NewInstanceFactory() {
 

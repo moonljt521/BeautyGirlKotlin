@@ -10,20 +10,17 @@ import android.util.Log
 object Logger {
 
 
-    private val TAG = "BeautyGirlKotlin"
+    val TAG = "BeautyGirlKotlin"
 
     var DEBUG = true
 
-    fun i(value: String) {
+    fun i(log: String? = TAG, value: String) {
         if (DEBUG) {
-            Log.i(TAG, value)
-
-        }
-    }
-
-    fun i(tag: String, value: String) {
-        if (DEBUG) {
-            Log.i(tag, value)
+            log?.let {
+                Log.i(log, value)
+            } ?:let {
+                Log.i(TAG, value)
+            }
         }
     }
 

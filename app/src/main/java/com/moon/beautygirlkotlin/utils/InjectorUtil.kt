@@ -2,10 +2,12 @@ package com.moon.beautygirlkotlin.utils
 
 import com.moon.beautygirlkotlin.doubanmeizi.DoubanModelFactory
 import com.moon.beautygirlkotlin.doubanmeizi.rep.DoubanRepository
-import com.moon.beautygirlkotlin.gank.GankModelFactory
+import com.moon.beautygirlkotlin.gank.repository.GankModelFactory
 import com.moon.beautygirlkotlin.gank.repository.GankRepository
 import com.moon.beautygirlkotlin.wei1.OnlyOneModelFactory
 import com.moon.beautygirlkotlin.wei1.repository.OnlyOneRepository
+import com.moon.beautygirlkotlin.youtumeiku.repository.YouTuModelFactory
+import com.moon.beautygirlkotlin.youtumeiku.repository.YouTuRepository
 
 object InjectorUtil {
 
@@ -22,4 +24,9 @@ object InjectorUtil {
     private fun getDoubanRepository() = DoubanRepository()
 
     fun getDoubanModelFactory() = DoubanModelFactory(getDoubanRepository())
+
+
+    private fun getYouTuRepository() = YouTuRepository()
+
+    fun getYouTuModelFactory() = YouTuModelFactory(getYouTuRepository())
 }
