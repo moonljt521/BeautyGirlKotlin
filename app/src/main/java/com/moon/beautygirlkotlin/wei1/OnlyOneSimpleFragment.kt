@@ -30,7 +30,7 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
     override fun loadData() {
 
         viewModel.getList(type, page)
-        viewModel._item.observe(this, this)
+        viewModel._item.observe(viewLifecycleOwner, this)
     }
 
     companion object {

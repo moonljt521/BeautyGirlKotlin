@@ -1,6 +1,7 @@
 package com.moon.beautygirlkotlin
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.Fragment
@@ -140,6 +141,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         i.setData(Uri.parse(getString(R.string.project_link)))
         startActivity(i)
 
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
     }
 
     override fun onBackPressed() {
