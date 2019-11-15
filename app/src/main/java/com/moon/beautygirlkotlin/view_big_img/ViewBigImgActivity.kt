@@ -2,14 +2,12 @@ package com.moon.beautygirlkotlin.view_big_img
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
@@ -22,7 +20,9 @@ import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.widget.RoundedBackgroundSpan
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 
 
