@@ -20,7 +20,7 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
 
     override fun loadData() {
         viewModel.getYouTuList(page)
-        viewModel.youtuData.observe(this, this)
+        viewModel.youtuData.observe(viewLifecycleOwner, this)
     }
 
     override fun getViewModel(): BaseViewModel<MeiZiTuBody> = viewModel
