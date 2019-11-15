@@ -26,10 +26,6 @@ class FavouriteVieModel : BaseViewModel<FavoriteBean>() {
 
     var size: Int = 0
 
-    val data : MutableLiveData<List<FavoriteBean>> by lazy {
-        MutableLiveData<List<FavoriteBean>>()
-    }
-
     val total = MutableLiveData<Int>().apply {
         value = size
     }

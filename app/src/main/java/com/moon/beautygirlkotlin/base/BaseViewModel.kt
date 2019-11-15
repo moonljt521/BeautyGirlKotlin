@@ -1,7 +1,9 @@
 package com.moon.beautygirlkotlin.base
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanMeiziBody
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -12,6 +14,10 @@ import kotlinx.coroutines.launch
 open class BaseViewModel<T> : ViewModel(){
 
     val list  = ArrayList<T>()
+
+    val data : MutableLiveData<List<T>> by lazy {
+        MutableLiveData<List<T>>()
+    }
 
     fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = viewModelScope.launch {
         try {
