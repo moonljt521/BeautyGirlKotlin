@@ -27,6 +27,10 @@ support迁移到了androidx
 修复列表翻页问题, 完善jetpack, 升级GLide， 数据库 room 替换 realm ， 增加UI细节
 
 
+## 4.5
+抽象列表页的逻辑进入基类，包括数据UI初始化，仓库初始化，加载数据和翻页，子类只负责调用接口
+
+
 <br>
 
 ## Requirements
