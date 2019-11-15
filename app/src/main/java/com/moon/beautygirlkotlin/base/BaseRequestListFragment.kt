@@ -67,7 +67,13 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
             !it.isEmpty()
         }?.apply {
 
-            mAdapter.notifyDataSetChanged()
+            if (page == 1) {
+
+                mAdapter.notifyItemChanged(0, getViewModel().list.size)
+
+            } else {
+                mAdapter.notifyItemRangeInserted(getViewModel().list.size - list.size, getViewModel().list.size)
+            }
 
             loadFinish = true
 
@@ -88,7 +94,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
         common_swipe_refresh.isRefreshing = true
 
-        getViewModel().data.observe(viewLifecycleOwner,this)
+        getViewModel().data.observe(viewLifecycleOwner, this)
 
         loadData()
     }
@@ -127,6 +133,8 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
         mAdapter.ontItemClick = this
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        common_recyclerView.animation = null
 
         common_recyclerView.layoutManager = mLayoutManager
 
