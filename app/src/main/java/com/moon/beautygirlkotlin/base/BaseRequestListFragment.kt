@@ -181,9 +181,12 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-                val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
+                //这个方法可能返回 -1 导致无法分页
+//                val arr = mLayoutManager?.findLastCompletelyVisibleItemPositions(IntArray(2));
 
-                val isBottom = arr!![1] >= mAdapter.getItemCount() - 4
+                val arr = mLayoutManager?.findLastVisibleItemPositions(IntArray(2))
+
+                val isBottom = arr!![1] >= mAdapter.getItemCount() - 2
 
                 if (!common_swipe_refresh.isRefreshing && isBottom) {
 
