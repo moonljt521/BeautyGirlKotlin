@@ -135,8 +135,8 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
             } else {
                 tvFavouriteTotal.visibility = View.GONE
             }
+            checkEmpty()
         })
-        viewModel.getTotalSize()
     }
 
     /**
@@ -144,6 +144,7 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
      */
     private fun queryFavouriteList() {
         viewModel.getList(page)
+        viewModel.getTotalSize()
     }
 
     internal fun OnLoadMoreListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener {
@@ -175,8 +176,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     fun showSuccess(list: List<FavoriteBean>?) {
 
         list?.let {
-
-            checkEmpty()
 
             if (it.isEmpty()) {
                 hasMoreData = false

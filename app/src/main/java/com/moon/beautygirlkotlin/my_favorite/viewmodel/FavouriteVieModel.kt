@@ -43,7 +43,8 @@ class FavouriteVieModel : BaseViewModel<FavoriteBean>() {
 
             list.addAll(result!!)
 
-            data.value = result
+            data.postValue(result)
+
         }, {
             it.printStackTrace()
         })
