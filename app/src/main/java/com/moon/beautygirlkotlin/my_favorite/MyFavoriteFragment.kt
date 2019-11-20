@@ -32,8 +32,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
         viewModel.delItem(body)
     }
 
-    private val rcyDataObserver: RcyDataObserver = RcyDataObserver()
-
     private lateinit var databinding: FragmentMyFavoriteBinding
 
     val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
@@ -73,14 +71,10 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         databinding = FragmentMyFavoriteBinding.inflate(inflater, container, false)
         databinding.apply {
-            viewModel = viewModel
+            viewModel = this@MyFavoriteFragment.viewModel
             setLifecycleOwner(viewLifecycleOwner)
         }
         return databinding.root
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_my_favorite
     }
 
     /**
@@ -138,7 +132,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
             queryFavouriteList()
         }
-//        mAdapter.registerAdapterDataObserver(rcyDataObserver)
 
         viewModel.data.observe(this, Observer {
             showSuccess(it)
@@ -229,28 +222,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
-//        mAdapter.unregisterAdapterDataObserver(rcyDataObserver)
-    }
-
-    inner class RcyDataObserver() : RecyclerView.AdapterDataObserver() {
-
-        override fun onChanged() {
-            super.onChanged()
-            checkEmpty()
-        }
-
-        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-            super.onItemRangeRemoved(positionStart, itemCount)
-            checkEmpty()
-        }
-
-        private fun checkEmpty() {
-            if (viewModel.list.size == 0) {
-                showEmptyView()
-            } else {
-                hideEmptyView()
-            }
-        }
     }
 
     fun showEmptyView() {

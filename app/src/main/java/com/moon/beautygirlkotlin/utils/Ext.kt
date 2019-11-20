@@ -1,5 +1,9 @@
 package com.moon.beautygirlkotlin.utils
 
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
@@ -85,3 +89,9 @@ internal class PresenterCloseableCoroutineScope(context: CoroutineContext) : Clo
         coroutineContext.cancel()
     }
 }
+
+
+inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
+        provider: ViewModelProvider.Factory
+) =
+        ViewModelProviders.of(this, provider).get(VM::class.java)

@@ -2,12 +2,15 @@ package com.moon.beautygirlkotlin.wei1
 
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
-import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
+import com.moon.beautygirlkotlin.base.BaseViewModel
+import com.moon.beautygirlkotlin.databinding.FragmentBaseMeizituBinding
 import com.moon.beautygirlkotlin.wei1.adapter.MeiZiTuFragmentAdapter
-import kotlinx.android.synthetic.main.fragment_base_meizitu.*
 
 /**
  * 【唯一】图库   fragment
@@ -15,7 +18,9 @@ import kotlinx.android.synthetic.main.fragment_base_meizitu.*
 class OnlyPicBaseFragment : BaseFragment()
 {
 
-    lateinit var adapter: MeiZiTuFragmentAdapter
+    private lateinit var binding : FragmentBaseMeizituBinding
+
+    private lateinit var viewModel : BaseViewModel<*>
 
     companion object {
 
@@ -23,15 +28,19 @@ class OnlyPicBaseFragment : BaseFragment()
             val fragment = OnlyPicBaseFragment();
             val bundle = Bundle()
             bundle.putInt("id", id)
-
             fragment.arguments = bundle
-
             return fragment
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_base_meizitu
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewModel = ViewModelProviders.of(this).get(BaseViewModel::class.java)
+        binding = FragmentBaseMeizituBinding.inflate(inflater,container,false)
+        binding.apply {
+            viewModel = this@OnlyPicBaseFragment.viewModel
+            setLifecycleOwner(viewLifecycleOwner)
+        }
+        return binding.root
     }
 
     /**
@@ -41,18 +50,19 @@ class OnlyPicBaseFragment : BaseFragment()
         val pageMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources
                 .displayMetrics).toInt()
 
-        meizitu_viewpager.offscreenPageLimit = 6
+        binding.meizituViewpager.apply {
+            offscreenPageLimit = 6
+            adapter = MeiZiTuFragmentAdapter(childFragmentManager)
+            setPageMargin(pageMargin)
+        }
 
-        meizitu_viewpager.setPageMargin(pageMargin)
-        adapter = MeiZiTuFragmentAdapter(childFragmentManager)
-        meizitu_viewpager.adapter = (adapter)
-        meizitu_tablayout.setupWithViewPager(meizitu_viewpager)
-        meizitu_tablayout.tabMode = MODE_SCROLLABLE
+        binding.meizituTablayout.apply {
+            setupWithViewPager(binding.meizituViewpager)
+            tabMode = MODE_SCROLLABLE
+        }
     }
 
     override fun initViews(view: View?) {
 
     }
-
-
 }

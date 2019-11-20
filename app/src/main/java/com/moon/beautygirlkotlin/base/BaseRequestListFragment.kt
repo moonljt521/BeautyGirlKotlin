@@ -116,8 +116,6 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
         lazyLoad()
     }
 
-    override fun getLayoutId(): Int = 0
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentBaseRequestBinding.inflate(inflater,container,false)
         return binding.apply {

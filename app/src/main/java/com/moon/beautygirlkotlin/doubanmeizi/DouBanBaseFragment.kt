@@ -2,18 +2,23 @@ package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
-import com.moon.beautygirlkotlin.R
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.base.BaseFragment
+import com.moon.beautygirlkotlin.base.BaseViewModel
+import com.moon.beautygirlkotlin.databinding.FragmentBaseDoubanMeiziBinding
 import com.moon.beautygirlkotlin.doubanmeizi.model.DoubanFragmentAdapter
-import kotlinx.android.synthetic.main.fragment_base_douban_meizi.*
 
 /**
  * 豆瓣模块 base  fragment
  */
 class DouBanBaseFragment : BaseFragment() {
 
-    lateinit var adapter: DoubanFragmentAdapter
+    private lateinit var binding : FragmentBaseDoubanMeiziBinding
+
+    private lateinit var viewModel : BaseViewModel<*>
 
     companion object {
 
@@ -26,10 +31,15 @@ class DouBanBaseFragment : BaseFragment() {
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_base_douban_meizi
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewModel = ViewModelProviders.of(this).get(BaseViewModel::class.java)
+        binding = FragmentBaseDoubanMeiziBinding.inflate(inflater,container,false)
+        binding.apply {
+            viewModel = this@DouBanBaseFragment.viewModel
+            setLifecycleOwner(viewLifecycleOwner)
+        }
+        return binding.root
     }
-
 
     /**
      * 初始化
@@ -39,14 +49,12 @@ class DouBanBaseFragment : BaseFragment() {
         val pageMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources
                 .displayMetrics).toInt()
 
-        douban_viewpager.offscreenPageLimit = 6
-
-        douban_viewpager.setPageMargin(pageMargin)
-        adapter = DoubanFragmentAdapter(childFragmentManager)
-        douban_viewpager.adapter = (adapter)
-        douban_tablayout.setupWithViewPager(douban_viewpager)
-//        douban_viewpager.addOnPageChangeListener(this)
-
+        binding.doubanViewpager.apply {
+            offscreenPageLimit = 6
+            setPageMargin(pageMargin)
+            adapter = DoubanFragmentAdapter(childFragmentManager)
+            binding.doubanTablayout.setupWithViewPager(this)
+        }
     }
 
     override fun initViews(view: View?) {
