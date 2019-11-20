@@ -1,50 +1,63 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/tvFavouriteTotal"
-        android:gravity="center"
-        android:padding="5dp"
-        android:textSize="15dp"
-        android:textColor="@color/black"
-        tools:text="您共收藏了5张图片"
-        tools:visibility="visible"
-        android:visibility="gone"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.moon.beautygirlkotlin.base.BaseViewModel" />
+    </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/myCollect_swipe_refresh"
-        android:layout_below="@+id/tvFavouriteTotal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        xmlns:tools="http://schemas.android.com/tools">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/myCollect_recyclerView"
+        <TextView
+            android:id="@+id/tvFavouriteTotal"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            tools:text="您共收藏了5张图片"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/myCollect_swipe_refresh"
+            android:layout_below="@+id/tvFavouriteTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:scrollbars="none"/>
+            >
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myCollect_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <TextView
-        android:id="@+id/myCollect_empty_text"
-        android:textSize="16dp"
-        android:text="您还没有收藏哦！"
-        android:gravity="center"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/myCollect_empty_text"
+            android:textSize="16dp"
+            android:text="您还没有收藏哦！"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</layout>
+
+
 
 
 

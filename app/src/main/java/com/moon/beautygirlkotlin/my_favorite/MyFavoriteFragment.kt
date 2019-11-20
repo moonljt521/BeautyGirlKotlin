@@ -1,7 +1,9 @@
 package com.moon.beautygirlkotlin.my_favorite
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
+import com.moon.beautygirlkotlin.databinding.FragmentMyFavoriteBinding
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -16,7 +19,6 @@ import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
 import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
-import kotlinx.android.synthetic.main.fragment_my_favorite.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.text.MessageFormat
@@ -31,6 +33,8 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     }
 
     private val rcyDataObserver: RcyDataObserver = RcyDataObserver()
+
+    private lateinit var databinding: FragmentMyFavoriteBinding
 
     val viewModel by lazy { ViewModelProviders.of(this).get(FavouriteVieModel::class.java) }
 
@@ -66,6 +70,15 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
         EventBus.getDefault().register(this)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        databinding = FragmentMyFavoriteBinding.inflate(inflater, container, false)
+        databinding.apply {
+            viewModel = viewModel
+            setLifecycleOwner(viewLifecycleOwner)
+        }
+        return databinding.root
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_my_favorite
     }
@@ -75,9 +88,9 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
      */
     override fun initData() {
 
-        myCollect_swipe_refresh.post {
+        databinding.myCollectSwipeRefresh.post {
 
-            myCollect_swipe_refresh.isRefreshing = true
+            databinding.myCollectSwipeRefresh.isRefreshing = true
 
             mIsRefreshing = true
 
@@ -100,20 +113,23 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
         mLayoutManager = LinearLayoutManager(mActivity)
 
-        myCollect_recyclerView.layoutManager = mLayoutManager
+        databinding.myCollectRecyclerView.apply {
 
-        // 暂时不支持翻页
-        myCollect_recyclerView.addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
+            layoutManager = mLayoutManager
 
-        myCollect_recyclerView.adapter = mAdapter
+            addOnScrollListener(OnLoadMoreListener(mLayoutManager!!))
+
+            adapter = mAdapter
+
+            setOnTouchListener { _, motionEvent -> mIsRefreshing }
+        }
 
         itemTouchHelper = ItemTouchHelper(callBack!!)
 
-        itemTouchHelper!!.attachToRecyclerView(myCollect_recyclerView)
+        itemTouchHelper!!.attachToRecyclerView(databinding.myCollectRecyclerView)
 
-        myCollect_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
 
-        myCollect_swipe_refresh.setOnRefreshListener {
+        databinding.myCollectSwipeRefresh.setOnRefreshListener {
             page = 0
 
             hasMoreData = true
@@ -130,10 +146,10 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
         viewModel.total.observe(this, Observer {
             if (it > 0) {
-                tvFavouriteTotal.text = MessageFormat.format(resources.getString(R.string.total_favourite_size), it)
-                tvFavouriteTotal.visibility = View.VISIBLE
+                databinding.tvFavouriteTotal.text = MessageFormat.format(resources.getString(R.string.total_favourite_size), it)
+                databinding.tvFavouriteTotal.visibility = View.VISIBLE
             } else {
-                tvFavouriteTotal.visibility = View.GONE
+                databinding.tvFavouriteTotal.visibility = View.GONE
             }
             checkEmpty()
         })
@@ -155,12 +171,12 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
                 val isBottom = layoutManager.findLastVisibleItemPosition() >= mAdapter.getItemCount() - 1
 
-                if (!myCollect_swipe_refresh.isRefreshing && isBottom) {
+                if (!databinding.myCollectSwipeRefresh.isRefreshing && isBottom) {
                     if (!mIsLoadMore) {
 
                         if (!hasMoreData) return
 
-                        myCollect_swipe_refresh.isRefreshing = true
+                        databinding.myCollectSwipeRefresh.isRefreshing = true
 
                         page++
 
@@ -179,22 +195,22 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
             if (it.isEmpty()) {
                 hasMoreData = false
-                if (myCollect_swipe_refresh.isRefreshing) {
-                    myCollect_swipe_refresh.isRefreshing = false
+                if (databinding.myCollectSwipeRefresh.isRefreshing) {
+                    databinding.myCollectSwipeRefresh.isRefreshing = false
                 }
                 return
             }
 
             mAdapter.notifyDataSetChanged()
 
-            if (myCollect_swipe_refresh.isRefreshing) {
-                myCollect_swipe_refresh.isRefreshing = false
+            if (databinding.myCollectSwipeRefresh.isRefreshing) {
+                databinding.myCollectSwipeRefresh.isRefreshing = false
             }
 
             mIsRefreshing = false
 
             if (!SpUtil.tipSwipeDelFavourite()) {
-                SnackbarUtil.showMessage(myCollect_recyclerView, getString(R.string.swipe_del_favourite))
+                SnackbarUtil.showMessage(databinding.myCollectRecyclerView, getString(R.string.swipe_del_favourite))
             }
         } ?: let {
             hasMoreData = false
@@ -238,11 +254,11 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     }
 
     fun showEmptyView() {
-        myCollect_empty_text.visibility = View.VISIBLE
+        databinding.myCollectEmptyText.visibility = View.VISIBLE
     }
 
     fun hideEmptyView() {
-        myCollect_empty_text.visibility = View.GONE
+        databinding.myCollectEmptyText.visibility = View.GONE
     }
 }
 

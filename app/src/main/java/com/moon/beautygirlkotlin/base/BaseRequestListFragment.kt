@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
 import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.utils.Logger
-import kotlinx.android.synthetic.main.fragment_base_request.*
 
 /**
  * author: moon
@@ -21,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_base_request.*
  * description:
  */
 abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observer<List<T>> {
+
+    private lateinit var binding : FragmentBaseRequestBinding
 
     val logName = "BeautyGirlLog"
 
@@ -77,8 +76,8 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
             loadFinish = true
 
-            if (common_swipe_refresh.isRefreshing) {
-                common_swipe_refresh.isRefreshing = false
+            if (binding.commonSwipeRefresh.isRefreshing) {
+                binding.commonSwipeRefresh.isRefreshing = false
             }
             mIsRefreshing = false
 
@@ -92,7 +91,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
             return
         }
 
-        common_swipe_refresh.isRefreshing = true
+        binding.commonSwipeRefresh.isRefreshing = true
 
         getViewModel().data.observe(viewLifecycleOwner, this)
 
@@ -120,10 +119,11 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
     override fun getLayoutId(): Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_base_request, container, false)
-        val binding = DataBindingUtil.bind<FragmentBaseRequestBinding>(view)
-        binding?.viewModel = getViewModel()
-        return view
+        binding = FragmentBaseRequestBinding.inflate(inflater,container,false)
+        return binding.apply {
+            viewModel = getViewModel()
+            setLifecycleOwner(viewLifecycleOwner)
+        }.root
     }
 
     override fun initViews(view: View?) {
@@ -134,17 +134,15 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
-        common_recyclerView.animation = null
+        binding.commonRecyclerView.apply {
+            animation = null
+            layoutManager = mLayoutManager
+            addOnScrollListener(OnLoadMoreListener())
+            adapter = mAdapter
+            setOnTouchListener { _, motionEvent -> mIsRefreshing }
+        }
 
-        common_recyclerView.layoutManager = mLayoutManager
-
-        common_recyclerView.addOnScrollListener(OnLoadMoreListener())
-
-        common_recyclerView.adapter = mAdapter
-
-        common_recyclerView.setOnTouchListener { _, motionEvent -> mIsRefreshing }
-
-        common_swipe_refresh.setOnRefreshListener {
+        binding.commonSwipeRefresh.setOnRefreshListener {
             page = 1
 
             mIsRefreshing = true
@@ -197,13 +195,13 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
                 val isBottom = arr!![1] >= mAdapter.getItemCount() - 2
 
-                if (!common_swipe_refresh.isRefreshing && isBottom) {
+                if (!binding.commonSwipeRefresh.isRefreshing && isBottom) {
 
                     if (!hasMoreData) return
 
                     if (!mIsLoadMore) {
 
-                        common_swipe_refresh.isRefreshing = true
+                        binding.commonSwipeRefresh.isRefreshing = true
 
                         page++
 

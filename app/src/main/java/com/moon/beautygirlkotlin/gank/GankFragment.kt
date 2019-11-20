@@ -1,7 +1,9 @@
 package com.moon.beautygirlkotlin.gank
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
@@ -29,6 +31,10 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun loadData() {
