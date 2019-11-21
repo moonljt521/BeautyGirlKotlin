@@ -3,6 +3,7 @@ package com.moon.beautygirlkotlin.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.moon.beautygirlkotlin.listener.ItemClick
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -10,11 +11,19 @@ import kotlinx.coroutines.launch
  * author: jiangtao.liang
  * date:   On 2019-10-31 12:38
  */
-open class BaseViewModel<T> : ViewModel(){
+open class BaseViewModel<T> : ViewModel(), ItemClick<T> {
 
-    val list  = ArrayList<T>()
+    override fun onClick(body: T) {
+        itemData.value = body
+    }
 
-    val data : MutableLiveData<List<T>> by lazy {
+    val itemData: MutableLiveData<T> by lazy {
+        MutableLiveData<T>()
+    }
+
+    val list = ArrayList<T>()
+
+    val data: MutableLiveData<List<T>> by lazy {
         MutableLiveData<List<T>>()
     }
 
@@ -26,10 +35,10 @@ open class BaseViewModel<T> : ViewModel(){
         }
     }
 
-    fun async(block: suspend () -> Unit , error: suspend (Throwable) -> Unit) = viewModelScope.async {
+    fun async(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = viewModelScope.async {
         try {
             block()
-        }catch (e : Throwable){
+        } catch (e: Throwable) {
             error(e)
         }
     }

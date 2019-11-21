@@ -19,8 +19,6 @@ class GankViewModel(private val repository: GankRepository) : BaseViewModel<Gank
             }
             list.addAll(result)
 
-//            data.value = result
-
             data.postValue(result)
 
             return@launch

@@ -2,7 +2,7 @@ package com.moon.beautygirlkotlin.wei1
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
@@ -28,8 +28,12 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
     override fun getItemLayoutId(): Int = R.layout.item_only_one
 
     override fun loadData() {
-
+        mAdapter?.ontItemClick = viewModel
         viewModel.getList(type, page)
+        viewModel.itemData.observe(this, Observer {
+            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+                    it.title, true)
+        })
     }
 
     companion object {
@@ -45,10 +49,5 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         type = arguments?.getString("type")!!
-    }
-
-    override fun onClick(v: View, body: MeiZiTuBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
-                body.title, true)
     }
 }

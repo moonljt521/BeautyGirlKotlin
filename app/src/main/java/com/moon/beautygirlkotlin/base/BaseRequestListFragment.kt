@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
-import com.moon.beautygirlkotlin.listener.ItemClick
 import com.moon.beautygirlkotlin.utils.Logger
 
 /**
@@ -17,7 +16,7 @@ import com.moon.beautygirlkotlin.utils.Logger
  * created on: 2019/11/15 下午8:09
  * description:
  */
-abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observer<List<T>> {
+abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
     private lateinit var binding : FragmentBaseRequestBinding
 
@@ -33,7 +32,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
     var hasMoreData = true
 
-    lateinit var mAdapter: BaseBindAdapter<ViewDataBinding, T>
+    var mAdapter: BaseBindAdapter<ViewDataBinding, T>? = null
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
@@ -68,10 +67,10 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
             if (page == 1) {
 
-                mAdapter.notifyItemChanged(0, getViewModel().list.size)
+                mAdapter?.notifyItemChanged(0, getViewModel().list.size)
 
             } else {
-                mAdapter.notifyItemRangeInserted(getViewModel().list.size - list.size, getViewModel().list.size)
+                mAdapter?.notifyItemRangeInserted(getViewModel().list.size - list.size, getViewModel().list.size)
             }
 
             loadFinish = true
@@ -127,8 +126,6 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
     override fun initViews(view: View?) {
 
         mAdapter = BaseBindAdapter(getItemLayoutId(), getViewModel().list)
-
-        mAdapter.ontItemClick = this
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
@@ -191,7 +188,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), ItemClick<T>, Observ
 
                 val arr = mLayoutManager?.findLastVisibleItemPositions(IntArray(2))
 
-                val isBottom = arr!![1] >= mAdapter.getItemCount() - 2
+                val isBottom = arr!![1] >= mAdapter?.getItemCount()!! - 2
 
                 if (!binding.commonSwipeRefresh.isRefreshing && isBottom) {
 

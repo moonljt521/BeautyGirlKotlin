@@ -135,6 +135,7 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
 
         viewModel.data.observe(this, Observer {
             showSuccess(it)
+            checkEmpty()
         })
 
         viewModel.total.observe(this, Observer {

@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.youtumeiku
 
 import android.os.Bundle
-import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
@@ -19,7 +19,12 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
     private val viewModel by lazy { ViewModelProviders.of(this, InjectorUtil.getYouTuModelFactory()).get(YouTuViewModel::class.java) }
 
     override fun loadData() {
+        mAdapter?.ontItemClick = viewModel
         viewModel.getYouTuList(page)
+        viewModel.itemData.observe(this, Observer {
+            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+                    it.title, true)
+        })
     }
 
     override fun getViewModel(): BaseViewModel<MeiZiTuBody> = viewModel
@@ -34,10 +39,5 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
             fragment.arguments = bundle
             return fragment
         }
-    }
-
-    override fun onClick(view: View, body: MeiZiTuBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
-                body.title, true)
     }
 }

@@ -1,7 +1,7 @@
 package com.moon.beautygirlkotlin.doubanmeizi
 
 import android.os.Bundle
-import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
@@ -24,13 +24,13 @@ class DoubanSimpleFragment : BaseRequestListFragment<DoubanMeiziBody>() {
 
     override fun getItemLayoutId(): Int = R.layout.item_douban
 
-    override fun onClick(view: View, body: DoubanMeiziBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
-                body.title, true)
-    }
-
     override fun loadData() {
+        mAdapter?.ontItemClick = viewModel
         viewModel.getList(arguments!!.getInt("id"), page, 1)
+        viewModel.itemData.observe(this, Observer {
+            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+                    it.title, true)
+        })
     }
 
     companion object {

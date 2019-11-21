@@ -1,9 +1,7 @@
 package com.moon.beautygirlkotlin.gank
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
@@ -33,8 +31,13 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mAdapter?.ontItemClick = viewModel
+        viewModel.itemData.observe(this, Observer {
+            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+                    it.desc, true)
+        })
     }
 
     override fun loadData() {
@@ -43,8 +46,4 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
 
     override fun getItemLayoutId(): Int = R.layout.item_meng_meizi
 
-    override fun onClick(view: View, body: GankMeiziBody) {
-        ViewBigImgActivity.startViewBigImaActivity(mActivity, body.url,
-                body.desc, true)
-    }
 }
