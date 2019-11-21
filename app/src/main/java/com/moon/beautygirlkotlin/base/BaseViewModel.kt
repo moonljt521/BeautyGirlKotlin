@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
  */
 open class BaseViewModel<T> : ViewModel(), ItemClick<T> {
 
-    override fun onClick(view: View, body: T) {
-        itemData.postValue(Event(view, body))
+    override fun onClick(body: T) {
+        itemData.postValue(body)
     }
 
-    val itemData: MutableLiveData<Event<T>> by lazy {
-        MutableLiveData<Event<T>>()
+    val itemData: MutableLiveData<T> by lazy {
+        MutableLiveData<T>()
     }
 
 

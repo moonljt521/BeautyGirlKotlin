@@ -8,5 +8,5 @@ import android.view.View
  * date:   On 2019-10-30 20:31
  */
 interface ItemClick<T> {
-    fun onClick(view : View ,body: T)
+    fun onClick(body: T)
 }

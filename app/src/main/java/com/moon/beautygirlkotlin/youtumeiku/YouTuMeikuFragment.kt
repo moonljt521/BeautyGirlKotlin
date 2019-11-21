@@ -22,8 +22,8 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
         mAdapter?.ontItemClick = viewModel
         viewModel.getYouTuList(page)
         viewModel.itemData.observe(this, Observer {
-            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.content.url,
-                    it.content.title, true)
+            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+                    it.title, true)
         })
     }
 

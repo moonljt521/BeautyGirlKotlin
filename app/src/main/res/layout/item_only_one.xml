@@ -21,7 +21,7 @@
         android:layout_marginRight="1dp"
         android:background="@drawable/bg_card"
         android:clickable="true"
-        android:onClick="@{(view) -> itemClick.onClick(view,body)}"
+        android:onClick="@{() -> itemClick.onClick(body)}"
         android:orientation="vertical">
 
         <ImageView
