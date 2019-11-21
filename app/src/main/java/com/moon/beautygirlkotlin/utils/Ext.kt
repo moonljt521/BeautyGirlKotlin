@@ -1,6 +1,9 @@
 package com.moon.beautygirlkotlin.utils
 
+import android.view.View
+import android.widget.Checkable
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -95,3 +98,49 @@ inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(this, provider).get(VM::class.java)
+
+
+/**
+ * 防止重复点击
+ */
+var <T : View> T.lastClickTime: Long
+    set(value) = setTag(1766613352, value)
+    get() = getTag(1766613352) as? Long ?: 0
+
+// 重复点击事件绑定
+inline fun <T : View> T.singleClick(time: Long = 800, crossinline block: (T) -> Unit) {
+    setOnClickListener {
+        val currentTimeMillis = System.currentTimeMillis()
+        if (currentTimeMillis - lastClickTime > time || this is Checkable) {
+            lastClickTime = currentTimeMillis
+            block(this)
+        }
+    }
+}
+
+/**
+ * 防止重复点击eventObserver
+ */
+open class Event<T>(var view: View, var content: T) {
+
+    var lastClickTime: Long
+        get() = view.getTag(view.id) as? Long ?: 0
+        set(value) = view.setTag(view.id, value)
+
+    fun singleClick(): T? {
+        val currentTimeMillis = System.currentTimeMillis()
+        if (currentTimeMillis - lastClickTime > 800) {
+            lastClickTime = currentTimeMillis
+            return content
+        }
+        return null
+    }
+}
+
+class IntentObserver<T>(private val block: (T) -> Unit) : Observer<Event<T>> {
+    override fun onChanged(event: Event<T>?) {
+        event?.singleClick()?.let { value ->
+            block(value)
+        }
+    }
+}

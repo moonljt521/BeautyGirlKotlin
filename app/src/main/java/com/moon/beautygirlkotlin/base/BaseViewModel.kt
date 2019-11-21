@@ -1,9 +1,11 @@
 package com.moon.beautygirlkotlin.base
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moon.beautygirlkotlin.listener.ItemClick
+import com.moon.beautygirlkotlin.utils.Event
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -13,13 +15,14 @@ import kotlinx.coroutines.launch
  */
 open class BaseViewModel<T> : ViewModel(), ItemClick<T> {
 
-    override fun onClick(body: T) {
-        itemData.value = body
+    override fun onClick(view: View, body: T) {
+        itemData.postValue(Event(view, body))
     }
 
-    val itemData: MutableLiveData<T> by lazy {
-        MutableLiveData<T>()
+    val itemData: MutableLiveData<Event<T>> by lazy {
+        MutableLiveData<Event<T>>()
     }
+
 
     val list = ArrayList<T>()
 
