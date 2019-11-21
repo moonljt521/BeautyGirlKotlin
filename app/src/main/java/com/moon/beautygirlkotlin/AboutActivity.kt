@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin
 
-import android.content.pm.PackageManager
 import android.view.MenuItem
 import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_about.*
@@ -20,7 +19,7 @@ class AboutActivity : BaseActivity() {
 
         collapsing_toolbar.setTitle(getString(R.string.about_title))
 
-        about_title_v.setText(getVersion())
+        supportFragmentManager.beginTransaction().add(R.id.fragmentAbout, AboutFragment()).commit()
     }
 
     override fun loadData() {
@@ -39,17 +38,5 @@ class AboutActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun getVersion(): String {
-
-        try {
-            val pi = packageManager.getPackageInfo(packageName, 0)
-            return pi.versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            return getString(R.string.about_version)
-        }
-
     }
 }

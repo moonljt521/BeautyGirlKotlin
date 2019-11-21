@@ -34,4 +34,8 @@ abstract class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initData()
     }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
 }
