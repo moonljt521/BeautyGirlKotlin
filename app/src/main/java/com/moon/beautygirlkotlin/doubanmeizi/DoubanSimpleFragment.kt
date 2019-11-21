@@ -28,7 +28,7 @@ class DoubanSimpleFragment : BaseRequestListFragment<DoubanMeiziBody>() {
         mAdapter?.ontItemClick = viewModel
         viewModel.getList(arguments!!.getInt("id"), page, 1)
         viewModel.itemData.observe(this, Observer {
-            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+            ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.title, true)
         })
     }

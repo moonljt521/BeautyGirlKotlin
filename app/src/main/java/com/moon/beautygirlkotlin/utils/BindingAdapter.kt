@@ -2,7 +2,6 @@ package com.moon.beautygirlkotlin.utils
 
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.Checkable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.request.target.SimpleTarget
@@ -24,7 +23,6 @@ fun setImageUrl(imageView: ImageView, url: String) {
             imageView.setImageDrawable(resource)
         } }
     )
-
 }
 
 @BindingAdapter("android:onClick")

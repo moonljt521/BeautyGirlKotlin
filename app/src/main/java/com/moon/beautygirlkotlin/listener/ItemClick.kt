@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.listener
 
-import android.view.View
 
 
 /**

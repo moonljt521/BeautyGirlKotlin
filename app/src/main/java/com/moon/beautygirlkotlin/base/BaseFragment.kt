@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 
 /**
  * author: moon
@@ -15,18 +12,13 @@ import kotlinx.coroutines.cancel
  * description:  fragment mvp 基类
  */
 
-abstract class BaseFragment : Fragment() , CoroutineScope by MainScope() {
+abstract class BaseFragment : Fragment() {
 
     protected lateinit var mActivity: AppCompatActivity
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         mActivity = (context as AppCompatActivity?)!!
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cancel()
     }
 
     protected abstract fun initData()
