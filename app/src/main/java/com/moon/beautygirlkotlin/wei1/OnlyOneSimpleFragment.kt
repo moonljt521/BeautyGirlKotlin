@@ -28,8 +28,12 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
     override fun getItemLayoutId(): Int = R.layout.item_only_one
 
     override fun loadData() {
-        mAdapter?.ontItemClick = viewModel
         viewModel.getList(type, page)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mAdapter?.ontItemClick = viewModel
         viewModel.itemData.observe(this, Observer {
             ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
                     it.title, true)

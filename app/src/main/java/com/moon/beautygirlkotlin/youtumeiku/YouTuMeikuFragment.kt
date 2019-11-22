@@ -19,9 +19,13 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
     private val viewModel by lazy { ViewModelProviders.of(this, InjectorUtil.getYouTuModelFactory()).get(YouTuViewModel::class.java) }
 
     override fun loadData() {
-        mAdapter?.ontItemClick = viewModel
         viewModel.getYouTuList(page)
-        viewModel.itemData.observe(this, Observer {
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mAdapter?.ontItemClick = viewModel
+        viewModel.itemData.observe(viewLifecycleOwner, Observer {
             ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
                     it.title, true)
         })

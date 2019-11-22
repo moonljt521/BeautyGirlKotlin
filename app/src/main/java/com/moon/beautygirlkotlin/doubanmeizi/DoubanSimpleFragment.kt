@@ -25,8 +25,13 @@ class DoubanSimpleFragment : BaseRequestListFragment<DoubanMeiziBody>() {
     override fun getItemLayoutId(): Int = R.layout.item_douban
 
     override fun loadData() {
-        mAdapter?.ontItemClick = viewModel
         viewModel.getList(arguments!!.getInt("id"), page, 1)
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mAdapter?.ontItemClick = viewModel
         viewModel.itemData.observe(this, Observer {
             ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.title, true)
