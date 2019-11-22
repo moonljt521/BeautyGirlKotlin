@@ -68,6 +68,9 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
         }?.apply {
 
+            binding.commonRecyclerView.visibility = View.VISIBLE
+            binding.commonPageErrorLayout.visibility = View.GONE
+
             if (page == 1) {
 
                 mAdapter?.notifyItemChanged(0, getViewModel().list.size)
@@ -171,8 +174,12 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
         if (getViewModel().list.size > 0) {
             SnackbarUtil.showMessage(binding.commonRecyclerView,"网络出错啦！")
+
+            binding.commonRecyclerView.visibility = View.VISIBLE
         } else {
             binding.commonPageErrorLayout.visibility = View.VISIBLE
+
+            binding.commonRecyclerView.visibility = View.INVISIBLE
         }
     }
 
