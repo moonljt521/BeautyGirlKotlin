@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
 import com.moon.beautygirlkotlin.utils.Logger
+import com.moon.beautygirlkotlin.utils.SnackbarUtil
 
 /**
  * author: moon
@@ -18,7 +19,7 @@ import com.moon.beautygirlkotlin.utils.Logger
  */
 abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
-    private lateinit var binding : FragmentBaseRequestBinding
+    private lateinit var binding: FragmentBaseRequestBinding
 
     val logName = "BeautyGirlLog"
 
@@ -62,7 +63,9 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
     override fun onChanged(list: List<T>?) {
 
         list?.takeIf {
+
             !it.isEmpty()
+
         }?.apply {
 
             if (page == 1) {
@@ -94,6 +97,10 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
         getViewModel().data.observe(viewLifecycleOwner, this)
 
+        getViewModel().errorData.observe(viewLifecycleOwner, Observer {
+            showError()
+        })
+
         loadData()
     }
 
@@ -116,7 +123,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentBaseRequestBinding.inflate(inflater,container,false)
+        binding = FragmentBaseRequestBinding.inflate(inflater, container, false)
         return binding.apply {
             viewModel = getViewModel()
             setLifecycleOwner(viewLifecycleOwner)
@@ -138,11 +145,34 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
         }
 
         binding.commonSwipeRefresh.setOnRefreshListener {
-            page = 1
+            firstLoad()
+        }
 
-            mIsRefreshing = true
+        binding.commonPageErrorLayout.setOnClickListener {
 
-            loadData()
+            binding.commonSwipeRefresh.isRefreshing = true
+
+            firstLoad()
+        }
+    }
+
+    private fun firstLoad() {
+        page = 1
+
+        mIsRefreshing = true
+
+        loadData()
+
+        binding.commonPageErrorLayout.visibility = View.GONE
+    }
+
+    private fun showError() {
+        binding.commonSwipeRefresh.isRefreshing = false
+
+        if (getViewModel().list.size > 0) {
+            SnackbarUtil.showMessage(binding.commonRecyclerView,"网络出错啦！")
+        } else {
+            binding.commonPageErrorLayout.visibility = View.VISIBLE
         }
     }
 

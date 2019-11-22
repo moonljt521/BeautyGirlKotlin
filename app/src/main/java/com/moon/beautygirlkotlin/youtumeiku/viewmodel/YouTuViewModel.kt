@@ -13,18 +13,12 @@ class YouTuViewModel(private val repository: YouTuRepository) : BaseViewModel<Me
 
     fun getYouTuList(pageNum: Int) {
         launch({
-            try {
-                if (pageNum == 1) {
-                    list.clear()
-                }
-
-                val result = repository.getYoutuRepository(pageNum)
-                list.addAll(result)
-                data.value = result
-            } catch (e: Exception) {
-                e.printStackTrace()
-
+            if (pageNum == 1) {
+                list.clear()
             }
+            val result = repository.getYoutuRepository(pageNum)
+            list.addAll(result)
+            data.value = result
         }, {
             it.printStackTrace()
         })

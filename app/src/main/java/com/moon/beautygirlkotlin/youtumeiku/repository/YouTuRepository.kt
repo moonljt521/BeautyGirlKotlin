@@ -14,16 +14,18 @@ class YouTuRepository {
     suspend fun getYoutuRepository(page: Int): List<MeiZiTuBody> {
         return getData(page)
     }
-}
 
-suspend fun getData(pageNum: Int): List<MeiZiTuBody> {
-    val url = "http://www.umei.cc/bizhitupian/meinvbizhi/"
+    private suspend fun getData(pageNum: Int): List<MeiZiTuBody> {
+        val url = "http://www.umei.cc/bizhitupian/meinvbizhi/"
 
-    return withContext(Dispatchers.IO) {
-        if (pageNum == 1) {
-            DataUtil.parserMeiTuLuHtml(url)
-        } else {
-            DataUtil.parserMeiTuLuHtml(url + pageNum + ".htm")
+        return withContext(Dispatchers.IO) {
+            if (pageNum == 1) {
+                DataUtil.parserMeiTuLuHtml(url)
+            } else {
+                DataUtil.parserMeiTuLuHtml(url + pageNum + ".htm")
+            }
         }
     }
 }
+
+

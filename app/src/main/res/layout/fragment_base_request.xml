@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.moon.beautygirlkotlin.base.BaseViewModel" />
@@ -14,14 +15,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/common_recyclerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingTop="3dp"
-            android:scrollbars="none"/>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/common_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingTop="3dp"
+                android:scrollbars="none" />
+
+            <RelativeLayout
+                android:id="@+id/common_page_error_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="visible"
+                android:visibility="gone">
+
+
+                <ImageView
+                    android:id="@+id/common_page_error_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/cloud_error" />
+
+                <TextView
+                    android:id="@+id/common_page_error_title"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/common_page_error_image"
+                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:text="服务器出问题啦，点击重试一下"
+                    tools:text="服务器出问题啦，点击重试一下" />
+            </RelativeLayout>
+
+        </FrameLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

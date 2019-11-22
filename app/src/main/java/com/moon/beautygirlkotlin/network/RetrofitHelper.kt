@@ -3,8 +3,6 @@ package com.moon.beautygirlkotlin.network
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.network.api.DouBanAPI
 import com.moon.beautygirlkotlin.network.api.GankMeiziAPI
-import com.moon.beautygirlkotlin.network.api.HuaBanAPI
-import com.moon.beautygirlkotlin.network.api.TaoFemaleaApi
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.NetWorkUtil
 import okhttp3.*
@@ -36,9 +34,6 @@ object RetrofitHelper : Interceptor, BaseRepository() {
     // 豆瓣
     private val BASE_DOUBAN_URL = "http://www.buxiuse.com/"
 
-    // 花瓣
-    private val BASE_HUABAN_URL = "http://route.showapi.com/"
-
 
     //唯一图库
     public val BASE_MEIZITU_URL = "http://www.mmonly.cc/mmtp/mnmx/"
@@ -63,21 +58,6 @@ object RetrofitHelper : Interceptor, BaseRepository() {
 
     suspend fun getDoubanMeiziApi(): DouBanAPI {
         return apiCall { getRetroFitBuilder(BASE_DOUBAN_URL).create(DouBanAPI::class.java) }
-    }
-
-    /**
-     * 花瓣Api
-     */
-    fun getHuaBanMeiziApi(): HuaBanAPI {
-        return getRetroFitBuilder(BASE_HUABAN_URL).create(HuaBanAPI::class.java)
-    }
-
-
-    /**
-     * 淘女郎Api
-     */
-    fun getTaoFemaleApi(): TaoFemaleaApi {
-        return getRetroFitBuilder(BASE_HUABAN_URL).create(TaoFemaleaApi::class.java)
     }
 
     /**

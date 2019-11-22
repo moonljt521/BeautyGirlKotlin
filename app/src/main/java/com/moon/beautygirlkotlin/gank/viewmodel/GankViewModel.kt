@@ -11,20 +11,18 @@ import com.moon.beautygirlkotlin.gank.repository.GankRepository
 class GankViewModel(private val repository: GankRepository) : BaseViewModel<GankMeiziBody>() {
 
     fun getGankList(pageNum: Int, page: Int) {
-        launch({
-            val result = repository.getGankList(pageNum, page).results
-
-            if (page == 1) {
-                list.clear()
-            }
-            list.addAll(result)
-
-            data.postValue(result)
-
-            return@launch
-        },
+        launch(
                 {
+                    val result = repository.getGankList(pageNum, page).results
 
-                })
+                    if (page == 1) {
+                        list.clear()
+                    }
+                    list.addAll(result)
+
+                    data.postValue(result)
+
+                    return@launch
+                },{})
     }
 }
