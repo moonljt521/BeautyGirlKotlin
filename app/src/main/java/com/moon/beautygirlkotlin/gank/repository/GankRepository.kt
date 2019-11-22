@@ -1,8 +1,6 @@
 package com.moon.beautygirlkotlin.gank.repository
 
 import com.moon.beautygirlkotlin.network.RetrofitHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 /**
  * author: jiangtao.liang
@@ -10,8 +8,5 @@ import kotlinx.coroutines.withContext
  */
 class GankRepository () {
 
-    suspend fun getGankList(pageNum: Int, page: Int) = withContext(Dispatchers.IO) {
-        val response = RetrofitHelper.getGankMeiziApi().getGankMeizi(pageNum, page)
-        response
-    }
+    suspend fun getGankList(pageNum: Int, page: Int) = RetrofitHelper.getGankMeiziApi().getGankMeizi(pageNum, page)
 }
