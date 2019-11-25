@@ -39,7 +39,7 @@ support迁移到了androidx
 * Android 4.3 or higher 
 
 ## License
-    Copyright 2012 CyberAgent, Inc.
+    Copyright 2018-2020 jiangtao.liang.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
