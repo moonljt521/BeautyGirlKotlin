@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.databinding.FragmentMyFavoriteBinding
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
@@ -101,7 +102,15 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
     override fun initViews(view: View?) {
         val list = viewModel.list
 
-        mAdapter = MyFavoriteAdapter(viewModel.list)
+        mAdapter = MyFavoriteAdapter(viewModel.list , viewType = object : BaseBindAdapter.ViewTypeCallBack {
+
+            override fun createViewType(position: Int): Int {
+                val t = viewModel.list[position]
+                if (t is FavoriteBean) return R.layout.item_favourite
+                if (t is FavoriteBeanOther) return R.layout.item_favourite_other
+                return 0
+            }
+        })
 
         mAdapter.listener = this
 

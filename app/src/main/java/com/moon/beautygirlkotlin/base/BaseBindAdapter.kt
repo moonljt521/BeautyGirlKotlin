@@ -15,7 +15,11 @@ import kotlin.collections.ArrayList
  * date:   On 2019-11-25 12:30
  * des ： 支持多类型itemView的 adapter ，需要覆写 createViewType ，加入 xml
  */
-abstract class BaseBindAdapter(dataList: MutableList<Any>) : RecyclerView.Adapter<BaseBindAdapter.BaseHolder<Any>>() {
+abstract class BaseBindAdapter(dataList: MutableList<Any> , viewType: ViewTypeCallBack) : RecyclerView.Adapter<BaseBindAdapter.BaseHolder<Any>>() {
+
+    interface ViewTypeCallBack {
+        fun createViewType(position: Int): Int
+    }
 
     var ontItemClick: ItemClick<Any>? = null
         get() = field
@@ -23,10 +27,13 @@ abstract class BaseBindAdapter(dataList: MutableList<Any>) : RecyclerView.Adapte
             field = value
         }
 
+    private var viewTypeCallBack : ViewTypeCallBack? = null
+
     private var dataList: MutableList<Any> = ArrayList()
 
     init {
         this.dataList = dataList
+        this.viewTypeCallBack = viewType
     }
 
     fun removeAtIndex(index: Int) {
@@ -45,10 +52,10 @@ abstract class BaseBindAdapter(dataList: MutableList<Any>) : RecyclerView.Adapte
         holder.bindTo(dataList[position])
     }
 
-    abstract fun createViewType(position: Int): Int
+//    abstract fun createViewType(position: Int): Int
 
     override fun getItemViewType(position: Int): Int {
-        return createViewType(position)
+        return this.viewTypeCallBack?.createViewType(position) ?: 0
     }
 
     override fun getItemCount(): Int = dataList.size

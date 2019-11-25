@@ -12,15 +12,15 @@ import com.moon.beautygirlkotlin.room.FavoriteBeanOther
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyFavoriteAdapter( dataList: MutableList<Any>) : BaseBindAdapter(dataList)
+class MyFavoriteAdapter( dataList: MutableList<Any> , viewType: ViewTypeCallBack) : BaseBindAdapter(dataList ,viewType)
         , ItemMoveListener {
 
-    override fun createViewType(position: Int): Int {
-        val t = getDataList()[position]
-        if (t is FavoriteBean) return R.layout.item_favourite
-        if (t is FavoriteBeanOther) return R.layout.item_favourite_other
-        return 0
-    }
+//    override fun createViewType(position: Int): Int {
+//        val t = getDataList()[position]
+//        if (t is FavoriteBean) return R.layout.item_favourite
+//        if (t is FavoriteBeanOther) return R.layout.item_favourite_other
+//        return 0
+//    }
 
     var listener : FavouriteItemClick<Any> ? = null
 
