@@ -13,8 +13,9 @@ import kotlin.collections.ArrayList
 /**
  * author: jiangtao.liang
  * date:   On 2019-11-01 12:29
+ * des: 名字由之前的BaseBindAdapter改为了 现在的 CommonBindAdapter ，因为没有兼容multiType 的情况，达不到base 的要求
  */
-open class BaseBindAdapter<DB : ViewDataBinding, T>(layoutId: Int, dataList: MutableList<T>) : RecyclerView.Adapter<BaseBindAdapter.CommonViewHolder<DB>>() {
+open class CommonBindAdapter<DB : ViewDataBinding, T>(layoutId: Int, dataList: MutableList<T>) : RecyclerView.Adapter<CommonBindAdapter.CommonViewHolder<DB>>() {
 
     public var ontItemClick: ItemClick<T>? = null
         get() = field

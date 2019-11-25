@@ -33,7 +33,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
     var hasMoreData = true
 
-    var mAdapter: BaseBindAdapter<ViewDataBinding, T>? = null
+    var mAdapter: CommonBindAdapter<ViewDataBinding, T>? = null
 
     var mLayoutManager: StaggeredGridLayoutManager? = null
 
@@ -135,7 +135,7 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
     override fun initViews(view: View?) {
 
-        mAdapter = BaseBindAdapter(getItemLayoutId(), getViewModel().list)
+        mAdapter = CommonBindAdapter(getItemLayoutId(), getViewModel().list)
 
         mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
