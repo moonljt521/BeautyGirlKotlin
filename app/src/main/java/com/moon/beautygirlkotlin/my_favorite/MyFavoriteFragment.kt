@@ -17,6 +17,7 @@ import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
 import com.moon.beautygirlkotlin.room.FavoriteBean
+import com.moon.beautygirlkotlin.room.FavoriteBeanOther
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
 import org.greenrobot.eventbus.EventBus
@@ -26,10 +27,10 @@ import java.text.MessageFormat
 /**
  * [我的收藏] 模块 fragment
  */
-class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
+class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
 
-    override fun onClick(body: FavoriteBean) {
-        viewModel.delItem(body)
+    override fun onClick(body: Any) {
+        if (body is FavoriteBean) viewModel.delItem(body)
     }
 
     private lateinit var databinding: FragmentMyFavoriteBinding
@@ -98,8 +99,9 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
     }
 
     override fun initViews(view: View?) {
+        val list = viewModel.list
 
-        mAdapter = MyFavoriteAdapter(R.layout.item_favourite, viewModel.list)
+        mAdapter = MyFavoriteAdapter(viewModel.list)
 
         mAdapter.listener = this
 
@@ -183,7 +185,7 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<FavoriteBean> {
         }
     }
 
-    fun showSuccess(list: List<FavoriteBean>?) {
+    fun showSuccess(list: List<Any>?) {
 
         list?.let {
 

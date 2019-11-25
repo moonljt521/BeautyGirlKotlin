@@ -11,21 +11,21 @@ import kotlinx.coroutines.launch
  * author: jiangtao.liang
  * date:   On 2019-10-31 12:38
  */
-open class BaseViewModel<T> : ViewModel(), ItemClick<T> {
+open class BaseViewModel<Any> : ViewModel(), ItemClick<Any> {
 
-    override fun onClick(body: T) {
+    override fun onClick(body: Any) {
         itemData.postValue(body)
     }
 
-    val itemData: MutableLiveData<T> by lazy {
-        MutableLiveData<T>()
+    val itemData: MutableLiveData<Any> by lazy {
+        MutableLiveData<Any>()
     }
 
 
-    val list = ArrayList<T>()
+    val list = ArrayList<Any>()
 
-    val data: MutableLiveData<List<T>> by lazy {
-        MutableLiveData<List<T>>()
+    val data: MutableLiveData<List<Any>> by lazy {
+        MutableLiveData<List<Any>>()
     }
 
     val errorData: MutableLiveData<Int> by lazy {

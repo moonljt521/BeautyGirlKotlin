@@ -6,6 +6,7 @@ import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
+import com.moon.beautygirlkotlin.room.FavoriteBeanOther
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -13,7 +14,7 @@ import kotlinx.coroutines.withContext
  * author: jiangtao.liang
  * date:   On 2019-11-01 14:11
  */
-class FavouriteVieModel : BaseViewModel<FavoriteBean>() {
+class FavouriteVieModel : BaseViewModel<Any>() {
 
     var db: BeautyGirlDatabase;
 
@@ -42,6 +43,11 @@ class FavouriteVieModel : BaseViewModel<FavoriteBean>() {
             }
 
             list.addAll(result!!)
+
+            if (!list.isEmpty() && !result.isEmpty()){
+                val showPage = page + 1
+                list.add(FavoriteBeanOther(title = "第" + showPage + "页"))
+            }
 
             data.postValue(result)
 
