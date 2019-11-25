@@ -2,9 +2,6 @@ package com.moon.beautygirlkotlin.my_favorite.adapter
 
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
-import com.moon.beautygirlkotlin.base.CommonBindAdapter
-import com.moon.beautygirlkotlin.databinding.ItemFavouriteBinding
-import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.my_favorite.FavouriteItemClick
 import com.moon.beautygirlkotlin.my_favorite.component.ItemMoveListener
 import com.moon.beautygirlkotlin.room.FavoriteBean
@@ -15,9 +12,8 @@ import com.moon.beautygirlkotlin.room.FavoriteBeanOther
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyFavoriteAdapter( dataList: MutableList<Any>) : BaseBindAdapter<ItemFavouriteBinding, Any>(dataList)
+class MyFavoriteAdapter( dataList: MutableList<Any>) : BaseBindAdapter(dataList)
         , ItemMoveListener {
-
 
     override fun createViewType(position: Int): Int {
         val t = getDataList()[position]
