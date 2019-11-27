@@ -3,6 +3,7 @@ package com.moon.beautygirlkotlin.gank.viewmodel
 import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.repository.GankRepository
+import com.moon.beautygirlkotlin.utils.Logger
 
 /**
  * author: jiangtao.liang
@@ -13,6 +14,7 @@ class GankViewModel(private val repository: GankRepository) : BaseViewModel<Gank
     fun getGankList(pageNum: Int, page: Int) {
         launch(
                 {
+                    val a = 10/0
                     val result = repository.getGankList(pageNum, page).results
 
                     if (page == 1) {
@@ -23,6 +25,6 @@ class GankViewModel(private val repository: GankRepository) : BaseViewModel<Gank
                     data.postValue(result)
 
                     return@launch
-                },{})
+                })
     }
 }

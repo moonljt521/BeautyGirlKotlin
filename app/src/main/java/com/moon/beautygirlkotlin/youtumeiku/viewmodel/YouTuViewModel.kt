@@ -19,8 +19,6 @@ class YouTuViewModel(private val repository: YouTuRepository) : BaseViewModel<Me
             val result = repository.getYoutuRepository(pageNum)
             list.addAll(result)
             data.value = result
-        }, {
-            it.printStackTrace()
         })
     }
 }

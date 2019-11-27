@@ -64,13 +64,13 @@ class FavouriteVieModel : BaseViewModel<Any>() {
                 db.favouriteDao().getAll()?.size!!
             }
             total.value = size
-        }, {})
+        })
     }
 
     fun getTotalSize() {
         launch({
             total.value = db.favouriteDao().getAll()?.size!!
-        }, {})
+        })
     }
 
 }
