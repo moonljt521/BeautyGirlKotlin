@@ -1,6 +1,7 @@
-package com.moon.beautygirlkotlin
+package com.moon.beautygirlkotlin.about
 
 import android.view.MenuItem
+import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_about.*
 

@@ -1,4 +1,4 @@
-package com.moon.beautygirlkotlin.utils
+package com.moon.beautygirlkotlin
 
 import android.view.View
 import android.widget.Checkable

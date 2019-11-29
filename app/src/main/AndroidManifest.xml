@@ -48,7 +48,7 @@
             android:theme="@style/AppTheme.StatusBar"></activity>
 
         <activity
-            android:name=".AboutActivity"
+            android:name=".about.AboutActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.StatusBar"></activity>
 

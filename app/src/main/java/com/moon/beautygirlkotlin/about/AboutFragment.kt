@@ -1,10 +1,11 @@
-package com.moon.beautygirlkotlin
+package com.moon.beautygirlkotlin.about
 
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.databinding.FragmentAboutBinding
 
