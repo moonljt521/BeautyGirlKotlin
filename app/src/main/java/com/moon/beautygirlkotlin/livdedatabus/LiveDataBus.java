@@ -24,12 +24,17 @@ public final class LiveDataBus {
         bus = new HashMap<>();
     }
 
-    private static class SingletonHolder {
-        private static final LiveDataBus DEFAULT_BUS = new LiveDataBus();
-    }
+    private static volatile LiveDataBus instance;
 
     public static LiveDataBus get() {
-        return SingletonHolder.DEFAULT_BUS;
+        if (instance == null) {
+            synchronized (LiveDataBus.class) {
+                if (instance == null) {
+                    instance = new LiveDataBus();
+                }
+            }
+        }
+        return instance;
     }
 
     public <T> MutableLiveData<T> with(String key, Class<T> type) {
