@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.moon.beautygirlkotlin.R
+import com.moon.beautygirlkotlin.lastClickTime
 
 /**
  * author: jiangtao.liang

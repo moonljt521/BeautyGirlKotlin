@@ -32,11 +32,11 @@ open class BaseViewModel<Any> : ViewModel(), ItemClick<Any> {
         MutableLiveData<Int>()
     }
 
-    fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = viewModelScope.launch {
+    fun launch(block: suspend () -> Unit, error: (suspend (Throwable) -> Unit)? = null) = viewModelScope.launch {
         try {
             block()
         } catch (e: Throwable) {
-            error(e)
+            error?.invoke(e)
             errorData.postValue(0)
         }
     }

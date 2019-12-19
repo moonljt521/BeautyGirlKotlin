@@ -23,6 +23,6 @@ class GankViewModel(private val repository: GankRepository) : BaseViewModel<Gank
                     data.postValue(result)
 
                     return@launch
-                },{})
+                })
     }
 }

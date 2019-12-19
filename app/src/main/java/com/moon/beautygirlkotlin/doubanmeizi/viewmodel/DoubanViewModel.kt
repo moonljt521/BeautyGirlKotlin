@@ -22,9 +22,6 @@ class DoubanViewModel(private val repository: DoubanRepository) : BaseViewModel<
                 list.addAll(result)
                 data.value = result
             }
-
-        }, {
-
         })
 
     }

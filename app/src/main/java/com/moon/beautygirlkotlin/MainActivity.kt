@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.moon.beautygirlkotlin.about.AboutActivity
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
 import com.moon.beautygirlkotlin.gank.GankFragment
@@ -104,7 +105,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             R.id.nav_about -> {
-                startActivity(Intent(this,AboutActivity::class.java))
+                startActivity(Intent(this, AboutActivity::class.java))
             }
         }
 
