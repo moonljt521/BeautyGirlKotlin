@@ -13,6 +13,7 @@ import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.databinding.FragmentMyFavoriteBinding
+import com.moon.beautygirlkotlin.livdedatabus.LiveDataBus
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -21,8 +22,6 @@ import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.room.FavoriteBeanOther
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.utils.SpUtil
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import java.text.MessageFormat
 
 /**
@@ -65,11 +64,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         databinding = FragmentMyFavoriteBinding.inflate(inflater, container, false)
         databinding.apply {
@@ -94,9 +88,12 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
         }
     }
 
-    @Subscribe
-    fun refreshFavouriteList(u: EventUpdateFavourite) {
-        queryFavouriteList()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        LiveDataBus.get().with("favourite",String::class.java)
+                .observe(this, Observer {
+                    queryFavouriteList()
+                })
     }
 
     override fun initViews(view: View?) {
@@ -164,7 +161,11 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
      *  查询db
      */
     private fun queryFavouriteList() {
-        viewModel.getList(page)
+        if (viewModel.total.value!! < (10 * page)){
+            viewModel.getList(page - 1)
+        }else{
+            viewModel.getList(page)
+        }
         viewModel.getTotalSize()
     }
 
@@ -229,11 +230,6 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
         } else {
             hideEmptyView()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
     }
 
     fun showEmptyView() {

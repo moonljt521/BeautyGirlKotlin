@@ -24,7 +24,7 @@ interface FavoriteDao {
     @Query("DELETE FROM favorite WHERE id = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT * FROM favorite LIMIT 5 OFFSET :offset")
+    @Query("SELECT * FROM favorite LIMIT 10 OFFSET :offset")
     fun queryByPage(offset : Int): List<FavoriteBean>?
 
     @Query("DELETE FROM favorite")

@@ -172,8 +172,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     //大图查看
     implementation 'com.bm.photoview:library:1.4.1'
-    //EVENTBUS
-    implementation 'org.greenrobot:eventbus:3.0.0'
 
 //    implementation project(':mvp-module')
 

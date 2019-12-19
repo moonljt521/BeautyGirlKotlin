@@ -36,7 +36,7 @@ class FavouriteVieModel : BaseViewModel<Any>() {
         launch({
 
             val result = withContext(Dispatchers.IO) {
-                db.favouriteDao().queryByPage(page * 5)
+                db.favouriteDao().queryByPage(page * 10)
             }
             if (page == 0) {
                 list.clear()
