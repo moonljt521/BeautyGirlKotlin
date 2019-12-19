@@ -34,7 +34,7 @@ support迁移到了androidx
 ## 4.9 app bundle
 由于上传到google play上，尝试了下app bundle功能
 
-### app build简单配置
+### 一、app build简单配置
 ```
 android {
     bundle {
@@ -53,11 +53,11 @@ android {
 }
 ```
 
-### 打包为aab,利用as直接打包
+### 二、打包为aab,利用as直接打包
 
-### 本地进行aab测试
-#### 下载命令行工具 https://github.com/google/bundletool/releases， 是个jar文件
-#### 用具解压你的aab，命令为
+### 三、本地进行aab测试
+#### 1 下载命令行工具 https://github.com/google/bundletool/releases， 是个jar文件
+#### 2 用具解压你的aab，命令为
 ```
 java -jar bundletool-all-0.11.0.jar build-apks --bundle=输入abb文件路径/app.aab --output=输出apks路径/my_app.apks
 ```
