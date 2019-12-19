@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
-import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
+import com.moon.beautygirlkotlin.livdedatabus.LiveDataBus
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.ImageLoader
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.greenrobot.eventbus.EventBus
 
 
 /**
@@ -140,7 +139,7 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
 
                             toCollect.setImageResource(R.drawable.collected)
 
-                            EventBus.getDefault().post(EventUpdateFavourite(0))
+                            LiveDataBus.get().with("favourite").postValue("")
                         }
                     }
                 }
