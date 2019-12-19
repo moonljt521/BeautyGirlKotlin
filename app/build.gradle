@@ -118,6 +118,20 @@ android {
         enabled true
     }
 
+    bundle {
+        density {
+            enableSplit = true
+        }
+
+        language {
+            enableSplit = true
+        }
+
+        abi {
+            enableSplit = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
