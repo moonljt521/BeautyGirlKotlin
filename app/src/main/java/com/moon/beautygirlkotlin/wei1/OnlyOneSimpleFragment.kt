@@ -35,7 +35,7 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
         super.onActivityCreated(savedInstanceState)
         mAdapter?.ontItemClick = viewModel
         viewModel.itemData.observe(this, Observer {
-            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+            ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.title, true)
         })
     }

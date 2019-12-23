@@ -24,7 +24,7 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun loadData() {
-        launch(coroutineContext) {
+        launch {
             delay(1000)
             startAnim()
         }
@@ -55,6 +55,5 @@ class SplashActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        cancel()
     }
 }

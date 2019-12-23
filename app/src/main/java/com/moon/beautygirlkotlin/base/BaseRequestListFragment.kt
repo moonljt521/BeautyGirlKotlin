@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -61,6 +62,9 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
     override fun initData() {}
 
     override fun onChanged(list: List<T>?) {
+
+        binding.gankAdView.loadAd(AdRequest.Builder()
+                .build())
 
         list?.takeIf {
 

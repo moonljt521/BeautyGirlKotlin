@@ -9,54 +9,70 @@
             type="com.moon.beautygirlkotlin.base.BaseViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-
-        android:id="@+id/common_swipe_refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/common_swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/common_recyclerView"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:overScrollMode="never"
-                android:paddingTop="3dp"
-                android:scrollbars="none" />
+                android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/common_page_error_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:visibility="visible"
-                android:visibility="gone">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/common_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingTop="3dp"
+                    android:scrollbars="none" />
+
+                <RelativeLayout
+                    android:id="@+id/common_page_error_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:visibility="visible"
+                    android:visibility="gone">
 
 
-                <ImageView
-                    android:id="@+id/common_page_error_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/cloud_error" />
+                    <ImageView
+                        android:id="@+id/common_page_error_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/cloud_error" />
 
-                <TextView
-                    android:id="@+id/common_page_error_title"
-                    android:layout_marginTop="20dp"
-                    android:layout_below="@+id/common_page_error_image"
-                    android:layout_width="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_height="wrap_content"
-                    android:text="服务器出问题啦，点击重试一下"
-                    tools:text="服务器出问题啦，点击重试一下" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/common_page_error_title"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/common_page_error_image"
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"
+                        android:text="服务器出问题啦，点击重试一下"
+                        tools:text="服务器出问题啦，点击重试一下" />
+                </RelativeLayout>
 
-        </FrameLayout>
+            </FrameLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/gank_adView"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-5604418926465302/7679007213">
+        </com.google.android.gms.ads.AdView>
+
+    </RelativeLayout>
+
 </layout>
 
 

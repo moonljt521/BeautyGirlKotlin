@@ -113,7 +113,7 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
 
         callBack = MyItemTouchHelperCallBack(mAdapter)
 
-        mLayoutManager = LinearLayoutManager(mActivity)
+        mLayoutManager = LinearLayoutManager(requireContext())
 
         databinding.myCollectRecyclerView.apply {
 

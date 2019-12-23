@@ -30,8 +30,8 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope by MainScope()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         cancel()
         AppManager.instance.finishActivity(this)
+        super.onDestroy()
     }
 }

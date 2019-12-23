@@ -34,3 +34,4 @@ local.properties
 .DS_Store
 /.idea/
 app/libs/
+app/release/

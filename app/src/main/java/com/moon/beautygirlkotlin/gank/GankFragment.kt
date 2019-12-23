@@ -3,6 +3,7 @@ package com.moon.beautygirlkotlin.gank
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseRequestListFragment
 import com.moon.beautygirlkotlin.base.BaseViewModel
@@ -10,6 +11,7 @@ import com.moon.beautygirlkotlin.gank.model.GankMeiziBody
 import com.moon.beautygirlkotlin.gank.viewmodel.GankViewModel
 import com.moon.beautygirlkotlin.utils.InjectorUtil
 import com.moon.beautygirlkotlin.view_big_img.ViewBigImgActivity
+import kotlinx.android.synthetic.main.fragment_base_request.*
 
 /**
  * author: jiangtao.liang
@@ -34,10 +36,12 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mAdapter?.ontItemClick = viewModel
-        viewModel.itemData.observe(this, Observer {
-            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+        viewModel.itemData.observe(viewLifecycleOwner, Observer {
+            ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.desc, true)
         })
+
+
     }
 
     override fun loadData() {
