@@ -105,7 +105,7 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
         return true
     }
 
-    fun showDialog() {
+    private fun showDialog() {
         val dialog = BottomSheetDialog(this@ViewBigImgActivity)
         val dialogView = LayoutInflater.from(this@ViewBigImgActivity)
                 .inflate(R.layout.dialog_bottom, null)
