@@ -58,17 +58,18 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
 
         showCollectIcon = (intent?.getBooleanExtra("showCollectIcon", true))!!
 
-        collect_btn.visibility = if (showCollectIcon) View.VISIBLE else View.GONE
+        collect_btn.let {
+            it.visibility = if (showCollectIcon) View.VISIBLE else View.GONE
+            it.setOnClickListener(this)
+        }
 
         ImageLoader.load(this, url, gank_big_img)
 
-        gank_big_img.enable()
-
-        gank_big_img.setOnClickListener(this)
-
-        gank_big_img.setOnLongClickListener(this)
-
-        collect_btn.setOnClickListener(this)
+        gank_big_img.let {
+            it.enable()
+            it.setOnClickListener(this)
+            it.setOnLongClickListener(this)
+        }
 
         toCollect.setImageResource(R.drawable.uncollected)
     }
@@ -85,10 +86,12 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
         }
 
         titleSpan?.setSpanText("精选")
-        val stringBuilder = SpannableStringBuilder()
-        stringBuilder.append("   ")
-        stringBuilder.append(title)
-        val spannableString = SpannableString(stringBuilder.toString())
+
+        val spannableString = SpannableString(SpannableStringBuilder().also {
+            it.append("   ")
+            it.append(title)
+        }.toString())
+
         spannableString.setSpan(titleSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         tvViewBigImageTitle.text = spannableString
     }
@@ -154,11 +157,11 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
     companion object {
 
         fun startViewBigImaActivity(context: Context, url: String?, title: String?, showCollectIcon: Boolean): Unit {
-            val intent = Intent(context, ViewBigImgActivity::class.java)
-            intent.putExtra("url", url)
-            intent.putExtra("title", title)
-            intent.putExtra("showCollectIcon", showCollectIcon)
-            context.startActivity(intent)
+            context.startActivity(with(Intent(context, ViewBigImgActivity::class.java)){
+                putExtra("url", url)
+                putExtra("title", title)
+                putExtra("showCollectIcon", showCollectIcon)
+            })
         }
     }
 }
