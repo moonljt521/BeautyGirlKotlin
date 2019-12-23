@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
 import com.moon.beautygirlkotlin.utils.Logger
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
@@ -123,6 +124,11 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
         isPrepared = true
 
         lazyLoad()
+
+        val adRequest = AdRequest.Builder()
+                .build()
+
+        binding.gankAdView.loadAd(adRequest)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
