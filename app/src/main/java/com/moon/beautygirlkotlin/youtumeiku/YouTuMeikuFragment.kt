@@ -26,7 +26,7 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
         super.onActivityCreated(savedInstanceState)
         mAdapter?.ontItemClick = viewModel
         viewModel.itemData.observe(viewLifecycleOwner, Observer {
-            ViewBigImgActivity.startViewBigImaActivity(mActivity, it.url,
+            ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.title, true)
         })
     }

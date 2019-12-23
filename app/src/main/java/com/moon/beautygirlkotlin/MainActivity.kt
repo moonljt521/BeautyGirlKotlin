@@ -55,18 +55,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun loadData() {
-        fragmentList.add(GankFragment.getInstance(0)) // 萌妹子 gank
-        fragmentList.add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-        fragmentList.add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
-        fragmentList.add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
-        fragmentList.add(MyFavoriteFragment.getInstance(0))  // 我的收藏
+        fragmentList.run {
+            add(GankFragment.getInstance(0)) // 萌妹子 gank
+            add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
+            add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
+            add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
+            add(MyFavoriteFragment.getInstance(0))  // 我的收藏
 
+            // 初始化显示 [gank]妹子模块
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, get(0))
+                    .commit()
+        }
         ImageLoader.loadCircle(this,R.drawable.ic_avatar1,mCircleImageView)
-
-        // 初始化显示 [gank]妹子模块
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.content, fragmentList.get(0))
-                .commit()
     }
 
     override fun getLayoutId(): Int {
@@ -134,17 +135,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         drawer_layout.closeDrawers()
     }
 
-
     /**
      * 去跳转系统浏览器
      */
     fun navigationWebView(){
-
-        val i = Intent()
-        i.setAction("android.intent.action.VIEW")
-        i.setData(Uri.parse(getString(R.string.project_link)))
-        startActivity(i)
-
+        startActivity(Intent().also {
+            it.action = "android.intent.action.VIEW"
+            it.data = Uri.parse(getString(R.string.project_link))
+        })
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
