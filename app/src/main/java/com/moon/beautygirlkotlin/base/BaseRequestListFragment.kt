@@ -63,6 +63,9 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
     override fun onChanged(list: List<T>?) {
 
+        binding.gankAdView.loadAd(AdRequest.Builder()
+                .build())
+
         list?.takeIf {
 
             !it.isEmpty()
@@ -124,11 +127,6 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
         isPrepared = true
 
         lazyLoad()
-
-        val adRequest = AdRequest.Builder()
-                .build()
-
-        binding.gankAdView.loadAd(adRequest)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

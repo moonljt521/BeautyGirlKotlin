@@ -36,7 +36,7 @@ class GankFragment : BaseRequestListFragment<GankMeiziBody>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mAdapter?.ontItemClick = viewModel
-        viewModel.itemData.observe(this, Observer {
+        viewModel.itemData.observe(viewLifecycleOwner, Observer {
             ViewBigImgActivity.startViewBigImaActivity(requireContext(), it.url,
                     it.desc, true)
         })
