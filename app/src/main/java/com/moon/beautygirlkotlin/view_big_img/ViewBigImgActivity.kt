@@ -66,7 +66,6 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
         ImageLoader.load(this, url, gank_big_img)
 
         gank_big_img.let {
-            it.enable()
             it.setOnClickListener(this)
             it.setOnLongClickListener(this)
         }
