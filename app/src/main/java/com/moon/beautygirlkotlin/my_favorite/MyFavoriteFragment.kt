@@ -14,6 +14,7 @@ import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.databinding.FragmentMyFavoriteBinding
 import com.moon.beautygirlkotlin.livdedatabus.LiveDataBus
+import com.moon.beautygirlkotlin.livdedatabus.LiveDataBusKt
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
 import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
@@ -90,14 +91,13 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        LiveDataBus.get().with("favourite",String::class.java)
-                .observe(this, Observer {
+        LiveDataBusKt.get()?.with("favourite",String::class.java)
+                ?.observe(this, Observer {
                     queryFavouriteList()
                 })
     }
 
     override fun initViews(view: View?) {
-        val list = viewModel.list
 
         mAdapter = MyFavoriteAdapter(viewModel.list , viewType = object : BaseBindAdapter.ViewTypeCallBack {
 

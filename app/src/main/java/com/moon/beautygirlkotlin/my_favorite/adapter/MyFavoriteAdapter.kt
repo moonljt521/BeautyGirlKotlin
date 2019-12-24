@@ -36,6 +36,11 @@ class MyFavoriteAdapter( dataList: MutableList<Any> , viewType: ViewTypeCallBack
 
         notifyItemRemoved(position)
 
+        if (getDataList().size == 1 && getDataList()[0] is FavoriteBeanOther){
+            removeAtIndex(0)
+            notifyItemRemoved(position)
+        }
+
         return true
     }
 }

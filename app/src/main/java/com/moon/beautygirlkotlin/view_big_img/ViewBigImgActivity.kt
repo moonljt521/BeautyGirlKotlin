@@ -14,6 +14,7 @@ import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.livdedatabus.LiveDataBus
+import com.moon.beautygirlkotlin.livdedatabus.LiveDataBusKt
 import com.moon.beautygirlkotlin.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.utils.ImageLoader
@@ -141,7 +142,7 @@ class ViewBigImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClic
 
                             toCollect.setImageResource(R.drawable.collected)
 
-                            LiveDataBus.get().with("favourite").postValue("")
+                            LiveDataBusKt.get()?.with("favourite")?.postValue("")
                         }
                     }
                 }
