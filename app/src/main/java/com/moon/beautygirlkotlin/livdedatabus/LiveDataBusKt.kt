@@ -100,20 +100,20 @@ class LiveDataBusKt private constructor() {
             val objectWrapperEntry = methodGet.invoke(objectObservers, observer)
             var objectWrapper: Any? = null
             if (objectWrapperEntry is Map.Entry<*, *>) {
-                objectWrapper = (objectWrapperEntry as Map.Entry<*, *>).value
+                objectWrapper = objectWrapperEntry.value
             }
             if (objectWrapper == null) {
                 throw NullPointerException("Wrapper can not be bull!")
             }
-            val classObserverWrapper = objectWrapper.javaClass.superclass
-            val fieldLastVersion = classObserverWrapper!!.getDeclaredField("mLastVersion")
-            fieldLastVersion.isAccessible = true
+            val classObserverWrapper : Class<in Any>?  = objectWrapper.javaClass.superclass
+            val fieldLastVersion = classObserverWrapper?.getDeclaredField("mLastVersion")
+            fieldLastVersion?.isAccessible = true
             //get livedata's version
             val fieldVersion = classLiveData.getDeclaredField("mVersion")
             fieldVersion.isAccessible = true
             val objectVersion = fieldVersion.get(this)
             //set wrapper's version
-            fieldLastVersion.set(objectWrapper, objectVersion)
+            fieldLastVersion?.set(objectWrapper, objectVersion)
         }
     }
 
