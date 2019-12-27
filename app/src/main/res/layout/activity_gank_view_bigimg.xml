@@ -7,11 +7,11 @@
     tools:background="@color/transparent"
     android:background="@color/black">
 
-    <com.bm.library.PhotoView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/gank_big_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        />
 
     <TextView
         android:id="@+id/tvViewBigImageTitle"
@@ -44,7 +44,5 @@
             tools:src="@drawable/uncollected"/>
 
     </LinearLayout>
-
-
 </RelativeLayout>
 

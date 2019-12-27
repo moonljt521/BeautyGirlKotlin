@@ -41,12 +41,11 @@ class OnlyOneSimpleFragment : BaseRequestListFragment<MeiZiTuBody>() {
     }
 
     companion object {
-        fun getInstance(cid: String): OnlyOneSimpleFragment {
-            val fragment = OnlyOneSimpleFragment();
-            val bundle = Bundle()
-            bundle.putString("type", cid)
-            fragment.arguments = bundle
-            return fragment
+
+        fun getInstance(cid: String) = OnlyOneSimpleFragment().apply {
+            arguments = Bundle().apply {
+                putString("type", cid)
+            }
         }
     }
 

@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 
 def library = rootProject.ext.dependencies
 def version = rootProject.ext.android
@@ -145,6 +145,8 @@ configurations {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -180,12 +182,11 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.3.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.3.1'
     //photoView
-    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     //大图查看
-    implementation 'com.bm.photoview:library:1.4.1'
 
 //    implementation project(':mvp-module')
 

@@ -12,8 +12,13 @@ import com.moon.beautygirlkotlin.room.FavoriteBeanOther
  * created on: 18/4/4 下午4:37
  * description: 我的收藏 adapt
  */
-class MyFavoriteAdapter( dataList: MutableList<Any> , viewType: ViewTypeCallBack) : BaseBindAdapter(dataList ,viewType)
+class MyFavoriteAdapter(dataList: MutableList<Any>, viewType: ViewTypeCallBack) : BaseBindAdapter(dataList, viewType)
         , ItemMoveListener {
+
+    override fun canMove(position: Int): Boolean {
+        if (getDataList()[position] is FavoriteBeanOther) return false
+        return true
+    }
 
 //    override fun createViewType(position: Int): Int {
 //        val t = getDataList()[position]
@@ -22,7 +27,7 @@ class MyFavoriteAdapter( dataList: MutableList<Any> , viewType: ViewTypeCallBack
 //        return 0
 //    }
 
-    var listener : FavouriteItemClick<Any> ? = null
+    var listener: FavouriteItemClick<Any>? = null
 
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         return false
@@ -35,6 +40,11 @@ class MyFavoriteAdapter( dataList: MutableList<Any> , viewType: ViewTypeCallBack
         removeAtIndex(position)
 
         notifyItemRemoved(position)
+
+        if (getDataList().size == 1 && getDataList()[0] is FavoriteBeanOther) {
+            removeAtIndex(0)
+            notifyItemRemoved(position)
+        }
 
         return true
     }
