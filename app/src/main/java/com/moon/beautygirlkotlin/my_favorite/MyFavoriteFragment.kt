@@ -13,11 +13,9 @@ import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseBindAdapter
 import com.moon.beautygirlkotlin.base.BaseFragment
 import com.moon.beautygirlkotlin.databinding.FragmentMyFavoriteBinding
-import com.moon.beautygirlkotlin.livdedatabus.LiveDataBus
 import com.moon.beautygirlkotlin.livdedatabus.LiveDataBusKt
 import com.moon.beautygirlkotlin.my_favorite.adapter.MyFavoriteAdapter
 import com.moon.beautygirlkotlin.my_favorite.component.MyItemTouchHelperCallBack
-import com.moon.beautygirlkotlin.my_favorite.model.EventUpdateFavourite
 import com.moon.beautygirlkotlin.my_favorite.viewmodel.FavouriteVieModel
 import com.moon.beautygirlkotlin.room.FavoriteBean
 import com.moon.beautygirlkotlin.room.FavoriteBeanOther
@@ -56,12 +54,8 @@ class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
 
     companion object {
 
-        fun getInstance(id: Int): MyFavoriteFragment {
-            val fragment = MyFavoriteFragment();
-            val bundle = Bundle()
-            bundle.putInt("id", id)
-            fragment.arguments = bundle
-            return fragment
+        fun getInstance(id: Int) = MyFavoriteFragment().apply {
+            arguments = Bundle().apply { putInt("id", id) }
         }
     }
 

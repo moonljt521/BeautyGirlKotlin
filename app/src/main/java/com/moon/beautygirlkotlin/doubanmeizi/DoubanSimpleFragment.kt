@@ -39,12 +39,8 @@ class DoubanSimpleFragment : BaseRequestListFragment<DoubanMeiziBody>() {
     }
 
     companion object {
-        fun getInstance(id: Int): DoubanSimpleFragment {
-            val fragment = DoubanSimpleFragment();
-            val bundle = Bundle()
-            bundle.putInt("id", id)
-            fragment.arguments = bundle
-            return fragment
+        fun getInstance(id: Int) = DoubanSimpleFragment().apply {
+            arguments = Bundle().apply { putInt("id", id) }
         }
     }
 }

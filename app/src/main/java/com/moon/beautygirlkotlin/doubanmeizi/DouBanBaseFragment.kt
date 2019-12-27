@@ -22,12 +22,8 @@ class DouBanBaseFragment : BaseFragment() {
 
     companion object {
 
-        fun getInstance(id: Int): DouBanBaseFragment {
-            val fragment = DouBanBaseFragment();
-            val bundle = Bundle()
-            bundle.putInt("id", id)
-            fragment.arguments = bundle
-            return fragment
+        fun getInstance(id: Int) = DouBanBaseFragment().apply {
+            arguments = Bundle().apply { putInt("id", id) }
         }
     }
 

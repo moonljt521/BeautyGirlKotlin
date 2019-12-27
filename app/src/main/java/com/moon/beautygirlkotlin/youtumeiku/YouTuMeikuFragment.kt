@@ -36,12 +36,10 @@ class YouTuMeikuFragment : BaseRequestListFragment<MeiZiTuBody>() {
     override fun getItemLayoutId(): Int = R.layout.item_only_one
 
     companion object {
-        fun getInstance(id: Int): YouTuMeikuFragment {
-            val fragment = YouTuMeikuFragment();
-            val bundle = Bundle()
-            bundle.putInt("id", id)
-            fragment.arguments = bundle
-            return fragment
+        fun getInstance(id: Int) = YouTuMeikuFragment().apply {
+            arguments = Bundle().apply {
+                putInt("id", id)
+            }
         }
     }
 }
