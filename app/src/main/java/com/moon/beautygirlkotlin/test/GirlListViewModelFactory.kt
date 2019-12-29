@@ -1,11 +1,15 @@
-package com.moon.beautygirlkotlin.data.test
+package com.moon.beautygirlkotlin.test
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.moon.beautygirlkotlin.data.entity.Source
+import com.moon.beautygirlkotlin.data.entity.SourceType
 import com.moon.beautygirlkotlin.data.service.DataServiceContext2
+import com.moon.beautygirlkotlin.data.test.GirlRepository
 
-class GirlModelFactory(private val source: Source) : ViewModelProvider.NewInstanceFactory() {
+class GirlListViewModelFactory(private val source: Source,private  val sourceTye: SourceType?) :
+        ViewModelProvider
+.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -14,6 +18,6 @@ class GirlModelFactory(private val source: Source) : ViewModelProvider.NewInstan
 
         val rep = GirlRepository(serviceContext2)
 
-        return GirlViewModel(rep) as T
+        return GirlListViewModel(rep,sourceTye) as T
     }
 }

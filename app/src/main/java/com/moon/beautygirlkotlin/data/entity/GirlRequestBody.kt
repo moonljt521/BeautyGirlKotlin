@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.data.entity
 /**
  * Created by Arthur on 2019-12-28.
  */
-typealias Source = String
+//typealias Source = String
 
 ///简单定义一下，
 // 也可以不使用这个，

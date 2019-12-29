@@ -36,3 +36,7 @@ fun itemClick(view : View , listener: View.OnClickListener?){
         }
     }
 }
+@BindingAdapter("goneUnless")
+fun goneUnless(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
+}

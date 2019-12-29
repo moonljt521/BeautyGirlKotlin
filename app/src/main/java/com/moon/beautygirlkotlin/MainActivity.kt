@@ -11,15 +11,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.moon.beautygirlkotlin.about.AboutActivity
 import com.moon.beautygirlkotlin.base.BaseActivity
-import com.moon.beautygirlkotlin.doubanmeizi.DouBanBaseFragment
-import com.moon.beautygirlkotlin.gank.GankFragment
+import com.moon.beautygirlkotlin.data.entity.sourceList
 import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
+import com.moon.beautygirlkotlin.test.GirlMainFragment
 import com.moon.beautygirlkotlin.utils.AppManager
 import com.moon.beautygirlkotlin.utils.ImageLoader
 import com.moon.beautygirlkotlin.utils.ShareUtil
 import com.moon.beautygirlkotlin.utils.SnackbarUtil
-import com.moon.beautygirlkotlin.wei1.OnlyPicBaseFragment
-import com.moon.beautygirlkotlin.youtumeiku.YouTuMeikuFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -29,7 +27,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     lateinit var mCircleImageView: ImageView
 
-    var fragmentList: ArrayList<Fragment> = java.util.ArrayList()
+//    var fragmentList: ArrayList<Fragment> = java.util.ArrayList()
+
+    val  fragmentList = mutableListOf<Fragment>()
 
     var currentTabIndex : Int = 0
 
@@ -55,11 +55,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun loadData() {
+
+
+
+        fragmentList.addAll( sourceList.map {
+
+            GirlMainFragment.newInstance(it)
+        })
+
         fragmentList.run {
-            add(GankFragment.getInstance(0)) // 萌妹子 gank
-            add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-            add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
-            add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
+//            add(GankFragment.getInstance(0)) // 萌妹子 gank
+//            add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
+//            add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
+//            add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
             add(MyFavoriteFragment.getInstance(0))  // 我的收藏
 
             // 初始化显示 [gank]妹子模块
