@@ -10,7 +10,7 @@ data class GirlData(
 
         val text: String,
 
-        val source: String
+        val source: String? = null
 
 
 )

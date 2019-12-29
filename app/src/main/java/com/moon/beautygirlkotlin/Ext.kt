@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin
 
 import android.view.View
 import android.widget.Checkable
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -143,4 +144,9 @@ class IntentObserver<T>(private val block: (T) -> Unit) : Observer<Event<T>> {
             block(value)
         }
     }
+}
+
+inline fun <T : ViewDataBinding> T.executeAfter(block: T.() -> Unit) {
+    block()
+    executePendingBindings()
 }

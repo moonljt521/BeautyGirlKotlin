@@ -1,7 +1,6 @@
 package com.moon.beautygirlkotlin.data.service
 
 import com.moon.beautygirlkotlin.data.entity.GirlData
-import com.moon.beautygirlkotlin.data.entity.GirlRequestBody
 import com.moon.beautygirlkotlin.data.entity.Result
 
 /**
@@ -10,5 +9,5 @@ import com.moon.beautygirlkotlin.data.entity.Result
 
 interface DataService {
 
-    suspend fun getData(req: GirlRequestBody) : Result<List<GirlData>>
+    suspend fun getData(page: Int,pageNum: Int, type: String? = null) : Result<List<GirlData>>
 }

@@ -50,7 +50,7 @@ android {
 
         ndk {
             //设置支持的SO库架构
-            abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
 
         multiDexEnabled true
@@ -66,7 +66,7 @@ android {
             //指定文件名格式  kotlin_girl_v1.0.0.apk
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    if(outputFileName !=null && outputFileName.endsWith('.apk')){
+                    if (outputFileName != null && outputFileName.endsWith('.apk')) {
                         outputFileName = "kotlin_girl_${variant.buildType.name}_v${variant.versionName}.apk"
                     }
                 }
@@ -78,13 +78,14 @@ android {
             signingConfig signingConfigs.KOTLIN_GIRL
             minifyEnabled true
             shrinkResources true
-            zipAlignEnabled true  // 在Android中，当资源文件通过内存映射对齐到4字节边界时，访问资源文件的代码才是有效率的。但是，如果资源本身没有进行对齐处理（未使用zipalign工具），它就必须回到老路上，显式地读取它们——这个过程将会比较缓慢且会花费额外的内存。
+            zipAlignEnabled true
+            // 在Android中，当资源文件通过内存映射对齐到4字节边界时，访问资源文件的代码才是有效率的。但是，如果资源本身没有进行对齐处理（未使用zipalign工具），它就必须回到老路上，显式地读取它们——这个过程将会比较缓慢且会花费额外的内存。
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             //指定文件名格式  kotlin_girl_v1.0.0.apk
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    if(outputFileName !=null && outputFileName.endsWith('.apk')){
+                    if (outputFileName != null && outputFileName.endsWith('.apk')) {
                         outputFileName = "kotlin_girl_${variant.buildType.name}_v${variant.versionName}.apk"
                     }
                 }
@@ -136,6 +137,11 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
+
+    androidExtensions {
+        experimental = true
+
+    }
 }
 
 configurations {
@@ -153,6 +159,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     //KOTLIN + coroutines
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -208,7 +215,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01"
 
 
-
     def room_version = "2.2.0-alpha01"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -220,3 +226,4 @@ dependencies {
 //        coroutines 'enable'
 //    }
 //}
+
