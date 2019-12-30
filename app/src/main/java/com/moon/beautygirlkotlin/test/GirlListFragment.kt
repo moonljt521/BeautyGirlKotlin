@@ -144,14 +144,7 @@ class GirlListFragment : Fragment(), Observer<List<GirlData>> {
             dataBinding.commonRecyclerView.visibility = View.VISIBLE
             dataBinding.commonPageErrorLayout.visibility = View.GONE
 
-            if (page == 1) {
-
-//                mAdapter.notifyItemChanged(0, viewModel.list.size)
-                mAdapter.submitList(viewModel.list)
-
-            } else {
-                mAdapter.notifyItemRangeInserted(viewModel.list.size - list.size, viewModel.list.size)
-            }
+            mAdapter.submitList(viewModel.list.toList())
 
             loadFinish = true
 
