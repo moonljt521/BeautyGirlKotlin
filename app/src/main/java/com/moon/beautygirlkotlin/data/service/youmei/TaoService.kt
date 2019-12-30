@@ -10,15 +10,15 @@ import java.util.*
  * Created by Arthur on 2019-12-29.
  */
 class TaoService: DataService {
-    override suspend fun getData(page: Int, pageNum: Int, type: String?): Result<List<GirlData>> {
+    override suspend fun getData(page: Int, pageSize: Int, type: String?): Result<List<GirlData>> {
 
         val url = "http://www.umei.cc/bizhitupian/meinvbizhi/"
 
         val result =
-            if (pageNum == 1) {
+            if (page == 1) {
                 DataUtil.parserMeiTuLuHtml(url)
             } else {
-                DataUtil.parserMeiTuLuHtml(url + pageNum + ".htm")
+                DataUtil.parserMeiTuLuHtml(url + page + ".htm")
             }
 
 

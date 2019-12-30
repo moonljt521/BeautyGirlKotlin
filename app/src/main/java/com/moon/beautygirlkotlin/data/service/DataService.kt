@@ -9,5 +9,5 @@ import com.moon.beautygirlkotlin.data.entity.Result
 
 interface DataService {
 
-    suspend fun getData(page: Int,pageNum: Int, type: String? = null) : Result<List<GirlData>>
+    suspend fun getData(page: Int,pageSize: Int, type: String? = null) : Result<List<GirlData>>
 }

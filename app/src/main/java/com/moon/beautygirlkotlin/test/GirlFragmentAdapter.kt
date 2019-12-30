@@ -9,9 +9,9 @@ import com.moon.beautygirlkotlin.data.entity.Source
 /**
  * Created by Arthur on 2019-12-29.
  */
-class GirlFragmentAdapter(fm: FragmentManager, private val source: Source):
+class GirlFragmentAdapter(fm: FragmentManager, private val source: Source) :
         FragmentStatePagerAdapter
-(fm) {
+        (fm) {
 
     val titles = source.types?.map {
         it.title
@@ -20,8 +20,8 @@ class GirlFragmentAdapter(fm: FragmentManager, private val source: Source):
 
     val fragmentList = source.types?.map {
 
-        GirlListFragment.newInstance(source,it)
-    } ?: listOf(GirlListFragment.newInstance(source,null))
+        GirlListFragment.newInstance(source, it)
+    } ?: listOf(GirlListFragment.newInstance(source, null))
 
     override fun getPageTitle(position: Int): CharSequence {
         return titles[position]

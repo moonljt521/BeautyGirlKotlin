@@ -11,7 +11,7 @@ import java.util.*
  * Created by Arthur on 2019-12-29.
  */
 class OnlyDataService: DataService {
-    override suspend fun getData(page: Int, pageNum: Int, type: String?): Result<List<GirlData>> {
+    override suspend fun getData(page: Int, pageSize: Int, type: String?): Result<List<GirlData>> {
 
       return Result.Success(DataUtil.parserMeiziTuHtml(
                 RetrofitHelper.BASE_MEIZITU_URL + type + page + ".html").map {

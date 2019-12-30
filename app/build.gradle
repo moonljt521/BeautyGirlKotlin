@@ -203,7 +203,7 @@ dependencies {
     // bugly
     implementation 'com.tencent.bugly:crashreport:3.1.0'
     // Google ad
-    implementation 'com.google.android.gms:play-services-ads:15.0.0'
+    implementation 'com.google.android.gms:play-services-ads:16.0.0'
 
     // jetpack 相关
     def lifecycle_version = "2.2.0"
