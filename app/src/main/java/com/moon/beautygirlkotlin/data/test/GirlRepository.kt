@@ -18,12 +18,12 @@ class GirlRepository(private val service2: DataServiceContext2,private val ioDis
 //           page,pageNum))
 
 
-    suspend fun getData(page: Int,pageNum: Int, type: String? = null): Result<List<GirlData>>  = withContext(ioDispatcher){
+    suspend fun getData(page: Int,pageSize: Int, type: String? = null): Result<List<GirlData>>  = withContext(ioDispatcher){
 
         Logger.d("GirlRepository getdata: type = ${type}")
 
         try {
-            service2.getData(page,pageNum,type)
+            service2.getData(page,pageSize,type)
 
         }catch (e: Exception) {
 

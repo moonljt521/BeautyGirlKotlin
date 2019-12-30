@@ -13,11 +13,11 @@ import java.util.*
  * Created by Arthur on 2019-12-29.
  */
 class DoubanService: DataService {
-    override suspend fun getData(page: Int, pageNum: Int, type: String?): Result<List<GirlData>> {
+    override suspend fun getData(page: Int, pageSize: Int, type: String?): Result<List<GirlData>> {
 
         val cid =type?.toInt() ?: 0
 
-        val result: Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid,pageNum)
+        val result: Response<ResponseBody> = RetrofitHelper.getDoubanMeiziApi().getDoubanMeizi(cid,page)
 
 
         try {
