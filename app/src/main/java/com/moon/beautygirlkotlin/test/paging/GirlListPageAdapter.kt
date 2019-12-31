@@ -14,11 +14,8 @@ import com.moon.beautygirlkotlin.test.GirlListAdapter
 /**
  * Created by Arthur on 2019-12-30.
  */
-class GirlListPageAdapter(private val itemClick: ItemClick<GirlData>): PagedListAdapter<GirlData,
-        GirlListAdapter
-.ItemViewHolder>
-(DIFF_CALLBACK) {
-
+class GirlListPageAdapter(private val itemClick: ItemClick<GirlData>) : PagedListAdapter<GirlData,
+        GirlListAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GirlListAdapter.ItemViewHolder {
@@ -40,7 +37,7 @@ class GirlListPageAdapter(private val itemClick: ItemClick<GirlData>): PagedList
         }
     }
 
-    class ItemViewHolder(val binding: ItemGirlBinding): RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(val binding: ItemGirlBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 

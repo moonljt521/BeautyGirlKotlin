@@ -33,7 +33,7 @@ class GirlListViewModel2(val repository: GirlRepository, val sourceType: SourceT
                     .setPageSize(10)
                     .setPrefetchDistance(5)
                     .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(20)
+                    .setInitialLoadSizeHint(10)
                     .build())
             .build()
 
@@ -67,7 +67,7 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
             try {
                 Logger.i("wy", "Initial params = ${params.requestedLoadSize}")
 
-                val result = repository.getData(0, params.requestedLoadSize, sourceType?.id)
+                val result = repository.getData(1, params.requestedLoadSize, sourceType?.id)
 
                 when (result) {
 
@@ -78,7 +78,7 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
                         //next page key -》 0 + （20/10）
 
                         //有可能造成重复
-                        callback.onResult(result.data, null, 3)
+                        callback.onResult(result.data, null, 1)
                     }
 
                 }
