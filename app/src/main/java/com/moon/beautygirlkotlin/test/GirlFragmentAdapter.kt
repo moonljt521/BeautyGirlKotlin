@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.moon.beautygirlkotlin.data.entity.Source
+import com.moon.beautygirlkotlin.test.paging.GirlListFragment2
 
 /**
  * Created by Arthur on 2019-12-29.
@@ -20,8 +21,8 @@ class GirlFragmentAdapter(fm: FragmentManager, private val source: Source) :
 
     val fragmentList = source.types?.map {
 
-        GirlListFragment.newInstance(source, it)
-    } ?: listOf(GirlListFragment.newInstance(source, null))
+        GirlListFragment2.newInstance(source, it)
+    } ?: listOf(GirlListFragment2.newInstance(source, null))
 
     override fun getPageTitle(position: Int): CharSequence {
         return titles[position]
