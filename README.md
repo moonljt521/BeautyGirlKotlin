@@ -66,6 +66,12 @@ java -jar bundletool-all-0.11.0.jar build-apks --bundle=输入abb文件路径/ap
 
 打包出来的apks文件改下后缀为zip，然后解压下。可以看到各种feature的apk
 
+
+## 4.10 重构
+
+#### 1 结构调整，剥离数据层
+#### 2 添加paging组件替换自定义分页功能
+
 <br>
 
 ## Requirements
