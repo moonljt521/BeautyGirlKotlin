@@ -28,6 +28,7 @@ android {
 java -jar bundletool-all-0.11.0.jar build-apks --bundle=/Users/moon/Documents/other_workspace/BeautyGirlKotlin/app/release/app.aab --output=/Users/moon/Documents/other_workspace/BeautyGirlKotlin/app/release/my_app.apks --ks=/Users/moon/Documents/other_workspace/BeautyGirlKotlin/app/kotlingirl --ks-pass=pass:moon0503 --ks-key-alias=moon --ks-pass=pass:moon0503
 
 
+
 不含签名
 java -jar bundletool-all-0.11.0.jar build-apks --bundle=/Users/moon/Documents/other_workspace/BeautyGirlKotlin/app/release/app.aab --output=/Users/moon/Documents/other_workspace/BeautyGirlKotlin/app/release/my_app.apks
 
