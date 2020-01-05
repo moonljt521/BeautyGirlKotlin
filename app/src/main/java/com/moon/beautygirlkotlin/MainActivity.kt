@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.moon.beautygirlkotlin.about.AboutActivity
 import com.moon.beautygirlkotlin.base.BaseActivity
-import com.moon.beautygirlkotlin.data.entity.sourceList
-import com.moon.beautygirlkotlin.my_favorite.MyFavoriteFragment
-import com.moon.beautygirlkotlin.test.GirlMainFragment
-import com.moon.beautygirlkotlin.utils.AppManager
-import com.moon.beautygirlkotlin.utils.ImageLoader
-import com.moon.beautygirlkotlin.utils.ShareUtil
-import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.common.data.entity.sourceList
+import com.moon.beautygirlkotlin.favorite.MyFavoriteFragment
+import com.moon.beautygirlkotlin.girl.main.GirlMainFragment
+import com.moon.beautygirlkotlin.common.utils.AppManager
+import com.moon.beautygirlkotlin.common.utils.ImageLoader
+import com.moon.beautygirlkotlin.common.utils.ShareUtil
+import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**

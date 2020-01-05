@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.BR
-import com.moon.beautygirlkotlin.listener.ItemClick
+import com.moon.beautygirlkotlin.common.listener.ItemClick
 import java.util.*
 import kotlin.collections.ArrayList
 

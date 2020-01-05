@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.moon.beautygirlkotlin.listener.ItemClick
+import com.moon.beautygirlkotlin.common.listener.ItemClick
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 

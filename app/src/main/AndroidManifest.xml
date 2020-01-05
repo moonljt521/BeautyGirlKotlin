@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".view_big_img.ViewBigImgActivity"
+            android:name=".preview.ViewLargeImgActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.StatusBar"></activity>
 
@@ -53,7 +53,7 @@
             android:theme="@style/AppTheme.StatusBar"></activity>
 
         <meta-data
-            android:name="com.moon.beautygirlkotlin.glide.MyGlideModule"
+            android:name="com.moon.beautygirlkotlin.common.glide.MyGlideModule"
             android:value="GlideModule" />
 
         <meta-data

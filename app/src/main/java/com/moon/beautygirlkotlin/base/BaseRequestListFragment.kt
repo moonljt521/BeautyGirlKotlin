@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.moon.beautygirlkotlin.databinding.FragmentBaseRequestBinding
-import com.moon.beautygirlkotlin.utils.Logger
-import com.moon.beautygirlkotlin.utils.SnackbarUtil
+import com.moon.beautygirlkotlin.common.utils.Logger
+import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 
 /**
  * author: moon

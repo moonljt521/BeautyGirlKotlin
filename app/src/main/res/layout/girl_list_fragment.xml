@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.moon.beautygirlkotlin.test.GirlListViewModel" />
+            type="com.moon.beautygirlkotlin.girl.GirlListViewModel" />
     </data>
 
     <RelativeLayout

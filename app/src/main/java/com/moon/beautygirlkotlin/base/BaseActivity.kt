@@ -2,7 +2,7 @@ package com.moon.beautygirlkotlin.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.moon.beautygirlkotlin.utils.AppManager
+import com.moon.beautygirlkotlin.common.utils.AppManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel

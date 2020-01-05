@@ -5,7 +5,7 @@
     <data>
         <variable
             name="body"
-            type="com.moon.beautygirlkotlin.wei1.model.MeiZiTuBody" />
+            type="com.moon.beautygirlkotlin.data.service.weiyi.MeiZiTuBody" />
 
         <variable
             name="itemClick"
