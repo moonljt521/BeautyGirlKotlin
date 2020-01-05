@@ -20,9 +20,9 @@ class GirlListViewModelFactory(private val source: Source,private  val sourceTye
                 when {
 
 
-                    isAssignableFrom(GirlListViewModel2::class.java) -> {
+                    isAssignableFrom(GirlListViewModel::class.java) -> {
 
-                        GirlListViewModel2(rep, sourceTye)
+                        GirlListViewModel(rep, sourceTye)
 
 
                     }

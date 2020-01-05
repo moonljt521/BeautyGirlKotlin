@@ -47,7 +47,7 @@
         <TextView
             android:id="@+id/myCollect_empty_text"
             android:textSize="16dp"
-            android:text="您还没有收藏哦！"
+            android:text="@string/not_favorite_msg"
             android:gravity="center"
             android:visibility="gone"
             android:layout_width="match_parent"

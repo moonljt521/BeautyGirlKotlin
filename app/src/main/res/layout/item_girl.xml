@@ -5,11 +5,11 @@
     <data>
         <variable
             name="item"
-            type="com.moon.beautygirlkotlin.data.entity.GirlData" />
+            type="com.moon.beautygirlkotlin.common.data.entity.GirlData" />
 
         <variable
             name="itemClick"
-            type="com.moon.beautygirlkotlin.listener.ItemClick" />
+            type="com.moon.beautygirlkotlin.common.listener.ItemClick" />
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"

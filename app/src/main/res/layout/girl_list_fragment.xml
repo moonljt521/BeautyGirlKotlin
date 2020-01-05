@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.moon.beautygirlkotlin.girl.GirlListViewModel" />
+            type="com.moon.beautygirlkotlin.girl.paging.GirlListViewModel" />
     </data>
 
     <RelativeLayout
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_height="wrap_content"
-                        android:text="服务器出问题啦，点击重试一下"
+                        android:text="@string/retry_msg"
                         tools:text="服务器出问题啦，点击重试一下" />
                 </RelativeLayout>
 

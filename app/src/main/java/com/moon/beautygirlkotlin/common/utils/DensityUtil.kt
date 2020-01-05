@@ -64,7 +64,7 @@ object DensityUtil {
      * @return
      */
     fun getScreenHeight(context: Context): Int {
-        val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager ?: return 0
+        val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = manager.defaultDisplay
         val size = Point()
         display.getSize(size)
@@ -83,7 +83,6 @@ object DensityUtil {
      */
     fun getScreenSize(context: Context): IntArray {
         val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-                ?: return intArrayOf()
         val display = manager.defaultDisplay
         return intArrayOf(display.width, display.height)
     }
@@ -116,11 +115,7 @@ object DensityUtil {
         } else {
             val menu = ViewConfiguration.get(context).hasPermanentMenuKey()
             val back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
-            return if (menu || back) {
-                false
-            } else {
-                true
-            }
+            return !(menu || back)
         }
     }
 
@@ -184,7 +179,7 @@ object DensityUtil {
      * @return
      */
     fun getScreenInch(context: Context): Double {
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager ?: return 0.0
+        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = wm.defaultDisplay
         val dm = DisplayMetrics()
         display.getMetrics(dm)
@@ -207,19 +202,14 @@ object DensityUtil {
 
     private fun isGreatScreen(context: Context): Boolean {
         val screenInches = getScreenInch(context)
-        return if (screenInches >= 6.0) {
-            true
-        } else false
+        return screenInches >= 6.0
     }
 
     // 华为 tag-al00 不准确
     @Deprecated("")
     private fun hasTelFeature(activity: Activity): Boolean {
         val telephony = activity.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-                ?: return false
-        return if (telephony.phoneType == TelephonyManager.PHONE_TYPE_NONE) {
-            false
-        } else true
+        return telephony.phoneType != TelephonyManager.PHONE_TYPE_NONE
     }
 
     private fun officialPadCheck(context: Context): Boolean {

@@ -11,7 +11,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:textColor="@color/black"
-        android:text="保存图片"
+        android:text="@string/save_image"
         android:textSize="18sp" />
 
     <View
@@ -26,7 +26,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:textColor="@color/black"
-        android:text="取消"
+        android:text="@string/cancel"
         android:textSize="18sp" />
 
 </LinearLayout>

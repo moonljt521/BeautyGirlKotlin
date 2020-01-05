@@ -18,7 +18,7 @@ import kotlinx.coroutines.*
 /**
  * Created by Arthur on 2019-12-30.
  */
-class GirlListViewModel2(val repository: GirlRepository, val sourceType: SourceType?) :
+class GirlListViewModel(val repository: GirlRepository, val sourceType: SourceType?) :
         ViewModel(), ItemClick<GirlData> {
 
 

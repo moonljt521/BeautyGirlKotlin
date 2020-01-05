@@ -6,26 +6,27 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.moon.beautygirlkotlin.common.data.entity.GirlData
-import com.moon.beautygirlkotlin.databinding.ItemGirlBinding
 import com.moon.beautygirlkotlin.common.listener.ItemClick
+import com.moon.beautygirlkotlin.common.utils.executeAfter
+import com.moon.beautygirlkotlin.databinding.ItemGirlBinding
 
 /**
  * Created by Arthur on 2019-12-30.
  */
 class GirlListPageAdapter(private val itemClick: ItemClick<GirlData>) : PagedListAdapter<GirlData,
-        GirlListAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+        GirlListPageAdapter.ItemViewHolder>(DIFF_CALLBACK) {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GirlListAdapter.ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GirlListPageAdapter.ItemViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
 
-        return GirlListAdapter.ItemViewHolder(ItemGirlBinding.inflate(inflater, parent, false))
+        return GirlListPageAdapter.ItemViewHolder(ItemGirlBinding.inflate(inflater, parent, false))
 
     }
 
 
-    override fun onBindViewHolder(holder: GirlListAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GirlListPageAdapter.ItemViewHolder, position: Int) {
 
         holder.binding.executeAfter {
 

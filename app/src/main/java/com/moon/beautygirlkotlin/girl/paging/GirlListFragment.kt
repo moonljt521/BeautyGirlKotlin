@@ -46,10 +46,10 @@ class GirlListFragment : Fragment() {
     }
 
 
-    val viewModel: GirlListViewModel2 by lazy {
+    val viewModel: GirlListViewModel by lazy {
 
         val factory = GirlListViewModelFactory(source, sourceType)
-        ViewModelProviders.of(this, factory).get(GirlListViewModel2::class
+        ViewModelProviders.of(this, factory).get(GirlListViewModel::class
                 .java)
 
     }

@@ -43,6 +43,11 @@
     <string name="collect_fail">收藏失败</string>
     <string name="swipe_del_favourite">左右滑动可以删除收藏</string>
     <string name="total_favourite_size">您共收藏了{0}张图片</string>
+    <string name="save_image">保存图片</string>
+    <string name="cancel">取消</string>
+    <string name="retry_msg">服务器出问题啦，点击重试一下</string>
+    <string name="not_favorite_msg">您还没有收藏哦！</string>
+    <string name="share">分享</string>
 
 
 </resources>
