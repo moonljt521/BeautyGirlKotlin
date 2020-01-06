@@ -87,10 +87,11 @@ class GirlListFragment : Fragment() {
 
 
         viewModel.livePagedListBuilder.observe(viewLifecycleOwner, Observer {
-
             mAdapter.submitList(it)
+        })
 
-            dataBinding.commonSwipeRefresh.isRefreshing = false
+        viewModel.swipeRefreshing.observe(viewLifecycleOwner , Observer {
+            dataBinding.commonSwipeRefresh.isRefreshing = it
         })
 
         viewModel.itemEvent.observe(viewLifecycleOwner,EventObserver {

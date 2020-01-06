@@ -21,12 +21,10 @@ import kotlinx.coroutines.*
 class GirlListViewModel(val repository: GirlRepository, val sourceType: SourceType?) :
         ViewModel(), ItemClick<GirlData> {
 
-
     val itemEvent = MutableLiveData<Event<GirlData>>()
     val swipeRefreshing = MutableLiveData<Boolean>()
 
-
-    val factory = PageKeyDataSourceFactory(repository, sourceType)
+    val factory = PageKeyDataSourceFactory(repository, sourceType ,swipeRefreshing)
 
     val livePagedListBuilder = LivePagedListBuilder(factory,
             PagedList.Config.Builder()
@@ -38,36 +36,30 @@ class GirlListViewModel(val repository: GirlRepository, val sourceType: SourceTy
             .build()
 
     fun refresh() {
-
         factory.dataSource.invalidate()
-
     }
+
     override fun onClick(body: GirlData) {
 
         itemEvent.value = Event(body)
     }
-
-
-
-
 }
 
-class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: SourceType?) : PageKeyedDataSource<Int, GirlData>() {
+class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: SourceType? , private val swipeRefresh : MutableLiveData<Boolean>) : PageKeyedDataSource<Int, GirlData>() {
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
-
-
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, GirlData>) {
-
-
+        swipeRefresh.postValue(true)
         scope.launch {
 
             try {
                 Logger.i("wy", "Initial params = ${params.requestedLoadSize}")
 
                 val result = repository.getData(1, params.requestedLoadSize, sourceType?.id)
+
+                swipeRefresh.postValue(false)
 
                 when (result) {
 
@@ -80,86 +72,74 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
                         //有可能造成重复
                         callback.onResult(result.data, null, 1)
                     }
-
                 }
-
             } catch (e: Exception) {
-
-
             }
         }
-
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, GirlData>) {
+        swipeRefresh.postValue(true)
 
         scope.launch {
 
             try {
-
                 Logger.i("wy", "after params = ${params.key}, ${params.requestedLoadSize}")
 
                 val result = repository.getData(params.key, params.requestedLoadSize, sourceType?.id)
+                swipeRefresh.postValue(false)
 
                 when (result) {
 
                     is Result.Success -> {
                         callback.onResult(result.data, params.key + 1)
                     }
-
                 }
-
             } catch (e: Exception) {
-
-
             }
         }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GirlData>) {
+        swipeRefresh.postValue(true)
 
         scope.launch {
 
             try {
-
                 Logger.i("wy", "before params = ${params.key}, ${params.requestedLoadSize}")
 
                 val result = repository.getData(params.key, params.requestedLoadSize, sourceType?.id)
+                swipeRefresh.postValue(false)
 
                 when (result) {
 
                     is Result.Success -> {
                         callback.onResult(result.data, params.key - 1)
                     }
-
                 }
 
             } catch (e: Exception) {
-
-
             }
         }
     }
 
     override fun invalidate() {
         super.invalidate()
-
         scope.cancel()
     }
-
 }
 
-class PageKeyDataSourceFactory(private val repository: GirlRepository, private  val sourceType:
-SourceType?) :
+class PageKeyDataSourceFactory(private val repository: GirlRepository,
+                               private  val sourceType: SourceType?,
+                               private val swipeRefresh : MutableLiveData<Boolean>) :
         DataSource.Factory<Int, GirlData>() {
     lateinit var dataSource: DataSource<Int,GirlData>
 
     override fun create(): DataSource<Int, GirlData> {
 
-        dataSource =  CustomPageKeyDataSource(repository, sourceType)
+        dataSource =  CustomPageKeyDataSource(repository, sourceType,swipeRefresh)
 
         return dataSource
     }
-
 }
 
