@@ -1,3 +1,0 @@
-/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/native-lib.dir
