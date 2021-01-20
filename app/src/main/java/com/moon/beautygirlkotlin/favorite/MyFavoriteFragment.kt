@@ -21,11 +21,13 @@ import com.moon.beautygirlkotlin.common.room.FavoriteBean
 import com.moon.beautygirlkotlin.common.room.FavoriteBeanOther
 import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.common.utils.SpUtil
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.MessageFormat
 
 /**
  * [我的收藏] 模块 fragment
  */
+@AndroidEntryPoint
 class MyFavoriteFragment : BaseFragment(), FavouriteItemClick<Any> {
 
     override fun onClick(body: Any) {

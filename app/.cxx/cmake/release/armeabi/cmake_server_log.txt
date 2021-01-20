@@ -1,0 +1,124 @@
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"supportedProtocolVersions":[{"isExperimental":true,"major":1,"minor":1}],"type":"hello"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {
+  "type": "handshake",
+  "cookie": "gradle-cmake-cookie",
+  "protocolVersion": {
+    "isExperimental": true,
+    "major": 1,
+    "minor": 1
+  },
+  "sourceDirectory": "/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app",
+  "buildDirectory": "/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/release/armeabi",
+  "generator": "Ninja"
+}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"gradle-cmake-cookie","inReplyTo":"handshake","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {
+  "type": "configure",
+  "cacheArguments": [
+    "",
+    "-DCMAKE_FIND_ROOT_PATH\u003d/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/release/prefab/armeabi/prefab",
+    "-DCMAKE_BUILD_TYPE\u003dRelease",
+    "-DCMAKE_TOOLCHAIN_FILE\u003d/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669/build/cmake/android.toolchain.cmake",
+    "-DANDROID_ABI\u003darmeabi",
+    "-DANDROID_NDK\u003d/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669",
+    "-DANDROID_PLATFORM\u003dandroid-18",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi",
+    "-DCMAKE_ANDROID_NDK\u003d/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/build/intermediates/cmake/release/obj/armeabi",
+    "-DCMAKE_MAKE_PROGRAM\u003d/Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/ninja",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_SYSTEM_VERSION\u003d18"
+  ]
+}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Error at /Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669/build/cmake/android.toolchain.cmake:174 (message):\n  armeabi is no longer supported.  Use armeabi-v7a.\nCall Stack (most recent call first):\n  /Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)\n  CMakeLists.txt\n\n","title":"Error","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Error at /Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669/build/cmake/android.toolchain.cmake:174 (message):
+  armeabi is no longer supported.  Use armeabi-v7a.
+Call Stack (most recent call first):
+  /Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)
+  CMakeLists.txt
+
+CMAKE SERVER: CMake Error at /Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669/build/cmake/android.toolchain.cmake:174 (message):
+  armeabi is no longer supported.  Use armeabi-v7a.
+Call Stack (most recent call first):
+  /Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)
+  CMakeLists.txt
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage","title":"Error","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+CMAKE SERVER: CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage","title":"Error","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+CMAKE SERVER: CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":1000,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Configuring incomplete, errors occurred!","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Configuring incomplete, errors occurred!
+CMAKE SERVER: Configuring incomplete, errors occurred!
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","errorMessage":"Configuration failed.","inReplyTo":"configure","type":"error"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Configuration failed.

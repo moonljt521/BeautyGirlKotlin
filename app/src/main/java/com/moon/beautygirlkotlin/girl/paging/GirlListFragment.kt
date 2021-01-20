@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -46,11 +47,9 @@ class GirlListFragment : Fragment() {
     }
 
 
-    val viewModel: GirlListViewModel by lazy {
+    val viewModel: GirlListViewModel by viewModels {
 
-        val factory = GirlListViewModelFactory(source, sourceType)
-        ViewModelProviders.of(this, factory).get(GirlListViewModel::class
-                .java)
+        GirlListViewModelFactory(source, sourceType)
 
     }
 

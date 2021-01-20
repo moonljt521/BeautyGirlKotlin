@@ -5,11 +5,13 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.google.android.gms.ads.MobileAds
 import com.tencent.bugly.crashreport.CrashReport
+import dagger.hilt.android.HiltAndroidApp
 
 
 /**
  * application
  */
+@HiltAndroidApp
 class BeautyGirlKotlinApp: Application() {
 
 

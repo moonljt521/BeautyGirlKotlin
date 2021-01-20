@@ -1,5 +1,6 @@
 package com.moon.beautygirlkotlin.favorite.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
@@ -14,16 +15,8 @@ import kotlinx.coroutines.withContext
  * author: jiangtao.liang
  * date:   On 2019-11-01 14:11
  */
-class FavouriteVieModel : BaseViewModel<Any>() {
-
-    var db: BeautyGirlDatabase;
-
-    init {
-        db = Room.databaseBuilder(
-                BeautyGirlKotlinApp.application,
-                BeautyGirlDatabase::class.java, "beauty_girl.db")
-                .build()
-    }
+class FavouriteVieModel @ViewModelInject constructor(private  val db: BeautyGirlDatabase) :
+        BaseViewModel<Any>() {
 
     var size: Int = 0
 

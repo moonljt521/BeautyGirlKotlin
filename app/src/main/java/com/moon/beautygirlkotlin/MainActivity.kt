@@ -18,11 +18,13 @@ import com.moon.beautygirlkotlin.common.utils.AppManager
 import com.moon.beautygirlkotlin.common.utils.ImageLoader
 import com.moon.beautygirlkotlin.common.utils.ShareUtil
 import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 主页
  */
+@AndroidEntryPoint
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var mCircleImageView: ImageView
@@ -153,9 +155,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-    }
 
     override fun onBackPressed() {
 

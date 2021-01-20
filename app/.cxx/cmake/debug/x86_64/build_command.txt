@@ -1,0 +1,21 @@
+Executable : /Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake
+arguments : 
+-H/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app
+-DCMAKE_FIND_ROOT_PATH=/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/prefab/x86_64/prefab
+-DCMAKE_BUILD_TYPE=Debug
+-DCMAKE_TOOLCHAIN_FILE=/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669/build/cmake/android.toolchain.cmake
+-DANDROID_ABI=x86_64
+-DANDROID_NDK=/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669
+-DANDROID_PLATFORM=android-18
+-DCMAKE_ANDROID_ARCH_ABI=x86_64
+-DCMAKE_ANDROID_NDK=/Users/Apple/Documents/android-sdk-macosx/ndk/21.0.6113669
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/build/intermediates/cmake/debug/obj/x86_64
+-DCMAKE_MAKE_PROGRAM=/Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/ninja
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_SYSTEM_VERSION=18
+-B/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/x86_64
+-GNinja
+jvmArgs : 
+
+Build command args:

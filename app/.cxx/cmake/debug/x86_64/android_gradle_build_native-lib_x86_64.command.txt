@@ -1,0 +1,7 @@
+Executable : /Users/Apple/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/Users/Apple/Documents/workspace/BeautyGirlKotlin/BeautyGirlKotlin/app/.cxx/cmake/debug/x86_64
+native-lib
+jvmArgs : 
+

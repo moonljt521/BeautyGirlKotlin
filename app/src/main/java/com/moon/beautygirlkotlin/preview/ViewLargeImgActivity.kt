@@ -19,10 +19,12 @@ import com.moon.beautygirlkotlin.common.room.FavoriteBean
 import com.moon.beautygirlkotlin.common.utils.ImageLoader
 import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.common.widget.RoundedBackgroundSpan
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
 /**
@@ -30,17 +32,13 @@ import kotlinx.coroutines.withContext
  * created on: 18/4/28 上午11:43
  * description: 大图片浏览页面
  */
+@AndroidEntryPoint
 class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClickListener {
 
 
-    private var db: BeautyGirlDatabase;
+    @Inject
+    lateinit var db: BeautyGirlDatabase
 
-    init {
-        db = Room.databaseBuilder(
-                BeautyGirlKotlinApp.application,
-                BeautyGirlDatabase::class.java, "beauty_girl.db")
-                .build()
-    }
 
     private var url: String = "";
     private var title: String = "";
