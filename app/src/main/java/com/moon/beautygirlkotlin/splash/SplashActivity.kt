@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import com.moon.beautygirlkotlin.MainActivity
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
@@ -20,6 +22,11 @@ class SplashActivity : BaseActivity() {
 
     private val SCALE_END = 1.13f
 
+    override fun getContentView(): View {
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
     override fun initViews() {
 
     }
@@ -32,8 +39,6 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         return R.layout.activity_splash
     }
 

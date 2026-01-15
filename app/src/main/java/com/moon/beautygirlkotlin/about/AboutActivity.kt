@@ -1,6 +1,8 @@
 package com.moon.beautygirlkotlin.about
 
+import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.databinding.ActivityAboutBinding
@@ -13,6 +15,11 @@ import com.moon.beautygirlkotlin.databinding.ActivityAboutBinding
 class AboutActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAboutBinding
+
+    override fun getContentView(): View {
+        binding = ActivityAboutBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initViews() {
         setSupportActionBar(binding.aboutToolbar)
@@ -29,8 +36,6 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
-        binding = ActivityAboutBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         return R.layout.activity_about
     }
 

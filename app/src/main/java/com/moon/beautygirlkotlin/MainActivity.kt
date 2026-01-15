@@ -3,6 +3,7 @@ package com.moon.beautygirlkotlin
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -30,13 +31,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private lateinit var binding: ActivityMainBinding
     lateinit var mCircleImageView: ImageView
 
-//    var fragmentList: ArrayList<Fragment> = java.util.ArrayList()
-
     val  fragmentList = mutableListOf<Fragment>()
 
     var currentTabIndex : Int = 0
 
     var exitTime:Long = 0
+
+    override fun getContentView(): View {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initViews() {
         binding.navView.setNavigationItemSelectedListener(this)
@@ -59,18 +63,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun loadData() {
 
-
-
         fragmentList.addAll( sourceList.map {
 
             GirlMainFragment.newInstance(it)
         })
 
         fragmentList.run {
-//            add(GankFragment.getInstance(0)) // 萌妹子 gank
-//            add(DouBanBaseFragment.getInstance(0))  // 豆瓣妹子
-//            add(OnlyPicBaseFragment.getInstance(0))  // 【'唯一'图库】
-//            add(YouTuMeikuFragment.getInstance(0))  // 【优图美库】
             add(MyFavoriteFragment.getInstance(0))  // 我的收藏
 
             // 初始化显示 [gank]妹子模块
@@ -82,8 +80,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun getLayoutId(): Int {
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         return R.layout.activity_main
     }
 

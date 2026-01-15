@@ -2,6 +2,7 @@ package com.moon.beautygirlkotlin.preview
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -47,6 +48,11 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
     private var showCollectIcon: Boolean = true
 
     private var titleSpan: RoundedBackgroundSpan? = null
+
+    override fun getContentView(): View {
+        binding = ActivityGankViewBigimgBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun initViews() {
         titleSpan = RoundedBackgroundSpan(this, R.color.red)
@@ -95,8 +101,6 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
     }
 
     override fun getLayoutId(): Int {
-        binding = ActivityGankViewBigimgBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         return R.layout.activity_gank_view_bigimg
     }
 
