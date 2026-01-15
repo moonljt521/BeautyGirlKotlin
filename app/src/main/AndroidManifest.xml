@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask">
 
@@ -31,6 +32,7 @@
 
         <activity
             android:name=".splash.SplashActivity"
+            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.StatusBar">
 
@@ -44,11 +46,13 @@
 
         <activity
             android:name=".preview.ViewLargeImgActivity"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.StatusBar"></activity>
 
         <activity
             android:name=".about.AboutActivity"
+            android:exported="false"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.StatusBar"></activity>
 

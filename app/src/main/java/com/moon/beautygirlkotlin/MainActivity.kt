@@ -12,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import com.moon.beautygirlkotlin.about.AboutActivity
 import com.moon.beautygirlkotlin.base.BaseActivity
 import com.moon.beautygirlkotlin.common.data.entity.sourceList
+import com.moon.beautygirlkotlin.databinding.ActivityMainBinding
 import com.moon.beautygirlkotlin.favorite.MyFavoriteFragment
 import com.moon.beautygirlkotlin.girl.main.GirlMainFragment
 import com.moon.beautygirlkotlin.common.utils.AppManager
@@ -19,7 +20,6 @@ import com.moon.beautygirlkotlin.common.utils.ImageLoader
 import com.moon.beautygirlkotlin.common.utils.ShareUtil
 import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * 主页
@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var binding: ActivityMainBinding
     lateinit var mCircleImageView: ImageView
 
 //    var fragmentList: ArrayList<Fragment> = java.util.ArrayList()
@@ -38,21 +39,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var exitTime:Long = 0
 
     override fun initViews() {
-        nav_view.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
-        val headView: View = nav_view.inflateHeaderView(R.layout.nav_header_main);
+        val headView: View = binding.navView.inflateHeaderView(R.layout.nav_header_main);
 
         mCircleImageView = headView.findViewById<View>(R.id.nav_head_avatar) as ImageView
 
-        toolbar.setTitle(getString(R.string.gank_meizi))
+        binding.toolbar.setTitle(getString(R.string.gank_meizi))
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open,
+                this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close)
 
-        drawer_layout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
     }
 
@@ -81,6 +82,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun getLayoutId(): Int {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         return R.layout.activity_main
     }
 
@@ -141,8 +144,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         item.isChecked = (true)
 
-        toolbar.setTitle(title)
-        drawer_layout.closeDrawers()
+        binding.toolbar.setTitle(title)
+        binding.drawerLayout.closeDrawers()
     }
 
     /**
@@ -159,7 +162,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onBackPressed() {
 
         if (System.currentTimeMillis() - exitTime > 2000){
-            SnackbarUtil.showMessage(drawer_layout, getString(R.string.back_message))
+            SnackbarUtil.showMessage(binding.drawerLayout, getString(R.string.back_message))
             exitTime = System.currentTimeMillis()
         }else{
             AppManager.instance.exitApp(applicationContext)

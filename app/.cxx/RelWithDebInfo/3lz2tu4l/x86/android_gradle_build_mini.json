@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/moon/Library/Android/sdk/cmake/3.18.1/bin/ninja",
+      "-C",
+      "/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/.cxx/RelWithDebInfo/3lz2tu4l/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/moon/Library/Android/sdk/cmake/3.18.1/bin/ninja",
+    "-C",
+    "/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/.cxx/RelWithDebInfo/3lz2tu4l/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native-lib::@6890427a1f51a3e7e1df": {
+      "artifactName": "native-lib",
+      "abi": "x86",
+      "output": "/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/build/intermediates/cxx/RelWithDebInfo/3lz2tu4l/obj/x86/libnative-lib.so",
+      "runtimeFiles": []
+    }
+  }
+}

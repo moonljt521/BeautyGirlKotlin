@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-parcelize'
 
 //apply plugin: 'com.google.gms.google-services'
 
@@ -22,8 +22,8 @@ bugly {
 }
 
 android {
-    compileSdkVersion project.properties.'compileSdkVersion'.toString().toInteger()
-//    buildToolsVersion project.properties.'buildToolsVersion'
+    namespace "com.moon.beautygirlkotlin"
+    compileSdkVersion 34
 
     signingConfigs {
         KOTLIN_GIRL {
@@ -38,8 +38,8 @@ android {
 
     defaultConfig {
         applicationId "com.moon.beautygirlkotlin"
-        minSdkVersion project.properties.'minSdkVersion'.toString().toInteger()
-        targetSdkVersion project.properties.'targetSdkVersion'.toString().toInteger()
+        minSdkVersion 21
+        targetSdkVersion 34
         versionCode project.properties.'versionCode'.toString().toInteger()
         versionName project.properties.'versionName'
 
@@ -64,15 +64,6 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            //指定文件名格式  kotlin_girl_v1.0.0.apk
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    if (outputFileName != null && outputFileName.endsWith('.apk')) {
-                        outputFileName = "kotlin_girl_${variant.buildType.name}_v${variant.versionName}.apk"
-                    }
-                }
-            }
         }
 
         release {
@@ -83,17 +74,6 @@ android {
             zipAlignEnabled true
             // 在Android中，当资源文件通过内存映射对齐到4字节边界时，访问资源文件的代码才是有效率的。但是，如果资源本身没有进行对齐处理（未使用zipalign工具），它就必须回到老路上，显式地读取它们——这个过程将会比较缓慢且会花费额外的内存。
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            //指定文件名格式  kotlin_girl_v1.0.0.apk
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    if (outputFileName != null && outputFileName.endsWith('.apk')) {
-                        outputFileName = "kotlin_girl_${variant.buildType.name}_v${variant.versionName}.apk"
-                    }
-                }
-
-            }
-
         }
     }
     externalNativeBuild {
@@ -103,7 +83,7 @@ android {
     }
 
     //这个是解决lint报错的代码
-    lintOptions {
+    lint {
         checkReleaseBuilds false
 
         abortOnError false
@@ -111,14 +91,11 @@ android {
         disable 'MissingTranslation'
     }
 
-    // 添加之
-    dexOptions {
-//        incremental true
-        javaMaxHeapSize "4g"
-    }
 
-    dataBinding {
-        enabled true
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 
     bundle {
@@ -138,11 +115,6 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
-    }
-
-    androidExtensions {
-        experimental = true
-
     }
 
     kotlinOptions {
@@ -166,6 +138,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     testImplementation 'junit:junit:4.12'
     //KOTLIN + coroutines
     def coroutines_version = "1.4.1"
@@ -227,7 +200,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
 
-    def room_version = "2.2.0-alpha01"
+    def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -237,14 +210,13 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version" // For Kotlin use paging-runtime-ktx
 
 
-    def hilt_version="2.28-alpha"
+    def hilt_version="2.52"
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
-    implementation 'androidx.hilt:hilt-work:1.0.0-alpha02'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation 'androidx.hilt:hilt-work:1.2.0'
+    kapt 'androidx.hilt:hilt-compiler:1.2.0'
 }
 
 //kotlin{             //开始协程实验性功能

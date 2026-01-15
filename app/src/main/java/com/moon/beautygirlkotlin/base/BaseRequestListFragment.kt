@@ -61,12 +61,12 @@ abstract class BaseRequestListFragment<T> : BaseFragment(), Observer<List<T>> {
 
     override fun initData() {}
 
-    override fun onChanged(list: List<T>?) {
+    override fun onChanged(list: List<T>) {
 
         binding.gankAdView.loadAd(AdRequest.Builder()
                 .build())
 
-        list?.takeIf {
+        list.takeIf {
 
             !it.isEmpty()
 

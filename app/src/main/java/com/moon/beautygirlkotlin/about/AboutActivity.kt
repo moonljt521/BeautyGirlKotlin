@@ -3,7 +3,7 @@ package com.moon.beautygirlkotlin.about
 import android.view.MenuItem
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_about.*
+import com.moon.beautygirlkotlin.databinding.ActivityAboutBinding
 
 /**
  * author: moon
@@ -12,13 +12,15 @@ import kotlinx.android.synthetic.main.activity_about.*
  */
 class AboutActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityAboutBinding
+
     override fun initViews() {
-        setSupportActionBar(about_toolbar)
+        setSupportActionBar(binding.aboutToolbar)
 
         val supportActionBar = supportActionBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        collapsing_toolbar.setTitle(getString(R.string.about_title))
+        binding.collapsingToolbar.setTitle(getString(R.string.about_title))
 
         supportFragmentManager.beginTransaction().add(R.id.fragmentAbout, AboutFragment()).commit()
     }
@@ -27,6 +29,8 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
+        binding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         return R.layout.activity_about
     }
 

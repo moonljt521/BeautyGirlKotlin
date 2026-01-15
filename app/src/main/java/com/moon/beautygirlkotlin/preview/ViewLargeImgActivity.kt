@@ -19,8 +19,8 @@ import com.moon.beautygirlkotlin.common.room.FavoriteBean
 import com.moon.beautygirlkotlin.common.utils.ImageLoader
 import com.moon.beautygirlkotlin.common.utils.SnackbarUtil
 import com.moon.beautygirlkotlin.common.widget.RoundedBackgroundSpan
+import com.moon.beautygirlkotlin.databinding.ActivityGankViewBigimgBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_gank_view_bigimg.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,6 +35,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongClickListener {
 
+    private lateinit var binding: ActivityGankViewBigimgBinding
 
     @Inject
     lateinit var db: BeautyGirlDatabase
@@ -56,19 +57,19 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
 
         showCollectIcon = (intent?.getBooleanExtra("showCollectIcon", true))!!
 
-        collect_btn.let {
+        binding.collectBtn.let {
             it.visibility = if (showCollectIcon) View.VISIBLE else View.GONE
             it.setOnClickListener(this)
         }
 
-        ImageLoader.load(this, url, gank_big_img)
+        ImageLoader.load(this, url, binding.gankBigImg)
 
-        gank_big_img.let {
+        binding.gankBigImg.let {
             it.setOnClickListener(this)
             it.setOnLongClickListener(this)
         }
 
-        toCollect.setImageResource(R.drawable.uncollected)
+        binding.toCollect.setImageResource(R.drawable.uncollected)
     }
 
     override fun loadData() {
@@ -77,8 +78,8 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
                 db.favouriteDao().getFavouriteByUrl(url)
             }
             qb?.let {
-                toCollect.setImageResource(R.drawable.collected)
-                collect_btn.isEnabled = false
+                binding.toCollect.setImageResource(R.drawable.collected)
+                binding.collectBtn.isEnabled = false
             }
         }
 
@@ -90,10 +91,14 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
         }.toString())
 
         spannableString.setSpan(titleSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        tvViewBigImageTitle.text = spannableString
+        binding.tvViewBigImageTitle.text = spannableString
     }
 
-    override fun getLayoutId(): Int = R.layout.activity_gank_view_bigimg
+    override fun getLayoutId(): Int {
+        binding = ActivityGankViewBigimgBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        return R.layout.activity_gank_view_bigimg
+    }
 
     override fun onLongClick(p0: View?): Boolean {
 
@@ -137,7 +142,7 @@ class ViewLargeImgActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
                         }.let {
                             SnackbarUtil.showMessage(v, getString(R.string.collect_success))
 
-                            toCollect.setImageResource(R.drawable.collected)
+                            binding.toCollect.setImageResource(R.drawable.collected)
 
                             LiveDataBusKt.get()?.with("favourite")?.postValue("")
                         }

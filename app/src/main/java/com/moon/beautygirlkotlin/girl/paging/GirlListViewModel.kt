@@ -72,6 +72,9 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
                         //有可能造成重复
                         callback.onResult(result.data, null, 1)
                     }
+                    else -> {
+                        // Handle other cases
+                    }
                 }
             } catch (e: Exception) {
             }
@@ -94,6 +97,9 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
                     is Result.Success -> {
                         callback.onResult(result.data, params.key + 1)
                     }
+                    else -> {
+                        // Handle other cases
+                    }
                 }
             } catch (e: Exception) {
             }
@@ -115,6 +121,9 @@ class CustomPageKeyDataSource(val repository: GirlRepository, val sourceType: So
 
                     is Result.Success -> {
                         callback.onResult(result.data, params.key - 1)
+                    }
+                    else -> {
+                        // Handle other cases
                     }
                 }
 

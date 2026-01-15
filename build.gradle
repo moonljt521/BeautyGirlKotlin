@@ -2,8 +2,8 @@
 apply from: "dependencies.gradle"
 
 buildscript {
-    ext.kotlin_version = "1.4.10"
-    ext.build_gradle_version = '4.0.0'
+    ext.kotlin_version = "1.9.25"
+    ext.build_gradle_version = '8.7.3'
 
     repositories {
 //        google()
@@ -26,20 +26,16 @@ buildscript {
         classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
         // fireBase
 //        classpath 'com.google.gms:google-services:4.3.2'
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.28-alpha"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.52"
 
     }
 }
 
 allprojects {
     repositories {
-//        google()
+        google()
         mavenCentral()
         maven { url "https://jitpack.io" }
-//        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-//        maven {
-//            url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
-//        }
         maven { url 'https://maven.aliyun.com/repository/central'}
         maven { url 'https://maven.aliyun.com/repository/public'}
         maven { url 'https://maven.aliyun.com/repository/google'}
@@ -53,9 +49,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "1.8"
-        jdkHome = JDK_8
     }
 }

@@ -8,13 +8,14 @@ import android.content.Intent
 import com.moon.beautygirlkotlin.MainActivity
 import com.moon.beautygirlkotlin.R
 import com.moon.beautygirlkotlin.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_splash.*
+import com.moon.beautygirlkotlin.databinding.ActivitySplashBinding
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : BaseActivity() {
 
+    private lateinit var binding: ActivitySplashBinding
     private val ANIMATION_TIME = 2000
 
     private val SCALE_END = 1.13f
@@ -31,13 +32,15 @@ class SplashActivity : BaseActivity() {
     }
 
     override fun getLayoutId(): Int {
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         return R.layout.activity_splash
     }
 
     private fun startAnim() {
 
-        val animatorX = ObjectAnimator.ofFloat(splash_image, "scaleX", 1f, SCALE_END)
-        val animatorY = ObjectAnimator.ofFloat(splash_image, "scaleY", 1f, SCALE_END)
+        val animatorX = ObjectAnimator.ofFloat(binding.splashImage, "scaleX", 1f, SCALE_END)
+        val animatorY = ObjectAnimator.ofFloat(binding.splashImage, "scaleY", 1f, SCALE_END)
 
         val set = AnimatorSet()
         set.setDuration(ANIMATION_TIME.toLong()).play(animatorX).with(animatorY)

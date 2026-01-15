@@ -10,7 +10,7 @@ import com.moon.beautygirlkotlin.common.data.entity.Source
 class GirlMainViewModelFactory(private val source: Source) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
         return GirlMainViewModel(source) as T
     }

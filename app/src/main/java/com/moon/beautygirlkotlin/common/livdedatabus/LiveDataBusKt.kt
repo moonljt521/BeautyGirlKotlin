@@ -45,7 +45,7 @@ class LiveDataBusKt private constructor() {
                 return false
             }
 
-        override fun onChanged(t: T?) {
+        override fun onChanged(t: T) {
             if (observer != null) {
                 if (isCallOnObserve) {
                     return

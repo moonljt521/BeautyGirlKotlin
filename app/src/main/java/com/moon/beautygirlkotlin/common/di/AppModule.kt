@@ -7,14 +7,14 @@ import com.moon.beautygirlkotlin.common.room.BeautyGirlDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 /**
  * Created by Arthur on 2021/1/20.
  */
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class AppModule  {
 

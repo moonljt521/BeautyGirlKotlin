@@ -139,8 +139,8 @@ open class Event<T>(var view: View, var content: T) {
 }
 
 class IntentObserver<T>(private val block: (T) -> Unit) : Observer<Event<T>> {
-    override fun onChanged(event: Event<T>?) {
-        event?.singleClick()?.let { value ->
+    override fun onChanged(event: Event<T>) {
+        event.singleClick()?.let { value ->
             block(value)
         }
     }

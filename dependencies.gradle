@@ -3,11 +3,11 @@ def stethoVersion = "1.5.0"
 
 project.ext {
     android = [
-            compileSdkVersion: 28,
-            buildToolsVersion: "28.0.3",
+            compileSdkVersion: 34,
+            buildToolsVersion: "30.0.0",
             applicationId    : "com.doing.pos",
-            minSdkVersion    : 18,
-            targetSdkVersion : 28,
+            minSdkVersion    : 24,
+            targetSdkVersion : 30,
             versionCode      : 310,
             versionName      : "3.1.0",
             javaVersion      : JavaVersion.VERSION_1_8

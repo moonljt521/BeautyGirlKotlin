@@ -1,0 +1,3 @@
+/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/.cxx/Debug/4k2l2w5r/armeabi-v7a/CMakeFiles/native-lib.dir
+/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/.cxx/Debug/4k2l2w5r/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/moon/Documents/moon_pro/BeautyGirlKotlin/app/.cxx/Debug/4k2l2w5r/armeabi-v7a/CMakeFiles/rebuild_cache.dir

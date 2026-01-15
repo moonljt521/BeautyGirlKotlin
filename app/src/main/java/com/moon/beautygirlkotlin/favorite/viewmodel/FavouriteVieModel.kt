@@ -1,6 +1,5 @@
 package com.moon.beautygirlkotlin.favorite.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.moon.beautygirlkotlin.BeautyGirlKotlinApp
@@ -8,14 +7,17 @@ import com.moon.beautygirlkotlin.base.BaseViewModel
 import com.moon.beautygirlkotlin.common.room.BeautyGirlDatabase
 import com.moon.beautygirlkotlin.common.room.FavoriteBean
 import com.moon.beautygirlkotlin.common.room.FavoriteBeanOther
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * author: jiangtao.liang
  * date:   On 2019-11-01 14:11
  */
-class FavouriteVieModel @ViewModelInject constructor(private  val db: BeautyGirlDatabase) :
+@HiltViewModel
+class FavouriteVieModel @Inject constructor(private  val db: BeautyGirlDatabase) :
         BaseViewModel<Any>() {
 
     var size: Int = 0
