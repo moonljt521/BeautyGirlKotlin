@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "apifox": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "apifox-mcp-server"
+      ],
+      "env": {
+        "APIFOX_API_BASE_URL": "https://api.apifox.com",
+        "APIFOX_ACCESS_TOKEN": "YOUR_ACCESS_TOKEN_HERE"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "list_projects",
+        "list_apis",
+        "get_api_detail",
+        "run_api"
+      ]
+    }
+  }
+}

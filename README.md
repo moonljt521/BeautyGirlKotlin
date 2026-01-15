@@ -3,6 +3,69 @@
 ### kotlin项目：（架构逐步演变，现在为jetpack MVVM 模式）一些美女图片列表，使用gank等公共api，或者解析豆瓣等页面数据抽取json，另外接入了Google的admob广告sdk
 <br>
 
+## 📁 项目结构
+
+```
+BeautyGirlKotlin/
+├── app/                          # Android 应用源码
+├── docs/                         # 📚 文档目录
+│   ├── README.md                 # 文档索引
+│   ├── API-TESTING-TOOLS.md      # API 测试工具快速指南
+│   └── api-testing/              # API 测试相关文档
+├── scripts/                      # 🔧 脚本目录
+│   └── api-testing/              # API 测试脚本
+│       ├── README.md             # 脚本使用说明
+│       ├── quick-api-test.sh     # 快速启动脚本 ⭐
+│       ├── show-api-info.py      # API 信息提取 ⭐
+│       └── ...                   # 其他测试脚本
+├── gradle/                       # Gradle 配置
+├── build.gradle                  # 项目构建配置
+└── README.md                     # 项目主 README（本文件）
+```
+
+## 🚀 快速开始
+
+### 编译运行
+
+```bash
+# 清理并构建
+./gradlew clean assembleDebug
+
+# 安装到设备
+./gradlew installDebug
+```
+
+### API 测试（无需运行 APP）
+
+```bash
+# 使用交互式菜单
+bash scripts/api-testing/quick-api-test.sh
+
+# 或直接查看 API 信息
+python3 scripts/api-testing/show-api-info.py
+```
+
+详细说明请查看 [API 测试工具文档](docs/API-TESTING-TOOLS.md)
+
+## 📚 文档
+
+- **[docs/README.md](docs/README.md)** - 文档索引
+- **[docs/API-TESTING-TOOLS.md](docs/API-TESTING-TOOLS.md)** - API 测试工具快速指南
+- **[scripts/api-testing/README.md](scripts/api-testing/README.md)** - 测试脚本说明
+
+## 🔧 开发工具
+
+### API 测试工具
+无需运行 Android APP 即可测试网络请求：
+- ✅ 自动提取 API 信息
+- ✅ 生成 curl 测试命令
+- ✅ 生成 Postman Collection
+- ✅ 支持交互式测试
+
+查看 [API 测试工具文档](docs/API-TESTING-TOOLS.md) 了解详情。
+
+## 📝 版本历史
+
 
 ## 1.0 ~ 2.0 
 

@@ -35,3 +35,9 @@ local.properties
 /.idea/
 app/libs/
 app/release/
+
+# API Testing - Generated files
+docs/api-testing/BeautyGirl.postman_collection.json
+
+# MCP Configuration (contains sensitive tokens)
+.kiro/settings/mcp.json
